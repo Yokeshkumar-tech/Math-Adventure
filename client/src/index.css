@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-outfit: 'Outfit', system-ui, -apple-system, sans-serif;
+    --font-fredoka: 'Fredoka', cursive, system-ui, sans-serif;
+    --font-tamil: 'Noto Sans Tamil', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-outfit);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+}
+
+/* High Contrast Mode for Accessibility */
+body.high-contrast {
+  filter: contrast(125%);
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+body.high-contrast .bg-white {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+body.high-contrast .text-slate-600,
+body.high-contrast .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+body.high-contrast .bg-slate-50,
+body.high-contrast .bg-slate-100 {
+  background-color: #0f172a !important;
+}
+
+/* Focus indicator for kid-friendly keyboard accessibility */
+:focus-visible {
+  outline: 3px solid #6366f1 !important;
+  outline-offset: 2px !important;
+}
+
+/* Animations */
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 1.8s ease-in-out infinite;
+}
+
+/* Print styles for parent progress report and worksheets */
+@media print {
+  nav, footer, .no-print, button:not(.print-include) {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+  }
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

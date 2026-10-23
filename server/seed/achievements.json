@@ -1,0 +1,42 @@
+[
+  {
+    "key": "first-steps",
+    "name": "First Steps",
+    "description": "Complete your very first mathematics lesson!",
+    "icon": "👣",
+    "category": "learning",
+    "xpBonus": 50
+  },
+  {
+    "key": "math-explorer",
+    "name": "Math Explorer",
+    "description": "Study 3 different math topics in your adventure!",
+    "icon": "🧭",
+    "category": "exploration",
+    "xpBonus": 100
+  },
+  {
+    "key": "accuracy-star",
+    "name": "Accuracy Star",
+    "description": "Score 90% or higher in a quiz of 5+ questions!",
+    "icon": "⭐",
+    "category": "mastery",
+    "xpBonus": 100
+  },
+  {
+    "key": "streak-master",
+    "name": "Streak Master",
+    "description": "Maintain a learning streak of 7 consecutive days!",
+    "icon": "🔥",
+    "category": "dedication",
+    "xpBonus": 150
+  },
+  {
+    "key": "math-champion",
+    "name": "Math Champion",
+    "description": "Master 5 topics and hold at least 4 adventure badges!",
+    "icon": "👑",
+    "category": "champion",
+    "xpBonus": 250
+  }
+]

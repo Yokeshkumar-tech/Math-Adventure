@@ -1,0 +1,443 @@
+[
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "slug": "fractions",
+    "difficulty": "easy",
+    "estimatedMinutes": 10,
+    "infographicType": "pizza",
+    "infographicUrl": "/images/fractions-pizza.svg",
+    "objectives": [
+      "Understand fractions as parts of an equal whole",
+      "Identify the numerator (top) and denominator (bottom)",
+      "Recognize equivalent fractions like 1/2 and 2/4",
+      "Add and subtract fractions with like denominators"
+    ],
+    "explanation": "A fraction represents a part of a whole thing that has been split into equal parts. Think of a delicious round pizza cut into 4 identical slices. If you eat 1 slice, you have eaten 1/4 of the pizza! The top number (1) is the numerator—it tells you how many slices you took. The bottom number (4) is the denominator—it tells you the total number of equal slices the whole pizza was cut into.",
+    "workedExamples": [
+      {
+        "problem": "Rohan has a chocolate bar divided into 8 equal pieces. He gives 3 pieces to his friend Kabir. What fraction of the chocolate bar did Rohan give away, and what fraction does he have left?",
+        "steps": [
+          "Step 1: The chocolate bar is divided into 8 equal pieces, so the denominator is 8.",
+          "Step 2: Rohan gives away 3 pieces, so the fraction given away is 3/8.",
+          "Step 3: The pieces remaining are 8 - 3 = 5 pieces.",
+          "Step 4: The fraction remaining is 5/8."
+        ],
+        "answer": "3/8 given away, 5/8 remains"
+      },
+      {
+        "problem": "Priya ran 2/7 of a kilometre in the morning and 3/7 of a kilometre in the evening. How much total distance did Priya run?",
+        "steps": [
+          "Step 1: Check if the denominators are the same. Both are 7, so these are like fractions.",
+          "Step 2: Add the numerators together: 2 + 3 = 5.",
+          "Step 3: Keep the denominator the same: 7.",
+          "Step 4: The total sum is 5/7 of a kilometre."
+        ],
+        "answer": "5/7 km"
+      }
+    ],
+    "realLifeExample": "When sharing an 8-slice pizza with your family, if your brother eats 2 slices, he ate 2/8 (or 1/4) of the pizza. If you eat 3 slices, you ate 3/8. Together you ate 2/8 + 3/8 = 5/8 of the whole pizza!",
+    "keyPoints": [
+      "The numerator is the top number: how many parts you have.",
+      "The denominator is the bottom number: total equal parts in the whole.",
+      "Equivalent fractions look different but represent the exact same value (e.g. 1/2 = 2/4 = 4/8).",
+      "When adding fractions with the same denominator, add only the numerators and keep the denominator unchanged."
+    ]
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "slug": "decimals",
+    "difficulty": "medium",
+    "estimatedMinutes": 12,
+    "infographicType": "number-line",
+    "infographicUrl": "/images/decimals-numberline.svg",
+    "objectives": [
+      "Understand place value for tenths (0.1) and hundredths (0.01)",
+      "Read and write decimal numbers correctly",
+      "Relate decimals to money (Rupees and Paise)",
+      "Compare and order decimals on a number line"
+    ],
+    "explanation": "Decimals are another exciting way to write parts of a whole! The decimal point separates the whole number from the fractional part. The first spot after the dot is the tenths place (like 1/10), and the second spot is the hundredths place (like 1/100). Think of Indian currency: 1 Rupee has 100 paise. So 50 paise is ₹0.50, and 25 paise is ₹0.25!",
+    "workedExamples": [
+      {
+        "problem": "Aarav bought an eraser for ₹4.50 and a pencil for ₹3.25. How much money did Aarav spend in total?",
+        "steps": [
+          "Step 1: Align the decimal numbers vertically by their decimal points: 4.50 + 3.25.",
+          "Step 2: Add the hundredths column: 0 + 5 = 5.",
+          "Step 3: Add the tenths column: 5 + 2 = 7.",
+          "Step 4: Add the whole numbers: 4 + 3 = 7.",
+          "Step 5: Place the decimal point directly below: ₹7.75."
+        ],
+        "answer": "₹7.75"
+      },
+      {
+        "problem": "Which decimal is larger: 0.6 or 0.45?",
+        "steps": [
+          "Step 1: Compare the whole numbers: both are 0.",
+          "Step 2: Compare the tenths place: 0.6 has 6 tenths, while 0.45 has only 4 tenths.",
+          "Step 3: Since 6 tenths is larger than 4 tenths (0.60 > 0.45), 0.6 is greater."
+        ],
+        "answer": "0.6 is larger than 0.45"
+      }
+    ],
+    "realLifeExample": "When measuring your height, you might be 1.35 metres tall. That means 1 full metre plus 35 hundredths of a metre (35 centimetres)!",
+    "keyPoints": [
+      "The decimal point marks the separation between whole numbers and fractions of 1.",
+      "Tenths are the first digit right of the point (0.1 = 1/10).",
+      "Hundredths are the second digit right of the point (0.01 = 1/100).",
+      "Trailing zeros after decimals don't change the value: 0.5 is equal to 0.50."
+    ]
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "slug": "factors-and-multiples",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "infographicType": "number-line",
+    "infographicUrl": "/images/factors-multiples.svg",
+    "objectives": [
+      "Find all factors of numbers up to 50",
+      "Generate multiples of single and two-digit numbers",
+      "Identify prime and composite numbers",
+      "Understand Highest Common Factor (HCF) and Lowest Common Multiple (LCM)"
+    ],
+    "explanation": "Factors are whole numbers you can multiply together to get another number. For example, 2 and 3 are factors of 6 because 2 × 3 = 6. Multiples are what you get when you multiply a number by 1, 2, 3, and so on (like skip counting!). Multiples of 4 are 4, 8, 12, 16, 20... Prime numbers are special superheroes that have exactly two factors: 1 and themselves!",
+    "workedExamples": [
+      {
+        "problem": "Find the Highest Common Factor (HCF) of 12 and 18.",
+        "steps": [
+          "Step 1: List all factors of 12: 1, 2, 3, 4, 6, 12.",
+          "Step 2: List all factors of 18: 1, 2, 3, 6, 9, 18.",
+          "Step 3: Identify common factors that appear in both lists: 1, 2, 3, 6.",
+          "Step 4: The highest number among them is 6."
+        ],
+        "answer": "HCF is 6"
+      },
+      {
+        "problem": "Find the Lowest Common Multiple (LCM) of 4 and 6.",
+        "steps": [
+          "Step 1: Write the multiples of 4: 4, 8, 12, 16, 20, 24, 28...",
+          "Step 2: Write the multiples of 6: 6, 12, 18, 24, 30...",
+          "Step 3: Identify the common multiples: 12, 24...",
+          "Step 4: The lowest common multiple is 12."
+        ],
+        "answer": "LCM is 12"
+      }
+    ],
+    "realLifeExample": "If bus A arrives every 4 minutes and bus B arrives every 6 minutes, both buses will arrive at the exact same time every 12 minutes (the LCM of 4 and 6)!",
+    "keyPoints": [
+      "A factor divides evenly into a number without leaving any remainder.",
+      "Multiples are infinite and grow larger as you multiply by 1, 2, 3...",
+      "The HCF is the largest factor shared between two numbers.",
+      "The LCM is the smallest non-zero multiple shared between two numbers."
+    ]
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "slug": "basic-geometry",
+    "difficulty": "easy",
+    "estimatedMinutes": 8,
+    "infographicType": "geometry-angles",
+    "infographicUrl": "/images/geometry-angles.svg",
+    "objectives": [
+      "Differentiate between points, lines, line segments, and rays",
+      "Identify acute, right, obtuse, and straight angles",
+      "Recognize properties of equilateral, isosceles, and scalene triangles",
+      "Classify 2D polygons like quadrilaterals, pentagons, and hexagons"
+    ],
+    "explanation": "Geometry is the study of shapes, lines, and space! An angle is created whenever two rays meet at a common endpoint called a vertex. We measure angles in degrees (°). A right angle looks like a crisp corner of a book and is exactly 90°. Acute angles are sharper and smaller than 90° (like an alligator mouth), while obtuse angles are wider and open between 90° and 180°!",
+    "workedExamples": [
+      {
+        "problem": "A triangle has three interior angles. Two of the angles are 50° and 60°. What is the third angle, and what type of triangle is it?",
+        "steps": [
+          "Step 1: The sum of all three angles inside any triangle is always 180°.",
+          "Step 2: Add the two given angles: 50° + 60° = 110°.",
+          "Step 3: Subtract from 180° to find the third angle: 180° - 110° = 70°.",
+          "Step 4: Since all three angles (50°, 60°, 70°) are less than 90°, it is an acute triangle."
+        ],
+        "answer": "70°, Acute triangle"
+      },
+      {
+        "problem": "Look at the hands of a clock at 3:00. What angle do the hour and minute hands form?",
+        "steps": [
+          "Step 1: At 3:00, the minute hand points straight up at 12.",
+          "Step 2: The hour hand points straight right at 3.",
+          "Step 3: These two lines are perpendicular, forming a clean square corner.",
+          "Step 4: A square corner angle is exactly 90°, which is a Right Angle."
+        ],
+        "answer": "90° (Right Angle)"
+      }
+    ],
+    "realLifeExample": "When you open a laptop screen, it usually makes an obtuse angle (around 110° to 120°). When closed slightly like a tent, it forms an acute angle!",
+    "keyPoints": [
+      "Right angle = exactly 90° (looks like an 'L').",
+      "Acute angle = less than 90°.",
+      "Obtuse angle = between 90° and 180°.",
+      "The three interior angles of any triangle always add up to 180°."
+    ]
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "slug": "area-and-perimeter",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "infographicType": "area-grid",
+    "infographicUrl": "/images/area-grid.svg",
+    "objectives": [
+      "Understand the difference between perimeter (boundary) and area (surface)",
+      "Calculate perimeter of rectangles and squares: P = 2 × (l + w)",
+      "Calculate area of rectangles and squares: A = l × w",
+      "Use appropriate square units (cm², m²)"
+    ],
+    "explanation": "Think of a garden! Perimeter is the fence that goes all the way around the outside edge. Area is the grassy surface inside where you can run and play! To find the perimeter, you add up the lengths of all the outer sides. To find the area of a rectangle, you multiply the length by the width.",
+    "workedExamples": [
+      {
+        "problem": "A rectangular playground is 15 metres long and 10 metres wide. Find its perimeter and its area.",
+        "steps": [
+          "Step 1: To find perimeter, add all four sides: 2 × (length + width).",
+          "Step 2: P = 2 × (15 + 10) = 2 × 25 = 50 metres.",
+          "Step 3: To find area, multiply length times width: Area = length × width.",
+          "Step 4: Area = 15 × 10 = 150 square metres (m²)."
+        ],
+        "answer": "Perimeter = 50 m, Area = 150 m²"
+      },
+      {
+        "problem": "A square photo frame has sides of 8 cm each. How much glass is needed to cover the photo (area), and how much wooden ribbon is needed for the border (perimeter)?",
+        "steps": [
+          "Step 1: For a square, all 4 sides are equal to 8 cm.",
+          "Step 2: Perimeter = 4 × side = 4 × 8 = 32 cm.",
+          "Step 3: Area = side × side = 8 × 8 = 64 cm²."
+        ],
+        "answer": "Perimeter = 32 cm, Area = 64 cm²"
+      }
+    ],
+    "realLifeExample": "If your bedroom is 4 metres by 3 metres, you need 2 × (4 + 3) = 14 metres of baseboard trim (perimeter) and 4 × 3 = 12 square metres of carpet (area)!",
+    "keyPoints": [
+      "Perimeter measures the distance around the boundary (measured in linear units: cm, m).",
+      "Area measures the flat space inside the boundary (measured in square units: cm², m²).",
+      "Rectangle Perimeter = 2 × (Length + Width).",
+      "Rectangle Area = Length × Width."
+    ]
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "slug": "ratios-and-proportions",
+    "difficulty": "medium",
+    "estimatedMinutes": 12,
+    "infographicType": "ratios",
+    "infographicUrl": "/images/ratios-counters.svg",
+    "objectives": [
+      "Understand ratio notation (a:b) as a comparison between quantities",
+      "Find equivalent ratios and simplify ratios to simplest form",
+      "Solve unitary method problems",
+      "Divide a quantity into a given ratio"
+    ],
+    "explanation": "A ratio compares two quantities by showing their relative sizes. For example, if a fruit punch recipe uses 2 cups of orange juice for every 3 cups of apple juice, the ratio of orange to apple is 2:3. Equivalent ratios work just like equivalent fractions: multiply or divide both parts by the same number! The unitary method means finding the cost or value of 1 single unit first, then multiplying to find the answer.",
+    "workedExamples": [
+      {
+        "problem": "In an art class with 30 students, the ratio of boys to girls is 2:3. How many boys and how many girls are in the class?",
+        "steps": [
+          "Step 1: Add the ratio parts: 2 + 3 = 5 total parts.",
+          "Step 2: Find the value of 1 part: 30 students ÷ 5 parts = 6 students per part.",
+          "Step 3: Multiply to find the number of boys: 2 parts × 6 = 12 boys.",
+          "Step 4: Multiply to find the number of girls: 3 parts × 6 = 18 girls.",
+          "Step 5: Verify: 12 + 18 = 30 total students."
+        ],
+        "answer": "12 boys and 18 girls"
+      },
+      {
+        "problem": "If 6 notebooks cost ₹180, how much will 10 notebooks cost?",
+        "steps": [
+          "Step 1: Use the unitary method to find the cost of 1 notebook.",
+          "Step 2: Cost of 1 notebook = ₹180 ÷ 6 = ₹30.",
+          "Step 3: Multiply by 10 to find the cost of 10 notebooks: 10 × ₹30 = ₹300."
+        ],
+        "answer": "₹300"
+      }
+    ],
+    "realLifeExample": "When making lemonade, if you mix 1 cup lemon juice with 4 cups water, the ratio is 1:4. If you want to make lemonade for a big party using 3 cups of lemon juice, you need 3 × 4 = 12 cups of water!",
+    "keyPoints": [
+      "A ratio compares quantities of the same kind (written as a:b or a/b).",
+      "Order matters: ratio of dogs to cats (3:2) is not the same as cats to dogs (2:3).",
+      "To simplify a ratio, divide both terms by their Highest Common Factor (HCF).",
+      "Unitary method: find the value of ONE unit first, then find required multiple units."
+    ]
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "slug": "fractions-and-decimals-advanced",
+    "difficulty": "hard",
+    "estimatedMinutes": 14,
+    "infographicType": "pizza",
+    "infographicUrl": "/images/fractions-advanced.svg",
+    "objectives": [
+      "Multiply fractions: (a/b) × (c/d) = (a×c)/(b×d)",
+      "Divide fractions using the reciprocal method (Keep, Change, Flip)",
+      "Multiply and divide decimal numbers",
+      "Convert between fractions, decimals, and percentages"
+    ],
+    "explanation": "In Grade 6, we level up our fraction and decimal superpower! To multiply fractions, simply multiply the top numbers together and the bottom numbers together: (2/3) × (4/5) = 8/15. To divide fractions, remember the fun motto: Keep, Change, Flip! Keep the first fraction, change division to multiplication, and flip the second fraction upside down (its reciprocal).",
+    "workedExamples": [
+      {
+        "problem": "Evaluate: 3/4 ÷ 2/5",
+        "steps": [
+          "Step 1: Keep the first fraction: 3/4.",
+          "Step 2: Change the division sign ÷ to multiplication ×.",
+          "Step 3: Flip the second fraction 2/5 into its reciprocal 5/2.",
+          "Step 4: Multiply straight across: (3 × 5) / (4 × 2) = 15/8.",
+          "Step 5: Convert to mixed number: 15/8 = 1 7/8."
+        ],
+        "answer": "15/8 (or 1 7/8)"
+      },
+      {
+        "problem": "A car travels 18.5 km on 1 litre of petrol. How far will it travel on 4.2 litres of petrol?",
+        "steps": [
+          "Step 1: Multiply 185 × 42 as whole numbers: 185 × 42 = 7,770.",
+          "Step 2: Count decimal places in the factors: 18.5 has 1 place, 4.2 has 1 place (total 2 places).",
+          "Step 3: Count 2 digits from the right in 7,770 and place the dot: 77.70 = 77.7 km."
+        ],
+        "answer": "77.7 km"
+      }
+    ],
+    "realLifeExample": "If you have a 3/4 metre length of fabric and want to cut it into pieces that are each 1/8 metre long, you do 3/4 ÷ 1/8 = 3/4 × 8/1 = 24/4 = 6 equal pieces!",
+    "keyPoints": [
+      "To multiply fractions: multiply numerators, multiply denominators, simplify.",
+      "To divide fractions: Keep the first, Change ÷ to ×, Flip the second (reciprocal).",
+      "For decimal multiplication: multiply as integers, then count decimal places.",
+      "1/2 = 0.5 = 50%, 1/4 = 0.25 = 25%, 3/4 = 0.75 = 75%."
+    ]
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "slug": "integers",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "infographicType": "number-line",
+    "infographicUrl": "/images/integers-numberline.svg",
+    "objectives": [
+      "Understand positive and negative numbers and zero on a number line",
+      "Represent real-life situations with integers (temperature, bank balance, altitude)",
+      "Add and subtract integers with rules of signs",
+      "Compare integers: negative numbers further left are smaller"
+    ],
+    "explanation": "Integers are the full set of whole numbers, their negative opposites, and zero: ... -3, -2, -1, 0, 1, 2, 3 ... Negative numbers represent amounts below zero! Think of an elevator in a mall: Ground floor is 0, parking basement levels are -1 and -2, and shopping floors are +1 and +2. On a horizontal number line, moving right means adding (getting bigger), and moving left means subtracting (getting smaller).",
+    "workedExamples": [
+      {
+        "problem": "In Shimla, the morning temperature was -2°C. By afternoon, it rose by 7°C. What was the afternoon temperature?",
+        "steps": [
+          "Step 1: Start on the number line at -2.",
+          "Step 2: The temperature rose, which means move 7 units to the right (addition): -2 + 7.",
+          "Step 3: Moving 2 units right brings us to 0. Moving 5 more units right reaches +5.",
+          "Step 4: The afternoon temperature was +5°C."
+        ],
+        "answer": "+5°C"
+      },
+      {
+        "problem": "Calculate: (-5) + (-8) and 6 - (-4).",
+        "steps": [
+          "Step 1: For (-5) + (-8), both numbers are negative. Add their absolute values (5 + 8 = 13) and keep the negative sign: -13.",
+          "Step 2: For 6 - (-4), subtracting a negative number is equivalent to adding a positive: 6 + 4 = 10."
+        ],
+        "answer": "-13 and 10"
+      }
+    ],
+    "realLifeExample": "A submarine dives 40 metres below sea level (-40 m). It then ascends 15 metres (+15 m). Its new depth is -40 + 15 = -25 metres!",
+    "keyPoints": [
+      "Positive numbers are greater than 0; negative numbers are less than 0.",
+      "Zero is neither positive nor negative.",
+      "Any positive number is greater than any negative number (e.g. 1 > -100).",
+      "Subtracting a negative is the same as adding a positive: a - (-b) = a + b."
+    ]
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "slug": "geometry-advanced",
+    "difficulty": "medium",
+    "estimatedMinutes": 12,
+    "infographicType": "geometry-angles",
+    "infographicUrl": "/images/geometry-circles.svg",
+    "objectives": [
+      "Understand complementary angles (sum 90°) and supplementary angles (sum 180°)",
+      "Identify vertically opposite angles and linear pairs",
+      "Understand the parts of a circle: radius, diameter, chord, circumference",
+      "Apply the triangle angle sum theorem (all angles add to 180°)"
+    ],
+    "explanation": "In Grade 6 geometry, we discover relationships between intersecting lines and shapes! Two angles that add up to 90° are complementary (C for Corner). Two angles that add up to 180° are supplementary (S for Straight line). In circles, the radius is the line from the center to the edge, and the diameter is twice the radius passing straight through the center: d = 2r!",
+    "workedExamples": [
+      {
+        "problem": "Two angles form a linear pair on a straight line. If one angle is 115°, what is the measure of the second angle?",
+        "steps": [
+          "Step 1: Angles on a straight line are supplementary and always add up to 180°.",
+          "Step 2: Let the unknown angle be x: 115° + x = 180°.",
+          "Step 3: Subtract 115° from 180°: x = 180° - 115° = 65°."
+        ],
+        "answer": "65°"
+      },
+      {
+        "problem": "A circular bicycle wheel has a diameter of 70 cm. What is its radius?",
+        "steps": [
+          "Step 1: The radius is half the diameter: r = diameter ÷ 2.",
+          "Step 2: Calculate: 70 cm ÷ 2 = 35 cm."
+        ],
+        "answer": "35 cm"
+      }
+    ],
+    "realLifeExample": "When opening scissors, the two pairs of opposite angles formed by the intersecting blades and handles are called vertically opposite angles, and they are always exactly equal!",
+    "keyPoints": [
+      "Complementary angles add to 90°.",
+      "Supplementary angles add to 180°.",
+      "Vertically opposite angles are equal.",
+      "Diameter of a circle = 2 × Radius (d = 2r)."
+    ]
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "slug": "area-and-volume",
+    "difficulty": "hard",
+    "estimatedMinutes": 12,
+    "infographicType": "area-grid",
+    "infographicUrl": "/images/volume-cuboid.svg",
+    "objectives": [
+      "Calculate area of triangles: Area = (1/2) × base × height",
+      "Calculate area of parallelograms: Area = base × height",
+      "Understand 3D space and volume of cuboids: V = length × width × height",
+      "Use cubic units (cm³, m³)"
+    ],
+    "explanation": "While area measures flat 2D surfaces, volume measures the 3D space inside an object! Think of an aquarium tank or a cardboard gift box. Volume tells us how much water or how many 1-cm cubes can fit inside! For a cuboid (rectangular box), Volume = Length × Width × Height.",
+    "workedExamples": [
+      {
+        "problem": "Find the area of a triangular sail with base 6 metres and perpendicular height 4 metres.",
+        "steps": [
+          "Step 1: The formula for the area of a triangle is: (1/2) × base × height.",
+          "Step 2: Multiply base and height: 6 × 4 = 24.",
+          "Step 3: Divide by 2: 24 ÷ 2 = 12 square metres (m²)."
+        ],
+        "answer": "12 m²"
+      },
+      {
+        "problem": "A rectangular water tank has length 5 metres, width 3 metres, and height 2 metres. What is the total volume of water it can hold?",
+        "steps": [
+          "Step 1: The formula for the volume of a cuboid is: Volume = Length × Width × Height.",
+          "Step 2: Multiply: 5 × 3 × 2 = 30 cubic metres (m³)."
+        ],
+        "answer": "30 m³"
+      }
+    ],
+    "realLifeExample": "A Rubik's cube has 3 cubes along length, width, and height. Its volume is 3 × 3 × 3 = 27 small unit cubes!",
+    "keyPoints": [
+      "Area of Triangle = (1/2) × base × height.",
+      "Area of Parallelogram = base × height.",
+      "Volume of Cuboid = Length × Width × Height.",
+      "Volume is always measured in cubic units (cm³, m³, litres)."
+    ]
+  }
+]

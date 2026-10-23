@@ -1,0 +1,2252 @@
+[
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "easy",
+    "question": "What is 1/2 + 1/2?",
+    "options": [
+      "1/4",
+      "1/2",
+      "1",
+      "2"
+    ],
+    "correctAnswer": "1",
+    "expression": "1/2+1/2",
+    "explanation": "Two halves join together to make one whole: 1/2 + 1/2 = 2/2 = 1."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "easy",
+    "question": "What is 1/4 + 2/4?",
+    "options": [
+      "3/4",
+      "2/4",
+      "3/8",
+      "1"
+    ],
+    "correctAnswer": "3/4",
+    "expression": "1/4+2/4",
+    "explanation": "With the same denominator 4, add the numerators 1 + 2 = 3. So 3/4."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "easy",
+    "question": "What is 5/6 - 2/6?",
+    "options": [
+      "1/6",
+      "3/6",
+      "7/6",
+      "2/6"
+    ],
+    "correctAnswer": "3/6",
+    "expression": "5/6-2/6",
+    "explanation": "Subtract numerators with like denominator: 5 - 2 = 3. So 3/6 (or 1/2)."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "easy",
+    "question": "Which fraction is equivalent to 1/2?",
+    "options": [
+      "2/4",
+      "1/3",
+      "3/5",
+      "2/6"
+    ],
+    "correctAnswer": "2/4",
+    "expression": "2/4",
+    "explanation": "Multiply numerator and denominator of 1/2 by 2 to get 2/4."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "easy",
+    "question": "What is 3/8 + 1/8?",
+    "options": [
+      "4/8",
+      "2/8",
+      "4/16",
+      "5/8"
+    ],
+    "correctAnswer": "4/8",
+    "expression": "3/8+1/8",
+    "explanation": "Add the numerators: 3 + 1 = 4 over 8, giving 4/8."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "medium",
+    "question": "Find 3/4 of 20.",
+    "options": [
+      "12",
+      "15",
+      "16",
+      "18"
+    ],
+    "correctAnswer": "15",
+    "expression": "3/4*20",
+    "explanation": "20 ÷ 4 = 5, then multiply by 3: 5 × 3 = 15."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "medium",
+    "question": "What is 2/5 of 35?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "15"
+    ],
+    "correctAnswer": "14",
+    "expression": "2/5*35",
+    "explanation": "35 ÷ 5 = 7, then 7 × 2 = 14."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "medium",
+    "question": "Find 5/8 of 32.",
+    "options": [
+      "15",
+      "18",
+      "20",
+      "22"
+    ],
+    "correctAnswer": "20",
+    "expression": "5/8*32",
+    "explanation": "32 ÷ 8 = 4, then 4 × 5 = 20."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "medium",
+    "question": "What is 1/3 of 27?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctAnswer": "9",
+    "expression": "1/3*27",
+    "explanation": "27 ÷ 3 = 9."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "medium",
+    "question": "What is 3/10 of 50?",
+    "options": [
+      "12",
+      "15",
+      "18",
+      "20"
+    ],
+    "correctAnswer": "15",
+    "expression": "3/10*50",
+    "explanation": "50 ÷ 10 = 5, then 5 × 3 = 15."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "hard",
+    "question": "A student uses 3/5 of a 25-metre ribbon. How many metres remain?",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "15"
+    ],
+    "correctAnswer": "10",
+    "expression": "25-(3/5*25)",
+    "explanation": "Ribbon used: 3/5 × 25 = 15 m. Remaining: 25 - 15 = 10 m."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "hard",
+    "question": "A tank has 40 litres of water. 3/8 of it is drained out. How many litres remain?",
+    "options": [
+      "20",
+      "22",
+      "25",
+      "28"
+    ],
+    "correctAnswer": "25",
+    "expression": "40-(3/8*40)",
+    "explanation": "Drained: 40 × 3/8 = 15 litres. Remaining: 40 - 15 = 25 litres."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "hard",
+    "question": "Ravi read 2/3 of a 60-page book on Saturday and 10 pages on Sunday. How many pages remain?",
+    "options": [
+      "10",
+      "15",
+      "20",
+      "25"
+    ],
+    "correctAnswer": "10",
+    "expression": "60-(2/3*60)-10",
+    "explanation": "Read on Saturday: 2/3 × 60 = 40 pages. Read on Sunday: 10 pages. Remaining: 60 - 50 = 10 pages."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "hard",
+    "question": "A bag contains 48 marbles. 1/4 are red and 1/2 are blue. How many other marbles are in the bag?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "correctAnswer": "12",
+    "expression": "48-(1/4*48)-(1/2*48)",
+    "explanation": "Red: 12, Blue: 24. Total red and blue: 36. Others: 48 - 36 = 12."
+  },
+  {
+    "grade": 5,
+    "topic": "Fractions",
+    "difficulty": "hard",
+    "question": "Meera had ₹100. She spent 3/10 on snacks and 1/5 on a notebook. How much money is left?",
+    "options": [
+      "40",
+      "45",
+      "50",
+      "60"
+    ],
+    "correctAnswer": "50",
+    "expression": "100-(3/10*100)-(1/5*100)",
+    "explanation": "Snacks: ₹30. Notebook: ₹20. Total spent: ₹50. Remaining: ₹100 - ₹50 = ₹50."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "easy",
+    "question": "What is 0.3 + 0.4?",
+    "options": [
+      "0.6",
+      "0.7",
+      "0.8",
+      "0.9"
+    ],
+    "correctAnswer": "0.7",
+    "expression": "0.3+0.4",
+    "explanation": "Add the tenths: 3 tenths + 4 tenths = 7 tenths (0.7)."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "easy",
+    "question": "What is 0.9 - 0.5?",
+    "options": [
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6"
+    ],
+    "correctAnswer": "0.4",
+    "expression": "0.9-0.5",
+    "explanation": "Subtract tenths: 9 - 5 = 4 tenths (0.4)."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "easy",
+    "question": "What is 1.2 + 2.3?",
+    "options": [
+      "3.4",
+      "3.5",
+      "3.6",
+      "4.5"
+    ],
+    "correctAnswer": "3.5",
+    "expression": "1.2+2.3",
+    "explanation": "Add whole numbers 1 + 2 = 3, add tenths 0.2 + 0.3 = 0.5 -> 3.5."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "easy",
+    "question": "Convert 1/2 into a decimal.",
+    "options": [
+      "0.2",
+      "0.4",
+      "0.5",
+      "0.6"
+    ],
+    "correctAnswer": "0.5",
+    "expression": "1/2",
+    "explanation": "1 ÷ 2 = 0.5."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "easy",
+    "question": "What is 5.0 - 1.5?",
+    "options": [
+      "3.2",
+      "3.5",
+      "4.0",
+      "4.5"
+    ],
+    "correctAnswer": "3.5",
+    "expression": "5.0-1.5",
+    "explanation": "5.0 minus 1.5 equals 3.5."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "medium",
+    "question": "What is 4.25 + 3.50?",
+    "options": [
+      "7.65",
+      "7.75",
+      "7.85",
+      "8.00"
+    ],
+    "correctAnswer": "7.75",
+    "expression": "4.25+3.50",
+    "explanation": "4.25 + 3.50 = 7.75."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "medium",
+    "question": "What is 10.00 - 3.75?",
+    "options": [
+      "6.15",
+      "6.25",
+      "6.35",
+      "7.25"
+    ],
+    "correctAnswer": "6.25",
+    "expression": "10.00-3.75",
+    "explanation": "10.00 - 3.75 = 6.25."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "medium",
+    "question": "What is 2.5 * 4?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "12"
+    ],
+    "correctAnswer": "10",
+    "expression": "2.5*4",
+    "explanation": "2.5 multiplied by 4 equals 10."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "medium",
+    "question": "What is 0.75 written as a fraction in simplest form?",
+    "options": [
+      "1/2",
+      "2/3",
+      "3/4",
+      "4/5"
+    ],
+    "correctAnswer": "3/4",
+    "expression": "3/4",
+    "explanation": "0.75 = 75/100 = 3/4."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "medium",
+    "question": "What is 15.6 + 4.4?",
+    "options": [
+      "19.8",
+      "20",
+      "20.2",
+      "21"
+    ],
+    "correctAnswer": "20",
+    "expression": "15.6+4.4",
+    "explanation": "15.6 + 4.4 = 20.0 = 20."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "hard",
+    "question": "Kiran buys 3 pens at ₹4.50 each. How much change does he get from ₹20?",
+    "options": [
+      "5.5",
+      "6.5",
+      "7.5",
+      "8.5"
+    ],
+    "correctAnswer": "6.5",
+    "expression": "20-(3*4.50)",
+    "explanation": "Cost of pens: 3 × 4.50 = 13.50. Change: 20 - 13.50 = 6.50 (6.5)."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "hard",
+    "question": "A rope was 12.8 metres long. Two pieces of 3.4 metres and 4.6 metres were cut off. How many metres remain?",
+    "options": [
+      "4.6",
+      "4.8",
+      "5.0",
+      "5.2"
+    ],
+    "correctAnswer": "4.8",
+    "expression": "12.8-3.4-4.6",
+    "explanation": "Cut off: 3.4 + 4.6 = 8.0 m. Remaining: 12.8 - 8.0 = 4.8 m."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "hard",
+    "question": "Calculate: 1.25 * 8.",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "12"
+    ],
+    "correctAnswer": "10",
+    "expression": "1.25*8",
+    "explanation": "1.25 × 8 = 10."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "hard",
+    "question": "What is 25.5 - 14.75?",
+    "options": [
+      "10.25",
+      "10.50",
+      "10.75",
+      "11.25"
+    ],
+    "correctAnswer": "10.75",
+    "expression": "25.5-14.75",
+    "explanation": "25.50 - 14.75 = 10.75."
+  },
+  {
+    "grade": 5,
+    "topic": "Decimals",
+    "difficulty": "hard",
+    "question": "Five friends share the cost of a gift equally. If the gift costs ₹82.50, how much does each pay?",
+    "options": [
+      "15.5",
+      "16.0",
+      "16.5",
+      "17.5"
+    ],
+    "correctAnswer": "16.5",
+    "expression": "82.50/5",
+    "explanation": "82.50 ÷ 5 = 16.5."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "easy",
+    "question": "Which of the following is a multiple of 6?",
+    "options": [
+      "14",
+      "18",
+      "22",
+      "26"
+    ],
+    "correctAnswer": "18",
+    "expression": "3*6",
+    "explanation": "6 × 3 = 18, so 18 is a multiple of 6."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "easy",
+    "question": "How many factors does the prime number 7 have?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctAnswer": "2",
+    "expression": "2",
+    "explanation": "Every prime number has exactly two factors: 1 and itself."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "easy",
+    "question": "Which number is a factor of 20?",
+    "options": [
+      "3",
+      "5",
+      "6",
+      "7"
+    ],
+    "correctAnswer": "5",
+    "expression": "20/4",
+    "explanation": "20 ÷ 5 = 4, so 5 divides 20 evenly."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "easy",
+    "question": "What is the smallest prime number?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "correctAnswer": "2",
+    "expression": "2",
+    "explanation": "2 is the smallest prime number, and the only even prime number."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "easy",
+    "question": "What is the 4th multiple of 9?",
+    "options": [
+      "27",
+      "32",
+      "36",
+      "45"
+    ],
+    "correctAnswer": "36",
+    "expression": "9*4",
+    "explanation": "9 × 4 = 36."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "medium",
+    "question": "What is the Highest Common Factor (HCF) of 12 and 18?",
+    "options": [
+      "3",
+      "4",
+      "6",
+      "12"
+    ],
+    "correctAnswer": "6",
+    "expression": "6",
+    "explanation": "Factors of 12: 1, 2, 3, 4, 6, 12. Factors of 18: 1, 2, 3, 6, 9, 18. The greatest common factor is 6."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "medium",
+    "question": "What is the Lowest Common Multiple (LCM) of 4 and 6?",
+    "options": [
+      "8",
+      "12",
+      "16",
+      "24"
+    ],
+    "correctAnswer": "12",
+    "expression": "12",
+    "explanation": "Multiples of 4: 4, 8, 12... Multiples of 6: 6, 12... The lowest common multiple is 12."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "medium",
+    "question": "What is the HCF of 15 and 25?",
+    "options": [
+      "3",
+      "5",
+      "10",
+      "15"
+    ],
+    "correctAnswer": "5",
+    "expression": "5",
+    "explanation": "5 is the largest factor that divides both 15 and 25."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "medium",
+    "question": "What is the LCM of 3 and 8?",
+    "options": [
+      "18",
+      "21",
+      "24",
+      "32"
+    ],
+    "correctAnswer": "24",
+    "expression": "3*8",
+    "explanation": "Since 3 and 8 share no common factors other than 1, LCM = 3 × 8 = 24."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "medium",
+    "question": "How many factors does 16 have?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "5",
+    "expression": "5",
+    "explanation": "The factors of 16 are 1, 2, 4, 8, and 16 (5 factors total)."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "hard",
+    "question": "Two alarm clocks ring at intervals of 12 minutes and 15 minutes. After how many minutes will they ring together?",
+    "options": [
+      "30",
+      "45",
+      "60",
+      "90"
+    ],
+    "correctAnswer": "60",
+    "expression": "60",
+    "explanation": "Find LCM of 12 and 15: 12 = 3 × 4, 15 = 3 × 5. LCM = 3 × 4 × 5 = 60 minutes."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "hard",
+    "question": "What is the greatest number that divides both 24 and 36 without remainder?",
+    "options": [
+      "6",
+      "8",
+      "12",
+      "18"
+    ],
+    "correctAnswer": "12",
+    "expression": "12",
+    "explanation": "HCF of 24 and 36 is 12."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "hard",
+    "question": "Find the sum of all prime numbers between 10 and 20.",
+    "options": [
+      "55",
+      "58",
+      "60",
+      "62"
+    ],
+    "correctAnswer": "60",
+    "expression": "11+13+17+19",
+    "explanation": "The prime numbers between 10 and 20 are 11, 13, 17, and 19. Their sum is 11 + 13 + 17 + 19 = 60."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "hard",
+    "question": "What is the LCM of 6, 8, and 12?",
+    "options": [
+      "24",
+      "36",
+      "48",
+      "72"
+    ],
+    "correctAnswer": "24",
+    "expression": "24",
+    "explanation": "24 is divisible by 6 (4), 8 (3), and 12 (2), and is the smallest such number."
+  },
+  {
+    "grade": 5,
+    "topic": "Factors and Multiples",
+    "difficulty": "hard",
+    "question": "If the product of two numbers is 72 and their HCF is 6, what is their LCM?",
+    "options": [
+      "10",
+      "12",
+      "16",
+      "18"
+    ],
+    "correctAnswer": "12",
+    "expression": "72/6",
+    "explanation": "Product of two numbers = HCF × LCM. So LCM = 72 ÷ 6 = 12."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "easy",
+    "question": "What is the measure of a right angle in degrees?",
+    "options": [
+      "45",
+      "60",
+      "90",
+      "180"
+    ],
+    "correctAnswer": "90",
+    "expression": "90",
+    "explanation": "A right angle is exactly 90 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "easy",
+    "question": "How many sides does a pentagon have?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "5",
+    "expression": "5",
+    "explanation": "A pentagon has 5 sides."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "easy",
+    "question": "What is the sum of interior angles in any triangle?",
+    "options": [
+      "90",
+      "180",
+      "270",
+      "360"
+    ],
+    "correctAnswer": "180",
+    "expression": "180",
+    "explanation": "The three interior angles of a triangle always add to 180 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "easy",
+    "question": "An angle measuring 45 degrees is called an:",
+    "options": [
+      "Right angle",
+      "Acute angle",
+      "Obtuse angle",
+      "Straight angle"
+    ],
+    "correctAnswer": "Acute angle",
+    "expression": null,
+    "explanation": "Any angle less than 90 degrees is an acute angle."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "easy",
+    "question": "How many equal sides does an equilateral triangle have?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "correctAnswer": "3",
+    "expression": "3",
+    "explanation": "An equilateral triangle has all 3 sides of equal length."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "medium",
+    "question": "A triangle has angles 50° and 60°. What is the third angle?",
+    "options": [
+      "60",
+      "70",
+      "80",
+      "90"
+    ],
+    "correctAnswer": "70",
+    "expression": "180-50-60",
+    "explanation": "180 - (50 + 60) = 180 - 110 = 70 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "medium",
+    "question": "What is the measure of a straight angle in degrees?",
+    "options": [
+      "90",
+      "120",
+      "180",
+      "360"
+    ],
+    "correctAnswer": "180",
+    "expression": "180",
+    "explanation": "A straight line angle is exactly 180 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "medium",
+    "question": "In an isosceles right triangle, what are the two equal acute angles?",
+    "options": [
+      "30",
+      "40",
+      "45",
+      "60"
+    ],
+    "correctAnswer": "45",
+    "expression": "(180-90)/2",
+    "explanation": "(180 - 90) ÷ 2 = 90 ÷ 2 = 45 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "medium",
+    "question": "How many degrees are in a full circular rotation?",
+    "options": [
+      "90",
+      "180",
+      "270",
+      "360"
+    ],
+    "correctAnswer": "360",
+    "expression": "360",
+    "explanation": "A full complete circle is 360 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "medium",
+    "question": "What is the sum of interior angles of a quadrilateral (4-sided shape)?",
+    "options": [
+      "180",
+      "270",
+      "360",
+      "540"
+    ],
+    "correctAnswer": "360",
+    "expression": "2*180",
+    "explanation": "A quadrilateral is formed by 2 triangles: 2 × 180 = 360 degrees."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "hard",
+    "question": "A right triangle has one acute angle of 35°. What is the other acute angle?",
+    "options": [
+      "45",
+      "55",
+      "65",
+      "75"
+    ],
+    "correctAnswer": "55",
+    "expression": "90-35",
+    "explanation": "In a right triangle, the two acute angles add to 90°. 90 - 35 = 55°."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "hard",
+    "question": "An isosceles triangle has a vertex angle of 40°. What is the measure of each base angle?",
+    "options": [
+      "60",
+      "70",
+      "75",
+      "80"
+    ],
+    "correctAnswer": "70",
+    "expression": "(180-40)/2",
+    "explanation": "(180 - 40) ÷ 2 = 140 ÷ 2 = 70°."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "hard",
+    "question": "Two angles in a quadrilateral are 90° and 110°. If the other two angles are equal, what is each angle?",
+    "options": [
+      "70",
+      "75",
+      "80",
+      "85"
+    ],
+    "correctAnswer": "80",
+    "expression": "(360-90-110)/2",
+    "explanation": "Total is 360°. Remaining: 360 - 200 = 160°. Divided by 2: 160 ÷ 2 = 80°."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "hard",
+    "question": "How many diagonals can be drawn inside a regular pentagon?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "5",
+    "expression": "(5*(5-3))/2",
+    "explanation": "Formula for diagonals in n-sided polygon: n(n-3)/2 = 5(2)/2 = 5."
+  },
+  {
+    "grade": 5,
+    "topic": "Basic Geometry",
+    "difficulty": "hard",
+    "question": "An angle is 20° more than its complement. What is the angle?",
+    "options": [
+      "45",
+      "50",
+      "55",
+      "65"
+    ],
+    "correctAnswer": "55",
+    "expression": "(90+20)/2",
+    "explanation": "x + (x - 20) = 90 => 2x = 110 => x = 55°."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "easy",
+    "question": "What is the perimeter of a square with side 6 cm?",
+    "options": [
+      "18",
+      "20",
+      "24",
+      "36"
+    ],
+    "correctAnswer": "24",
+    "expression": "4*6",
+    "explanation": "Perimeter of square = 4 × side = 4 × 6 = 24 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "easy",
+    "question": "What is the area of a square with side 5 cm?",
+    "options": [
+      "20",
+      "25",
+      "30",
+      "35"
+    ],
+    "correctAnswer": "25",
+    "expression": "5*5",
+    "explanation": "Area of square = side × side = 5 × 5 = 25 cm²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "easy",
+    "question": "What is the perimeter of a rectangle with length 8 cm and width 4 cm?",
+    "options": [
+      "20",
+      "24",
+      "28",
+      "32"
+    ],
+    "correctAnswer": "24",
+    "expression": "2*(8+4)",
+    "explanation": "Perimeter = 2 × (8 + 4) = 2 × 12 = 24 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "easy",
+    "question": "What is the area of a rectangle with length 7 cm and width 3 cm?",
+    "options": [
+      "18",
+      "20",
+      "21",
+      "24"
+    ],
+    "correctAnswer": "21",
+    "expression": "7*3",
+    "explanation": "Area = length × width = 7 × 3 = 21 cm²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "easy",
+    "question": "If a square has perimeter 28 cm, what is the length of one side?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "7",
+    "expression": "28/4",
+    "explanation": "Side = Perimeter ÷ 4 = 28 ÷ 4 = 7 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "medium",
+    "question": "A rectangular garden is 15 m long and 10 m wide. What is its area?",
+    "options": [
+      "120",
+      "135",
+      "150",
+      "180"
+    ],
+    "correctAnswer": "150",
+    "expression": "15*10",
+    "explanation": "Area = 15 × 10 = 150 m²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "medium",
+    "question": "A rectangle has perimeter 36 cm and length 11 cm. What is its width?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "7",
+    "expression": "(36/2)-11",
+    "explanation": "Length + Width = 36 ÷ 2 = 18. Width = 18 - 11 = 7 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "medium",
+    "question": "What is the area of a rectangle with perimeter 30 cm and width 5 cm?",
+    "options": [
+      "45",
+      "50",
+      "55",
+      "60"
+    ],
+    "correctAnswer": "50",
+    "expression": "((30/2)-5)*5",
+    "explanation": "Length = (30 ÷ 2) - 5 = 10 cm. Area = 10 × 5 = 50 cm²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "medium",
+    "question": "A square field has perimeter 48 metres. What is its area?",
+    "options": [
+      "120",
+      "144",
+      "160",
+      "196"
+    ],
+    "correctAnswer": "144",
+    "expression": "(48/4)*(48/4)",
+    "explanation": "Side = 48 ÷ 4 = 12 m. Area = 12 × 12 = 144 m²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "medium",
+    "question": "If the area of a square is 81 cm², what is its perimeter?",
+    "options": [
+      "32",
+      "36",
+      "40",
+      "45"
+    ],
+    "correctAnswer": "36",
+    "expression": "9*4",
+    "explanation": "Side = √81 = 9 cm. Perimeter = 4 × 9 = 36 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "hard",
+    "question": "A rectangular room is 8 m long and 6 m wide. If square tiles of side 2 m are used, how many tiles are needed to cover the floor?",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "correctAnswer": "12",
+    "expression": "(8*6)/(2*2)",
+    "explanation": "Room area = 48 m². Tile area = 4 m². Number of tiles = 48 ÷ 4 = 12."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "hard",
+    "question": "A wire in the shape of a square of side 10 cm is rebent into a rectangle of length 12 cm. What is the width of the rectangle?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "8",
+    "expression": "((4*10)/2)-12",
+    "explanation": "Wire length = 4 × 10 = 40 cm. Rectangle semi-perimeter = 20. Width = 20 - 12 = 8 cm."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "hard",
+    "question": "A garden is 20 m by 15 m. Fencing costs ₹15 per metre. What is the total cost of fencing?",
+    "options": [
+      "950",
+      "1000",
+      "1050",
+      "1100"
+    ],
+    "correctAnswer": "1050",
+    "expression": "2*(20+15)*15",
+    "explanation": "Perimeter = 2 × (20 + 15) = 70 m. Cost = 70 × 15 = ₹1050."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "hard",
+    "question": "The length of a rectangle is twice its width. If its perimeter is 36 cm, what is its area?",
+    "options": [
+      "64",
+      "72",
+      "80",
+      "84"
+    ],
+    "correctAnswer": "72",
+    "expression": "(2*6)*6",
+    "explanation": "2 × (2w + w) = 36 => 6w = 36 => w = 6 cm, l = 12 cm. Area = 12 × 6 = 72 cm²."
+  },
+  {
+    "grade": 5,
+    "topic": "Area and Perimeter",
+    "difficulty": "hard",
+    "question": "A rectangular park of 30 m by 20 m has a 1-metre wide path inside along its border. What is the area of the path?",
+    "options": [
+      "88",
+      "92",
+      "96",
+      "100"
+    ],
+    "correctAnswer": "96",
+    "expression": "(30*20)-(28*18)",
+    "explanation": "Total area = 30 × 20 = 600. Inner area = (30-2) × (20-2) = 28 × 18 = 504. Path area = 600 - 504 = 96 m²."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "easy",
+    "question": "Simplify the ratio 10:15 to its simplest form.",
+    "options": [
+      "1:2",
+      "2:3",
+      "3:4",
+      "2:5"
+    ],
+    "correctAnswer": "2:3",
+    "expression": null,
+    "explanation": "Divide both sides by 5: 10÷5 : 15÷5 = 2:3."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "easy",
+    "question": "If 1 notebook costs ₹20, how much do 4 notebooks cost?",
+    "options": [
+      "60",
+      "70",
+      "80",
+      "90"
+    ],
+    "correctAnswer": "80",
+    "expression": "4*20",
+    "explanation": "4 × ₹20 = ₹80."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "easy",
+    "question": "In a class of 10 boys and 15 girls, what is the ratio of boys to girls?",
+    "options": [
+      "1:2",
+      "2:3",
+      "3:2",
+      "3:4"
+    ],
+    "correctAnswer": "2:3",
+    "expression": null,
+    "explanation": "10:15 simplifies to 2:3."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "easy",
+    "question": "Find the missing term: 3:5 = 6:?",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "15"
+    ],
+    "correctAnswer": "10",
+    "expression": "(5*6)/3",
+    "explanation": "3 × 2 = 6, so 5 × 2 = 10."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "easy",
+    "question": "What is the ratio of 50 cm to 1 metre?",
+    "options": [
+      "1:1",
+      "1:2",
+      "1:4",
+      "2:1"
+    ],
+    "correctAnswer": "1:2",
+    "expression": null,
+    "explanation": "1 metre = 100 cm. 50 cm to 100 cm = 50:100 = 1:2."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "medium",
+    "question": "Divide ₹120 between Amit and Sumit in the ratio 2:3. How much does Amit get?",
+    "options": [
+      "40",
+      "48",
+      "60",
+      "72"
+    ],
+    "correctAnswer": "48",
+    "expression": "(2/5)*120",
+    "explanation": "Total parts = 5. Value of 1 part = 120 ÷ 5 = 24. Amit's share = 2 × 24 = ₹48."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "medium",
+    "question": "If 5 pens cost ₹75, how much will 8 pens cost?",
+    "options": [
+      "105",
+      "115",
+      "120",
+      "125"
+    ],
+    "correctAnswer": "120",
+    "expression": "(75/5)*8",
+    "explanation": "Cost of 1 pen = 75 ÷ 5 = 15. Cost of 8 pens = 15 × 8 = ₹120."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "medium",
+    "question": "A car travels 180 km in 3 hours. How many km will it travel in 5 hours at the same speed?",
+    "options": [
+      "250",
+      "280",
+      "300",
+      "320"
+    ],
+    "correctAnswer": "300",
+    "expression": "(180/3)*5",
+    "explanation": "Speed = 180 ÷ 3 = 60 km/h. Distance in 5 hours = 60 × 5 = 300 km."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "medium",
+    "question": "The ratio of length to breadth of a rectangle is 4:3. If the breadth is 15 cm, find the length.",
+    "options": [
+      "18",
+      "20",
+      "22",
+      "24"
+    ],
+    "correctAnswer": "20",
+    "expression": "(4/3)*15",
+    "explanation": "3 parts = 15 => 1 part = 5 cm. Length = 4 × 5 = 20 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "medium",
+    "question": "Which ratio is greater: 3:4 or 4:5?",
+    "options": [
+      "3:4",
+      "4:5",
+      "They are equal",
+      "Cannot be determined"
+    ],
+    "correctAnswer": "4:5",
+    "expression": null,
+    "explanation": "3/4 = 0.75, while 4/5 = 0.80. So 4:5 is greater."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "hard",
+    "question": "Two numbers are in the ratio 5:7. If their sum is 144, what is the larger number?",
+    "options": [
+      "60",
+      "72",
+      "84",
+      "96"
+    ],
+    "correctAnswer": "84",
+    "expression": "(7/12)*144",
+    "explanation": "Total parts = 5 + 7 = 12. 1 part = 144 ÷ 12 = 12. Larger number = 7 × 12 = 84."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "hard",
+    "question": "A recipe for 4 people requires 250 g of flour. How many grams are required for 10 people?",
+    "options": [
+      "500",
+      "550",
+      "600",
+      "625"
+    ],
+    "correctAnswer": "625",
+    "expression": "(250/4)*10",
+    "explanation": "Flour per person = 250 ÷ 4 = 62.5 g. For 10 people = 62.5 × 10 = 625 g."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "hard",
+    "question": "The angles of a triangle are in the ratio 2:3:4. What is the measure of the smallest angle in degrees?",
+    "options": [
+      "30",
+      "40",
+      "50",
+      "60"
+    ],
+    "correctAnswer": "40",
+    "expression": "(2/9)*180",
+    "explanation": "Sum of ratio parts = 2 + 3 + 4 = 9. Total angle sum = 180°. Smallest angle = (2/9) × 180 = 40°."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "hard",
+    "question": "If 12 men can build a wall in 6 days, how many men would build the same wall in 4 days?",
+    "options": [
+      "15",
+      "16",
+      "18",
+      "20"
+    ],
+    "correctAnswer": "18",
+    "expression": "(12*6)/4",
+    "explanation": "Total man-days = 12 × 6 = 72. Men required = 72 ÷ 4 = 18."
+  },
+  {
+    "grade": 6,
+    "topic": "Ratios and Proportions",
+    "difficulty": "hard",
+    "question": "The ratio of copper to zinc in an alloy is 7:3. If zinc weighs 15 kg, what is the total weight of the alloy?",
+    "options": [
+      "45",
+      "50",
+      "55",
+      "60"
+    ],
+    "correctAnswer": "50",
+    "expression": "(15/3)*(7+3)",
+    "explanation": "3 parts = 15 kg => 1 part = 5 kg. Total parts = 7 + 3 = 10. Total weight = 10 × 5 = 50 kg."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "easy",
+    "question": "Multiply: 2/3 * 3/4.",
+    "options": [
+      "1/4",
+      "1/2",
+      "3/4",
+      "5/7"
+    ],
+    "correctAnswer": "1/2",
+    "expression": "(2*3)/(3*4)",
+    "explanation": "(2 × 3) / (3 × 4) = 6/12 = 1/2."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "easy",
+    "question": "What is the reciprocal of 4/7?",
+    "options": [
+      "1/7",
+      "7/4",
+      "4/1",
+      "7/1"
+    ],
+    "correctAnswer": "7/4",
+    "expression": "7/4",
+    "explanation": "Flip the fraction upside down: reciprocal of 4/7 is 7/4."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "easy",
+    "question": "Evaluate: 0.2 * 0.3.",
+    "options": [
+      "0.05",
+      "0.06",
+      "0.6",
+      "6"
+    ],
+    "correctAnswer": "0.06",
+    "expression": "0.2*0.3",
+    "explanation": "2 × 3 = 6. Two decimal places total = 0.06."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "easy",
+    "question": "Divide: 1/2 ÷ 1/4.",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctAnswer": "2",
+    "expression": "(1/2)/(1/4)",
+    "explanation": "1/2 ÷ 1/4 = 1/2 × 4/1 = 4/2 = 2."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "easy",
+    "question": "Convert 0.25 to a fraction in lowest terms.",
+    "options": [
+      "1/2",
+      "1/4",
+      "1/5",
+      "2/5"
+    ],
+    "correctAnswer": "1/4",
+    "expression": "1/4",
+    "explanation": "0.25 = 25/100 = 1/4."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "medium",
+    "question": "Evaluate: 3/5 ÷ 9/10.",
+    "options": [
+      "1/3",
+      "2/3",
+      "3/4",
+      "4/5"
+    ],
+    "correctAnswer": "2/3",
+    "expression": "(3/5)/(9/10)",
+    "explanation": "3/5 × 10/9 = 30/45 = 2/3."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "medium",
+    "question": "Calculate: 1.5 * 2.4.",
+    "options": [
+      "3.2",
+      "3.6",
+      "3.8",
+      "4.0"
+    ],
+    "correctAnswer": "3.6",
+    "expression": "1.5*2.4",
+    "explanation": "15 × 24 = 360. Two decimal places gives 3.60 = 3.6."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "medium",
+    "question": "Evaluate: 4.8 ÷ 0.6.",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "8",
+    "expression": "4.8/0.6",
+    "explanation": "Multiply top and bottom by 10: 48 ÷ 6 = 8."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "medium",
+    "question": "Evaluate: (2/3) * (3/4) * (4/5).",
+    "options": [
+      "1/5",
+      "2/5",
+      "3/5",
+      "4/5"
+    ],
+    "correctAnswer": "2/5",
+    "expression": "(2*3*4)/(3*4*5)",
+    "explanation": "The 3s and 4s cancel out, leaving 2/5."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "medium",
+    "question": "What is 3/8 as a decimal?",
+    "options": [
+      "0.325",
+      "0.350",
+      "0.375",
+      "0.425"
+    ],
+    "correctAnswer": "0.375",
+    "expression": "3/8",
+    "explanation": "3 ÷ 8 = 0.375."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "hard",
+    "question": "Evaluate: 2 1/2 ÷ 1 1/4.",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctAnswer": "2",
+    "expression": "(5/2)/(5/4)",
+    "explanation": "5/2 ÷ 5/4 = 5/2 × 4/5 = 20/10 = 2."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "hard",
+    "question": "A cloth of length 15.75 metres is cut into pieces of 1.75 metres each. How many pieces are formed?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctAnswer": "9",
+    "expression": "15.75/1.75",
+    "explanation": "1575 ÷ 175 = 9."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "hard",
+    "question": "Evaluate: 0.125 * 64.",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "8",
+    "expression": "0.125*64",
+    "explanation": "0.125 is 1/8. 64 ÷ 8 = 8."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "hard",
+    "question": "Evaluate: (3/4 + 1/2) * 8.",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "14"
+    ],
+    "correctAnswer": "10",
+    "expression": "(3/4+1/2)*8",
+    "explanation": "3/4 + 2/4 = 5/4. 5/4 × 8 = 10."
+  },
+  {
+    "grade": 6,
+    "topic": "Fractions and Decimals",
+    "difficulty": "hard",
+    "question": "A petrol pump sells 45.6 litres of petrol for ₹4560. What is the price per litre?",
+    "options": [
+      "95",
+      "100",
+      "105",
+      "110"
+    ],
+    "correctAnswer": "100",
+    "expression": "4560/45.6",
+    "explanation": "4560 ÷ 45.6 = 100."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "easy",
+    "question": "What is (-3) + 5?",
+    "options": [
+      "-2",
+      "2",
+      "3",
+      "8"
+    ],
+    "correctAnswer": "2",
+    "expression": "-3+5",
+    "explanation": "Start at -3 and move right 5 units: -3 + 5 = 2."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "easy",
+    "question": "What is (-4) + (-6)?",
+    "options": [
+      "-10",
+      "-2",
+      "2",
+      "10"
+    ],
+    "correctAnswer": "-10",
+    "expression": "-4-6",
+    "explanation": "Adding two negative numbers: -(4 + 6) = -10."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "easy",
+    "question": "What is 8 - 12?",
+    "options": [
+      "-6",
+      "-4",
+      "4",
+      "6"
+    ],
+    "correctAnswer": "-4",
+    "expression": "8-12",
+    "explanation": "8 - 12 = -4."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "easy",
+    "question": "Which of the following is the smallest integer?",
+    "options": [
+      "-8",
+      "-5",
+      "0",
+      "2"
+    ],
+    "correctAnswer": "-8",
+    "expression": "-8",
+    "explanation": "On a number line, -8 is furthest to the left, so it is the smallest."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "easy",
+    "question": "What is 0 - 7?",
+    "options": [
+      "-7",
+      "0",
+      "7",
+      "14"
+    ],
+    "correctAnswer": "-7",
+    "expression": "0-7",
+    "explanation": "0 minus 7 is -7."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "medium",
+    "question": "What is (-15) - (-20)?",
+    "options": [
+      "-35",
+      "-5",
+      "5",
+      "35"
+    ],
+    "correctAnswer": "5",
+    "expression": "-15+20",
+    "explanation": "Subtracting a negative is adding: -15 + 20 = 5."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "medium",
+    "question": "In winter, the temperature dropped from 4°C to -6°C. By how many degrees did it drop?",
+    "options": [
+      "2",
+      "8",
+      "10",
+      "12"
+    ],
+    "correctAnswer": "10",
+    "expression": "4-(-6)",
+    "explanation": "Drop = 4 - (-6) = 4 + 6 = 10°C."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "medium",
+    "question": "Evaluate: (-8) + 12 - 9.",
+    "options": [
+      "-7",
+      "-5",
+      "5",
+      "7"
+    ],
+    "correctAnswer": "-5",
+    "expression": "-8+12-9",
+    "explanation": "-8 + 12 = 4; then 4 - 9 = -5."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "medium",
+    "question": "What is the additive inverse of -14?",
+    "options": [
+      "-14",
+      "0",
+      "1",
+      "14"
+    ],
+    "correctAnswer": "14",
+    "expression": "14",
+    "explanation": "The additive inverse of -14 is +14, because (-14) + 14 = 0."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "medium",
+    "question": "Calculate: 25 + (-30) + 15.",
+    "options": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "correctAnswer": "10",
+    "expression": "25-30+15",
+    "explanation": "25 - 30 = -5; then -5 + 15 = 10."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "hard",
+    "question": "A submarine is at -120 metres. It rises 45 metres, then dives 30 metres. What is its new depth?",
+    "options": [
+      "-105",
+      "-115",
+      "-125",
+      "-135"
+    ],
+    "correctAnswer": "-105",
+    "expression": "-120+45-30",
+    "explanation": "-120 + 45 = -75; -75 - 30 = -105 metres."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "hard",
+    "question": "Evaluate: 50 - [(-20) + (-30)].",
+    "options": [
+      "0",
+      "60",
+      "100",
+      "110"
+    ],
+    "correctAnswer": "100",
+    "expression": "50-(-20-30)",
+    "explanation": "Inside brackets: -20 + (-30) = -50. 50 - (-50) = 50 + 50 = 100."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "hard",
+    "question": "The sum of two integers is -18. If one integer is 32, what is the other integer?",
+    "options": [
+      "-50",
+      "-14",
+      "14",
+      "50"
+    ],
+    "correctAnswer": "-50",
+    "expression": "-18-32",
+    "explanation": "-18 - 32 = -50."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "hard",
+    "question": "Evaluate: (-12) + (-18) - (-40).",
+    "options": [
+      "-10",
+      "0",
+      "10",
+      "70"
+    ],
+    "correctAnswer": "10",
+    "expression": "-12-18+40",
+    "explanation": "-12 + (-18) = -30. -30 + 40 = 10."
+  },
+  {
+    "grade": 6,
+    "topic": "Integers",
+    "difficulty": "hard",
+    "question": "If a = -5 and b = -8, what is the value of a - b?",
+    "options": [
+      "-13",
+      "-3",
+      "3",
+      "13"
+    ],
+    "correctAnswer": "3",
+    "expression": "-5-(-8)",
+    "explanation": "(-5) - (-8) = -5 + 8 = 3."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the complement of a 40° angle in degrees?",
+    "options": [
+      "40",
+      "50",
+      "60",
+      "140"
+    ],
+    "correctAnswer": "50",
+    "expression": "90-40",
+    "explanation": "Complementary angles add to 90°. 90 - 40 = 50°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "What is the supplement of a 110° angle in degrees?",
+    "options": [
+      "70",
+      "80",
+      "90",
+      "100"
+    ],
+    "correctAnswer": "70",
+    "expression": "180-110",
+    "explanation": "Supplementary angles add to 180°. 180 - 110 = 70°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "If the radius of a circle is 7 cm, what is its diameter?",
+    "options": [
+      "10",
+      "14",
+      "21",
+      "28"
+    ],
+    "correctAnswer": "14",
+    "expression": "2*7",
+    "explanation": "Diameter = 2 × Radius = 2 × 7 = 14 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "When two straight lines cross, vertically opposite angles are:",
+    "options": [
+      "Equal",
+      "Complementary",
+      "Supplementary",
+      "Always 90°"
+    ],
+    "correctAnswer": "Equal",
+    "expression": null,
+    "explanation": "Vertically opposite angles are always equal."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "easy",
+    "question": "If the diameter of a circle is 20 cm, what is its radius?",
+    "options": [
+      "5",
+      "10",
+      "15",
+      "40"
+    ],
+    "correctAnswer": "10",
+    "expression": "20/2",
+    "explanation": "Radius = Diameter ÷ 2 = 20 ÷ 2 = 10 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "Two complementary angles are in the ratio 4:5. What is the measure of the smaller angle?",
+    "options": [
+      "36",
+      "40",
+      "45",
+      "50"
+    ],
+    "correctAnswer": "40",
+    "expression": "(4/9)*90",
+    "explanation": "Total parts = 9. 90 ÷ 9 = 10°. Smaller angle = 4 × 10 = 40°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "Two supplementary angles form a linear pair. If one is 65°, what is the other?",
+    "options": [
+      "105",
+      "115",
+      "125",
+      "135"
+    ],
+    "correctAnswer": "115",
+    "expression": "180-65",
+    "explanation": "180 - 65 = 115°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "In a triangle, two angles are 70° and 45°. What is the third angle?",
+    "options": [
+      "55",
+      "65",
+      "75",
+      "85"
+    ],
+    "correctAnswer": "65",
+    "expression": "180-70-45",
+    "explanation": "180 - (70 + 45) = 180 - 115 = 65°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "An angle is equal to its supplement. What is the angle?",
+    "options": [
+      "45",
+      "60",
+      "90",
+      "180"
+    ],
+    "correctAnswer": "90",
+    "expression": "180/2",
+    "explanation": "180 ÷ 2 = 90°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "medium",
+    "question": "A line segment connecting the center of a circle to any point on its boundary is called the:",
+    "options": [
+      "Chord",
+      "Radius",
+      "Diameter",
+      "Arc"
+    ],
+    "correctAnswer": "Radius",
+    "expression": null,
+    "explanation": "The radius connects the center to the circle boundary."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "An angle is 30° less than twice its complement. What is the angle in degrees?",
+    "options": [
+      "40",
+      "50",
+      "60",
+      "70"
+    ],
+    "correctAnswer": "50",
+    "expression": "(2*90-30)/3",
+    "explanation": "x = 2(90 - x) - 30 => x = 180 - 2x - 30 => 3x = 150 => x = 50°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "In an isosceles triangle, the vertex angle is twice the sum of the two base angles. What is the vertex angle?",
+    "options": [
+      "90",
+      "100",
+      "120",
+      "140"
+    ],
+    "correctAnswer": "120",
+    "expression": "(2/3)*180",
+    "explanation": "Let base angles be b each. Vertex v = 2(2b) = 4b. 4b + 2b = 180 => 6b = 180 => b = 30°. Vertex = 4 × 30 = 120°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "Two supplementary angles differ by 44°. What is the measure of the smaller angle?",
+    "options": [
+      "64",
+      "68",
+      "72",
+      "76"
+    ],
+    "correctAnswer": "68",
+    "expression": "(180-44)/2",
+    "explanation": "(180 - 44) ÷ 2 = 136 ÷ 2 = 68°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "If a triangle has exterior angle 110° and one opposite interior angle is 40°, what is the other opposite interior angle?",
+    "options": [
+      "60",
+      "70",
+      "80",
+      "90"
+    ],
+    "correctAnswer": "70",
+    "expression": "110-40",
+    "explanation": "Exterior angle theorem: exterior angle = sum of two opposite interior angles. 110 - 40 = 70°."
+  },
+  {
+    "grade": 6,
+    "topic": "Geometry",
+    "difficulty": "hard",
+    "question": "The longest chord of a circle of radius 15 cm has length:",
+    "options": [
+      "15",
+      "25",
+      "30",
+      "45"
+    ],
+    "correctAnswer": "30",
+    "expression": "2*15",
+    "explanation": "The longest chord is the diameter = 2 × 15 = 30 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "easy",
+    "question": "Find the area of a triangle with base 8 cm and height 5 cm.",
+    "options": [
+      "15",
+      "20",
+      "25",
+      "40"
+    ],
+    "correctAnswer": "20",
+    "expression": "(8*5)/2",
+    "explanation": "Area of triangle = (1/2) × base × height = (8 × 5) ÷ 2 = 20 cm²."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "easy",
+    "question": "Find the volume of a cube with side 3 cm.",
+    "options": [
+      "9",
+      "18",
+      "27",
+      "36"
+    ],
+    "correctAnswer": "27",
+    "expression": "3*3*3",
+    "explanation": "Volume of cube = side³ = 3 × 3 × 3 = 27 cm³."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "easy",
+    "question": "Find the area of a parallelogram with base 10 cm and height 6 cm.",
+    "options": [
+      "30",
+      "45",
+      "60",
+      "75"
+    ],
+    "correctAnswer": "60",
+    "expression": "10*6",
+    "explanation": "Area of parallelogram = base × height = 10 × 6 = 60 cm²."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "easy",
+    "question": "What is the volume of a cuboid with length 4 cm, width 3 cm, and height 2 cm?",
+    "options": [
+      "18",
+      "20",
+      "24",
+      "28"
+    ],
+    "correctAnswer": "24",
+    "expression": "4*3*2",
+    "explanation": "Volume = 4 × 3 × 2 = 24 cm³."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "easy",
+    "question": "If a cube has volume 64 cm³, what is the length of one edge?",
+    "options": [
+      "3",
+      "4",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "4",
+    "expression": "4",
+    "explanation": "4 × 4 × 4 = 64, so the edge length is 4 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "medium",
+    "question": "A triangular garden has area 42 m² and base 12 m. Find its height.",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correctAnswer": "7",
+    "expression": "(2*42)/12",
+    "explanation": "Height = (2 × Area) ÷ base = (2 × 42) ÷ 12 = 84 ÷ 12 = 7 m."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "medium",
+    "question": "A water tank is 5 m long, 4 m wide, and 3 m high. How many cubic metres of water can it hold?",
+    "options": [
+      "50",
+      "60",
+      "70",
+      "80"
+    ],
+    "correctAnswer": "60",
+    "expression": "5*4*3",
+    "explanation": "Volume = 5 × 4 × 3 = 60 m³."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "medium",
+    "question": "Find the total surface area of a cube of edge 5 cm.",
+    "options": [
+      "100",
+      "125",
+      "150",
+      "175"
+    ],
+    "correctAnswer": "150",
+    "expression": "6*5*5",
+    "explanation": "A cube has 6 faces. Surface area = 6 × (5 × 5) = 6 × 25 = 150 cm²."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "medium",
+    "question": "A parallelogram has area 72 cm² and height 8 cm. What is the length of its base?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctAnswer": "9",
+    "expression": "72/8",
+    "explanation": "Base = Area ÷ height = 72 ÷ 8 = 9 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "medium",
+    "question": "A rectangular cardboard box has volume 120 cm³. If length is 6 cm and width is 4 cm, what is height?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "5",
+    "expression": "120/(6*4)",
+    "explanation": "Height = Volume ÷ (length × width) = 120 ÷ 24 = 5 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "hard",
+    "question": "How many small cubes of edge 2 cm can fit inside a cuboid of dimensions 8 cm by 6 cm by 4 cm?",
+    "options": [
+      "20",
+      "24",
+      "28",
+      "32"
+    ],
+    "correctAnswer": "24",
+    "expression": "(8*6*4)/(2*2*2)",
+    "explanation": "Cuboid volume = 192 cm³. Cube volume = 8 cm³. Number of cubes = 192 ÷ 8 = 24."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "hard",
+    "question": "A swimming pool 10 m long and 6 m wide is filled with water to a depth of 1.5 m. What is the volume of water?",
+    "options": [
+      "75",
+      "80",
+      "90",
+      "100"
+    ],
+    "correctAnswer": "90",
+    "expression": "10*6*1.5",
+    "explanation": "Volume = 10 × 6 × 1.5 = 90 m³."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "hard",
+    "question": "A right triangle has legs of 6 cm and 8 cm. What is the length of the altitude drawn to its hypotenuse (10 cm)?",
+    "options": [
+      "4.2",
+      "4.8",
+      "5.2",
+      "5.6"
+    ],
+    "correctAnswer": "4.8",
+    "expression": "(6*8)/10",
+    "explanation": "Area = (6 × 8) ÷ 2 = 24 cm². Altitude = (2 × Area) ÷ hypotenuse = 48 ÷ 10 = 4.8 cm."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "hard",
+    "question": "If each edge of a cube is doubled, its volume increases by how many times?",
+    "options": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "8",
+    "expression": "2*2*2",
+    "explanation": "New volume = (2s)³ = 8s³, which is 8 times the original volume."
+  },
+  {
+    "grade": 6,
+    "topic": "Area and Volume",
+    "difficulty": "hard",
+    "question": "A cuboidal block of metal 12 cm by 6 cm by 3 cm is melted and recast into a solid cube. What is the edge of the cube in cm?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "correctAnswer": "6",
+    "expression": "6",
+    "explanation": "Volume of block = 12 × 6 × 3 = 216 cm³. Edge of cube = ∛216 = 6 cm."
+  }
+]
