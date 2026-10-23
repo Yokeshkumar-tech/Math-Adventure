@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200" width="100%" height="100%">
+  <rect width="500" height="200" rx="20" fill="#F8FAFC" />
+  <line x1="40" y1="100" x2="460" y2="100" stroke="#4F46E5" stroke-width="4" stroke-linecap="round" />
+  <!-- Arrow heads -->
+  <polygon points="460,95 475,100 460,105" fill="#4F46E5" />
+  <polygon points="40,95 25,100 40,105" fill="#4F46E5" />
+  <!-- Ticks -->
+  <line x1="50" y1="85" x2="50" y2="115" stroke="#4F46E5" stroke-width="3" />
+  <text x="50" y="140" font-family="sans-serif" font-weight="bold" font-size="14" fill="#334155" text-anchor="middle">0.0</text>
+  
+  <line x1="150" y1="90" x2="150" y2="110" stroke="#818CF8" stroke-width="2" />
+  <text x="150" y="140" font-family="sans-serif" font-weight="bold" font-size="13" fill="#64748B" text-anchor="middle">0.25</text>
+
+  <line x1="250" y1="85" x2="250" y2="115" stroke="#4F46E5" stroke-width="3" />
+  <text x="250" y="140" font-family="sans-serif" font-weight="bold" font-size="14" fill="#334155" text-anchor="middle">0.50 (1/2)</text>
+
+  <line x1="350" y1="90" x2="350" y2="110" stroke="#818CF8" stroke-width="2" />
+  <text x="350" y="140" font-family="sans-serif" font-weight="bold" font-size="13" fill="#64748B" text-anchor="middle">0.75 (3/4)</text>
+
+  <line x1="450" y1="85" x2="450" y2="115" stroke="#4F46E5" stroke-width="3" />
+  <text x="450" y="140" font-family="sans-serif" font-weight="bold" font-size="14" fill="#334155" text-anchor="middle">1.0</text>
+
+  <!-- Highlight point -->
+  <circle cx="250" cy="100" r="10" fill="#EF4444" stroke="#FFFFFF" stroke-width="3" />
+  <text x="250" y="65" font-family="sans-serif" font-weight="bold" font-size="14" fill="#DC2626" text-anchor="middle">Halfway Point = 0.50</text>
+</svg>

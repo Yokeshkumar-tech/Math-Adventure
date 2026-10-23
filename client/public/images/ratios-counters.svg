@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="100%" height="100%">
+  <rect width="400" height="200" rx="20" fill="#FAF5FF" />
+  
+  <text x="200" y="40" font-family="sans-serif" font-weight="bold" font-size="18" fill="#581C87" text-anchor="middle">Ratio 2:3 (Blue to Red)</text>
+  
+  <!-- Blue Group (2) -->
+  <g transform="translate(80, 80)">
+    <circle cx="30" cy="30" r="24" fill="#3B82F6" stroke="#1D4ED8" stroke-width="3" />
+    <text x="30" y="36" font-family="sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF" text-anchor="middle">1</text>
+    <circle cx="85" cy="30" r="24" fill="#3B82F6" stroke="#1D4ED8" stroke-width="3" />
+    <text x="85" y="36" font-family="sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF" text-anchor="middle">2</text>
+  </g>
+  
+  <!-- Divider -->
+  <text x="200" y="115" font-family="sans-serif" font-weight="bold" font-size="32" fill="#A855F7" text-anchor="middle">:</text>
+  
+  <!-- Red Group (3) -->
+  <g transform="translate(205, 80)">
+    <circle cx="30" cy="30" r="24" fill="#EF4444" stroke="#B91C1C" stroke-width="3" />
+    <text x="30" y="36" font-family="sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF" text-anchor="middle">1</text>
+    <circle cx="85" cy="30" r="24" fill="#EF4444" stroke="#B91C1C" stroke-width="3" />
+    <text x="85" y="36" font-family="sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF" text-anchor="middle">2</text>
+    <circle cx="140" cy="30" r="24" fill="#EF4444" stroke="#B91C1C" stroke-width="3" />
+    <text x="140" y="36" font-family="sans-serif" font-weight="bold" font-size="16" fill="#FFFFFF" text-anchor="middle">3</text>
+  </g>
+
+  <text x="200" y="170" font-family="sans-serif" font-weight="bold" font-size="13" fill="#6B21A8" text-anchor="middle">Total 5 Parts = 2 Blue + 3 Red</text>
+</svg>
