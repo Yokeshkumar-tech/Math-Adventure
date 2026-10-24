@@ -7,7 +7,11 @@ import {
 } from "../middleware/adminAuthMiddleware.js";
 
 import { adminLogin, adminLogout, getAdminMe } from "../controllers/adminAuthController.js";
-import { getDashboardSummary, getDashboardCharts } from "../controllers/adminDashboardController.js";
+import {
+  getDashboardSummary,
+  getDashboardCharts,
+  getActivityTimeline,
+} from "../controllers/adminDashboardController.js";
 import {
   listQuestions,
   getQuestionById,
@@ -72,6 +76,7 @@ router.get("/auth/me", requireAdmin, getAdminMe);
 // ==========================================
 router.get("/dashboard/summary", requireAdmin, getDashboardSummary);
 router.get("/dashboard/charts", requireAdmin, getDashboardCharts);
+router.get("/dashboard/activity", requireAdmin, getActivityTimeline);
 
 // ==========================================
 // 3. QUESTION BANK & BULK UPLOAD

@@ -8,6 +8,7 @@ import { nextDifficulty, startingLevel } from "../utils/adaptiveDifficulty.js";
 import { updateStreak } from "../utils/streak.js";
 import { checkAchievements } from "../utils/achievements.js";
 import { recommend } from "../utils/recommend.js";
+import { broadcastActivity } from "../services/socketService.js";
 
 // Topic alias mapping for rich adventure realm names
 const TOPIC_ALIASES = {
@@ -286,6 +287,25 @@ export async function finishQuiz(req, res) {
       starsEarned,
       pointsEarned,
     });
+
+    // Notify admin live feed
+    try {
+      const studentUser = await User.findById(session.userId).select("name nickname avatar grade");
+      broadcastActivity({
+        eventType: "quiz_complete",
+        category: "quiz",
+        playerId: session.userId,
+        playerName: studentUser?.nickname || studentUser?.name || "Adventurer",
+        playerAvatar: studentUser?.avatar || "knight",
+        title: `Completed ${session.topic} Quiz`,
+        description: `Scored ${accuracy}% (${correct}/${total} correct) • +${pointsEarned} XP`,
+        topic: session.topic,
+        score: accuracy,
+        xpGained: pointsEarned,
+        coinsGained: coinsEarned,
+        activityId: String(attempt._id),
+      });
+    } catch {}
   } catch (err) {
     console.error("Finish quiz error:", err);
     res.status(500).json({ message: "Error calculating quiz results." });

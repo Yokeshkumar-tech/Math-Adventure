@@ -7,6 +7,7 @@ import StudentAchievement from "../models/StudentAchievement.js";
 import QuizAttempt from "../models/QuizAttempt.js";
 import Lesson from "../models/Lesson.js";
 import { calculateLevel } from "../config/scoring.js";
+import { broadcastActivity } from "../services/socketService.js";
 
 function generateToken(user) {
   return jwt.sign(
@@ -81,6 +82,16 @@ export async function register(req, res) {
       token,
       user: serializeUser(user, 0),
     });
+
+    broadcastActivity({
+      eventType: "login",
+      category: "login",
+      playerId: user._id,
+      playerName: user.nickname || user.name,
+      playerAvatar: user.avatar,
+      title: `${user.nickname || user.name} joined Math Adventure`,
+      description: `Registered student account (Grade ${user.grade})`,
+    });
   } catch (err) {
     console.error("Register error:", err);
     res.status(500).json({ message: "Something went wrong. Please try again!" });
@@ -104,12 +115,25 @@ export async function login(req, res) {
       return res.status(401).json({ message: "Invalid username or password. Check and try again!" });
     }
 
+    user.lastLogin = new Date();
+    await user.save();
+
     const token = generateToken(user);
     const badgesCount = await StudentAchievement.countDocuments({ userId: user._id });
 
     res.json({
       token,
       user: serializeUser(user, badgesCount),
+    });
+
+    broadcastActivity({
+      eventType: "login",
+      category: "login",
+      playerId: user._id,
+      playerName: user.nickname || user.name,
+      playerAvatar: user.avatar,
+      title: `${user.nickname || user.name} logged in`,
+      description: `Student active in Grade ${user.grade} (Level ${user.currentLevel || 1})`,
     });
   } catch (err) {
     console.error("Login error:", err);

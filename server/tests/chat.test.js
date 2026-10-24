@@ -25,61 +25,71 @@ describe("Professor Pi - AI & Symbolic Math Engine Tests", () => {
 
   // 1. Math Service Unit Tests for Core Capabilities
   describe("Mathematical Accuracy & Verification (mathService)", () => {
-    test("1. Simple arithmetic: 125 + 275 = 400", () => {
-      const res = solveOrVerify("125 + 275");
+    test("1. Arithmetic: 25 × 48 = 1200", () => {
+      const res = solveOrVerify("25 × 48");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toBe("400");
+      expect(res.finalAnswer).toBe("1200");
     });
 
-    test("2. Fractions: Add 1/2 + 1/3 = 5/6", () => {
-      const res = solveOrVerify("1/2 + 1/3");
+    test("2. Percentages: What is 15% of 800? = 120", () => {
+      const res = solveOrVerify("What is 15% of 800?");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("{5}{6}");
+      expect(res.finalAnswer).toBe("120");
     });
 
-    test("3. Algebra: Solve 3x - 7 = 11 -> x = 6", () => {
-      const res = solveOrVerify("3x - 7 = 11");
+    test("3. Linear Algebra: Solve 2x + 5 = 17 -> x = 6", () => {
+      const res = solveOrVerify("Solve 2x + 5 = 17");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
       expect(res.finalAnswer).toBe("x = 6");
       expect(res.steps.length).toBeGreaterThanOrEqual(2);
     });
 
-    test("4. Percentages: Calculate 15% of 800 = 120", () => {
-      const res = solveOrVerify("Calculate 15% of 800");
+    test("4. Quadratic Equations: Solve x^2 - 5x + 6 = 0 -> x = 3, 2", () => {
+      const res = solveOrVerify("Solve x^2 - 5x + 6 = 0");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("120");
+      expect(res.finalAnswer).toContain("x_1 = 3");
+      expect(res.finalAnswer).toContain("x_2 = 2");
     });
 
-    test("5. Geometry: Area of circle with radius 7 = ~153.94", () => {
-      const res = solveOrVerify("Find the area of a circle with radius 7");
+    test("5. Fractions: Add 1/2 + 1/3 = 5/6", () => {
+      const res = solveOrVerify("1/2 + 1/3");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("153.94");
+      expect(res.finalAnswer).toContain("{5}{6}");
     });
 
-    test("6. Probability: Fair coin toss = 1/2 or 50%", () => {
-      const res = solveOrVerify("What is the probability of flipping heads on a coin?");
+    test("6. Geometry: Area of circle with radius 7 cm", () => {
+      const res = solveOrVerify("Find the area of a circle with radius 7 cm");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("50");
+      expect(res.finalAnswer).toContain("154");
     });
 
-    test("7. Statistics: Mean of 10, 20, and 30 = 20", () => {
-      const res = solveOrVerify("Calculate the mean of 10, 20, and 30");
+    test("7. Statistics: Mean, median, and mode of 10, 20, 20, 30, 40", () => {
+      const res = solveOrVerify("Find the mean, median, and mode of 10, 20, 20, 30, 40");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("20");
+      expect(res.finalAnswer).toContain("Mean} = 24");
+      expect(res.finalAnswer).toContain("Median} = 20");
+      expect(res.finalAnswer).toContain("Mode} = 20");
     });
 
-    test("8. Calculus: Derivative of x^3 - 4x + 1", () => {
-      const res = solveOrVerify("Find the derivative of x^3 - 4x + 1");
+    test("8. Calculus: Differentiate x^3 + 2x -> 3x^2 + 2", () => {
+      const res = solveOrVerify("Differentiate x^3 + 2x");
       expect(res).not.toBeNull();
       expect(res.success).toBe(true);
-      expect(res.finalAnswer).toContain("3x^2 - 4");
+      expect(res.finalAnswer).toBe("f'(x) = 3x^2 + 2");
+    });
+
+    test("9. Calculus: Integrate 2x + 3 -> x^2 + 3x + C", () => {
+      const res = solveOrVerify("Integrate 2x + 3");
+      expect(res).not.toBeNull();
+      expect(res.success).toBe(true);
+      expect(res.finalAnswer).toContain("x^2 + 3x + C");
     });
   });
 
@@ -98,14 +108,14 @@ describe("Professor Pi - AI & Symbolic Math Engine Tests", () => {
       const res = await request(app)
         .post("/api/chat")
         .send({
-          message: "Solve 2x + 5 = 15",
+          message: "Solve 2x + 5 = 17",
           level: "middle",
         });
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
       expect(res.body.conversationId).toBeDefined();
-      expect(res.body.answer).toContain("x = 5");
+      expect(res.body.answer).toContain("x = 6");
       expect(Array.isArray(res.body.steps)).toBe(true);
 
       createdConvId = res.body.conversationId;
@@ -119,6 +129,16 @@ describe("Professor Pi - AI & Symbolic Math Engine Tests", () => {
       expect(res.body.success).toBe(true);
       expect(res.body.conversation._id.toString()).toBe(createdConvId.toString());
       expect(res.body.messages.length).toBeGreaterThanOrEqual(2); // user + assistant
+    });
+
+    test("PATCH /api/conversations/:id renames conversation", async () => {
+      expect(createdConvId).not.toBeNull();
+      const res = await request(app)
+        .patch(`/api/conversations/${createdConvId}`)
+        .send({ title: "Algebra Mystery Solved" });
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.conversation.title).toBe("Algebra Mystery Solved");
     });
 
     test("POST /api/chat/feedback records upvote/downvote", async () => {

@@ -4,7 +4,15 @@ import Question from "../models/Question.js";
 import QuizAttempt from "../models/QuizAttempt.js";
 import World from "../models/World.js";
 import Mission from "../models/Mission.js";
+import PlayerProgress from "../models/PlayerProgress.js";
+import Message from "../models/Message.js";
+import RewardHistory from "../models/RewardHistory.js";
+import ActivityEvent from "../models/ActivityEvent.js";
+import { getOnlineCount, getOnlinePlayersList } from "../services/socketService.js";
 
+/**
+ * Get comprehensive live KPI summary for Admin Overview
+ */
 export async function getDashboardSummary(req, res) {
   try {
     const todayStr = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
@@ -20,7 +28,10 @@ export async function getDashboardSummary(req, res) {
       accuracyAgg,
       totalRealms,
       totalMissions,
-      recentAttempts,
+      completedMissions,
+      tutorRequests,
+      userCurrencyAgg,
+      recentEvents,
     ] = await Promise.all([
       User.countDocuments({ role: "student" }),
       User.countDocuments({ role: "student", lastActiveDate: todayStr }),
@@ -34,18 +45,62 @@ export async function getDashboardSummary(req, res) {
       ]),
       World.countDocuments(),
       Mission.countDocuments(),
-      QuizAttempt.find()
-        .sort({ completedAt: -1 })
-        .limit(8)
-        .populate("userId", "name username nickname currentLevel avatar")
+      PlayerProgress.countDocuments({ status: "completed" }),
+      Message.countDocuments({ role: "user" }),
+      User.aggregate([
+        { $match: { role: "student" } },
+        {
+          $group: {
+            _id: null,
+            totalXP: { $sum: "$totalXP" },
+            totalCoins: { $sum: "$totalCoins" },
+            totalStars: { $sum: "$totalStars" },
+          },
+        },
+      ]),
+      ActivityEvent.find()
+        .sort({ createdAt: -1 })
+        .limit(15)
         .lean(),
     ]);
 
-    const avgAccuracy = accuracyAgg[0]?.avgAccuracy ? Math.round(accuracyAgg[0].avgAccuracy) : 84;
-    const totalPointsAwarded = accuracyAgg[0]?.totalEarned || 0;
+    const avgAccuracy = accuracyAgg[0]?.avgAccuracy ? Math.round(accuracyAgg[0].avgAccuracy) : 0;
+    const totalPointsAwarded = userCurrencyAgg[0]?.totalXP || accuracyAgg[0]?.totalEarned || 0;
+    const totalCoinsInCirculation = userCurrencyAgg[0]?.totalCoins || 0;
+    const totalStarsAwarded = userCurrencyAgg[0]?.totalStars || 0;
+    const onlinePlayers = getOnlineCount();
+
+    // If no ActivityEvents exist yet, generate from recent QuizAttempts
+    let activityFeed = recentEvents;
+    if (!activityFeed || activityFeed.length === 0) {
+      const recentAttempts = await QuizAttempt.find()
+        .sort({ completedAt: -1 })
+        .limit(8)
+        .populate("userId", "name username nickname currentLevel avatar")
+        .lean();
+
+      activityFeed = recentAttempts.map((att) => ({
+        _id: att._id,
+        eventType: "quiz_complete",
+        category: "quiz",
+        playerId: att.userId?._id,
+        playerName: att.userId?.nickname || att.userId?.name || "Adventurer",
+        playerAvatar: att.userId?.avatar || "knight",
+        title: `Completed ${att.topic} Quiz`,
+        description: `Scored ${att.accuracy}% with +${att.pointsEarned} XP earned`,
+        topic: att.topic,
+        score: att.accuracy,
+        xpGained: att.pointsEarned,
+        coinsGained: Math.round(att.pointsEarned / 2),
+        createdAt: att.completedAt,
+      }));
+    }
 
     res.json({
+      success: true,
+      // 14 Live KPIs
       totalPlayers,
+      onlinePlayers,
       activeToday,
       totalQuestions,
       publishedQuestions,
@@ -54,25 +109,61 @@ export async function getDashboardSummary(req, res) {
       totalAttempts,
       avgAccuracy,
       totalPointsAwarded,
+      totalCoinsInCirculation,
+      totalStarsAwarded,
       totalRealms,
       totalMissions,
-      recentActivity: recentAttempts.map((att) => ({
-        id: att._id,
-        playerName: att.userId?.nickname || att.userId?.name || "Adventurer",
-        username: att.userId?.username || "student",
-        topic: att.topic,
-        accuracy: att.accuracy,
-        points: att.pointsEarned,
-        completedAt: att.completedAt,
-        level: att.userId?.currentLevel || 1,
-      })),
+      completedMissions,
+      tutorRequests,
+      // Live feed & online users
+      activityFeed,
+      onlinePlayersList: getOnlinePlayersList(),
     });
   } catch (err) {
     console.error("Dashboard summary error:", err);
-    res.status(500).json({ message: "Failed to load dashboard metrics." });
+    res.status(500).json({ success: false, message: "Failed to load dashboard metrics." });
   }
 }
 
+/**
+ * Get paginated activity timeline with category filtering
+ */
+export async function getActivityTimeline(req, res) {
+  try {
+    const { category = "all", page = 1, limit = 20 } = req.query;
+    const pageNum = Math.max(1, parseInt(page, 10));
+    const limitNum = Math.min(50, Math.max(1, parseInt(limit, 10)));
+    const skip = (pageNum - 1) * limitNum;
+
+    const filter = {};
+    if (category && category !== "all") {
+      filter.category = category;
+    }
+
+    const [events, total] = await Promise.all([
+      ActivityEvent.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limitNum).lean(),
+      ActivityEvent.countDocuments(filter),
+    ]);
+
+    res.json({
+      success: true,
+      events,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        totalPages: Math.ceil(total / limitNum),
+      },
+    });
+  } catch (err) {
+    console.error("Activity timeline error:", err);
+    res.status(500).json({ success: false, message: "Failed to load activity timeline." });
+  }
+}
+
+/**
+ * Get interactive charts data
+ */
 export async function getDashboardCharts(req, res) {
   try {
     // 1. Attempts over the past 7 days
@@ -89,7 +180,7 @@ export async function getDashboardCharts(req, res) {
       { $sort: { _id: 1 } },
     ]);
 
-    // Fill missing dates in the 7-day window
+    // Fill dates in 7-day window
     const chartTimeline = [];
     for (let i = 6; i >= 0; i--) {
       const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
@@ -97,8 +188,8 @@ export async function getDashboardCharts(req, res) {
       const found = timelineAgg.find((item) => item._id === dateKey);
       chartTimeline.push({
         date: dateKey.slice(5), // "MM-DD"
-        attempts: found ? found.attempts : Math.floor(Math.random() * 3) + 1,
-        accuracy: found ? Math.round(found.avgAccuracy) : 80 + (i % 8),
+        attempts: found ? found.attempts : 0,
+        accuracy: found ? Math.round(found.avgAccuracy) : 0,
       });
     }
 
@@ -117,7 +208,7 @@ export async function getDashboardCharts(req, res) {
 
     const topicPerformance = topicAgg.map((t) => ({
       topic: t._id || "General Math",
-      accuracy: Math.round(t.avgAccuracy || 75),
+      accuracy: Math.round(t.avgAccuracy || 0),
       attempts: t.attempts,
     }));
 

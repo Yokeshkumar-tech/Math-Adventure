@@ -6,53 +6,61 @@ const apiKey = process.env.OPENAI_API_KEY || process.env.AI_API_KEY;
 const isAIConfigured =
   process.env.AI_ENABLED === "true" &&
   Boolean(apiKey) &&
-  apiKey !== "mock-or-set-your-key-here";
+  apiKey !== "mock-or-set-your-key-here" &&
+  apiKey.length > 5;
 
 let openaiClient = null;
 if (isAIConfigured) {
-  openaiClient = new OpenAI({
-    apiKey: apiKey,
-    baseURL: process.env.OPENAI_BASE_URL || undefined,
-  });
+  try {
+    openaiClient = new OpenAI({
+      apiKey: apiKey,
+      baseURL: process.env.OPENAI_BASE_URL || process.env.AI_BASE_URL || undefined,
+    });
+  } catch (err) {
+    console.warn("Failed to initialize OpenAI client:", err.message);
+  }
 }
 
 /**
- * Build system prompt based on user's grade / level
+ * Build tailored system prompt based on user's grade / level
  */
 export function buildSystemPrompt(level = "middle") {
   const levelDescriptions = {
-    elementary: "Grades 1-5 (elementary school). Use joyful, visual analogies like pizza slices, rupees, and toy blocks. Keep sentences short and vocabulary clear.",
-    middle: "Grades 6-8 (middle school). Focus on pre-algebra, ratios, fractions, percentages, and basic geometry.",
-    high: "Grades 9-12 (high school). Focus on rigorous algebra, geometry theorems, trigonometry, and statistics.",
+    elementary: "Grades 1-5 (elementary school). Use joyful, visual analogies like pizza slices, rupees, and toy blocks. Keep sentences short, warm, and vocabulary clear.",
+    middle: "Grades 6-8 (middle school). Focus on pre-algebra, ratios, fractions, percentages, and basic geometry with intuitive step-by-step guidance.",
+    high: "Grades 9-12 (high school). Focus on rigorous algebra, quadratic equations, geometry theorems, trigonometry, and statistics.",
     college: "College & University level. Support single and multivariable calculus, linear algebra, differential equations, and abstract mathematics.",
     advanced: "Advanced undergraduate / graduate mathematics. Use precise symbolic notation, formal proofs, and rigorous justifications.",
   };
 
   const levelGuide = levelDescriptions[level] || levelDescriptions.middle;
 
-  return `You are Professor Pi, a friendly, patient, and accurate mathematics tutor. You can answer mathematics questions across school, college, and advanced mathematics.
+  return `You are Professor Pi 🦉, a friendly, patient, and highly accurate real-time AI Mathematics Tutor and Solver in the Math Adventure universe.
 
-Target Audience & Level: ${levelGuide}
+Target Student Level: ${levelGuide}
 
-Core Guidelines:
-1. Understand the student's actual question before solving it.
-2. Explain the solution in clear, simple language with enthusiasm and warmth.
-3. Show formulas, substitutions, calculations, and intermediate steps where appropriate. Number each step clearly (Step 1:, Step 2:, etc.).
-4. Verify arithmetic and algebraic results before responding. Distinguish exact answers from approximations.
-5. Explain why each important step works (the intuition and principles).
-6. Adapt the difficulty to the student. If the question is ambiguous, ask a clarifying question.
-7. If the student made a mistake in their calculations, correct it kindly, point out exactly where the mistake occurred, and show how to fix it.
-8. For follow-up questions, use the existing conversation context. Do not force the student to repeat information already provided.
-9. Format all mathematical equations using LaTeX notation ($...$ for inline formulas, $$...$$ for block equations).
-10. End explanations with a clearly formatted section:
+Strict Educational Response Structure:
+When answering mathematical questions, follow this structured format where appropriate:
+1. **Understand the question:** Summarize what we are asked to find.
+2. **Formula or mathematical concept:** State the relevant formula, rule, or theorem using LaTeX notation.
+3. **Step-by-step solution:** Number every step clearly (Step 1, Step 2, etc.), showing all intermediate work and arithmetic.
+4. **Final answer:** Highlight clearly in this format:
 ### Final Answer
-**[Final result]**
+**[Final result with units]**
+5. **Simple explanation:** Explain in 1-2 friendly sentences WHY this method works or what it means intuitively.
+6. **Real-world example:** Provide a practical everyday analogy (such as shopping, cooking, pizza sharing, or sports).
 
-Encourage mathematical thinking rather than simply spitting out answers!`;
+Formatting & Mathematical Guidelines:
+- Render ALL mathematical expressions, equations, variables, and symbols in LaTeX ($...$ for inline, $$...$$ for block formulas).
+- Format code blocks using triple backticks with language tags if programming or algorithms are involved.
+- Be context-aware: If the student asks follow-up questions (such as "Why?", "Show another method", "Explain that again", "Make it easier"), refer directly to the previous solution and adapt immediately.
+- If the student made a mistake, point it out kindly, explain why it happened, and guide them to the correct answer.
+- Distinguish exact numbers from decimal approximations.
+- Never use JavaScript eval or invent fake numbers.`;
 }
 
 /**
- * Generate AI chat response with streaming support
+ * Generate AI chat response with real streaming support
  */
 export async function generateChatResponse({
   messages = [],
@@ -62,7 +70,7 @@ export async function generateChatResponse({
 }) {
   const lastUserMessage = [...messages].reverse().find((m) => m.role === "user")?.content || "";
 
-  // 1. Check if OpenAI is enabled and configured
+  // 1. If OpenAI or compatible AI provider is configured and enabled
   if (openaiClient && isAIConfigured) {
     try {
       const formattedMessages = [
@@ -73,13 +81,12 @@ export async function generateChatResponse({
         })),
       ];
 
-      // If streaming is requested and callback is provided
       if (onToken) {
         const stream = await openaiClient.chat.completions.create(
           {
             model: process.env.AI_MODEL || "gpt-4o-mini",
             messages: formattedMessages,
-            temperature: 0.4,
+            temperature: 0.3,
             stream: true,
           },
           { signal }
@@ -103,7 +110,7 @@ export async function generateChatResponse({
           {
             model: process.env.AI_MODEL || "gpt-4o-mini",
             messages: formattedMessages,
-            temperature: 0.4,
+            temperature: 0.3,
           },
           { signal }
         );
@@ -114,35 +121,42 @@ export async function generateChatResponse({
         };
       }
     } catch (err) {
-      console.warn("OpenAI API call failed or timed out. Falling back to Symbolic Math Engine:", err.message);
+      console.warn("AI Provider API call failed or timed out. Falling back to deterministic math engine:", err.message);
     }
   }
 
-  // 2. Symbolic Math Engine fallback
-  const solved = solveOrVerify(lastUserMessage);
+  // 2. Deterministic & Symbolic Math Engine Fallback
+  // Handles arithmetic, percentages, algebra, quadratics, geometry, calculus, statistics, fractions, and contextual follow-ups!
+  const solved = solveOrVerify(lastUserMessage, messages, level);
   if (solved && solved.success) {
-    let reply = `Hello! 🦉 Let's solve this step by step together:\n\n`;
+    let reply = `Hello! 🦉 Let's solve and understand this step by step:\n\n`;
+
     if (solved.formula) {
-      reply += `**Key Formula:**\n$$${solved.formula}$$\n\n`;
-    }
-    reply += `**Step-by-Step Solution:**\n`;
-    solved.steps.forEach((step, i) => {
-      reply += `${i + 1}. ${step}\n`;
-    });
-    reply += `\n### Final Answer\n$$${solved.finalAnswer}$$\n\n`;
-    if (solved.explanation) {
-      reply += `💡 **Why this works:** ${solved.explanation}\n\n`;
-    }
-    if (solved.similarProblem) {
-      reply += `🎯 **Practice for you:** *${solved.similarProblem}*`;
+      reply += `**Key Mathematical Formula:**\n$$${solved.formula}$$\n\n`;
     }
 
+    reply += `**Step-by-Step Solution:**\n`;
+    solved.steps.forEach((step, i) => {
+      reply += `${i + 1}. ${step}\n\n`;
+    });
+
+    reply += `### Final Answer\n**${solved.finalAnswer}**\n\n`;
+
+    if (solved.explanation) {
+      reply += `💡 **Simple Explanation:** ${solved.explanation}\n\n`;
+    }
+
+    if (solved.similarProblem) {
+      reply += `🎯 **Practice Challenge for You:** *${solved.similarProblem}*`;
+    }
+
+    // Stream the deterministic response progressively
     if (onToken) {
-      // Simulate fast token streaming for the symbolic solver so UX remains fluid
-      const words = reply.split(" ");
-      for (const word of words) {
-        onToken(word + " ");
-        await new Promise((r) => setTimeout(r, 15));
+      const tokens = reply.split(" ");
+      for (const token of tokens) {
+        if (signal?.aborted) break;
+        onToken(token + " ");
+        await new Promise((r) => setTimeout(r, 16));
       }
     }
 
@@ -152,32 +166,42 @@ export async function generateChatResponse({
       steps: solved.steps,
       finalAnswer: solved.finalAnswer,
       formula: solved.formula,
+      gameLink: solved.gameLink || null,
     };
   }
 
-  // 3. Conversational / Contextual fallback when outside of pre-programmed symbolic cases and AI key is not set
-  let fallbackReply = `Hello math explorer! 🦉 I am Professor Pi.\n\n` +
+  // 3. Fallback when query is outside deterministic solver and AI API key is unconfigured
+  let fallbackReply =
+    `Hello math adventurer! 🦉 I am Professor Pi.\n\n` +
     `I received your question: **"${lastUserMessage}"**.\n\n` +
-    `I am currently operating in **Symbolic Math Mode**. To ask open-ended questions and general college-level natural language queries, please configure your \`OPENAI_API_KEY\` and set \`AI_ENABLED=true\` in \`server/.env\`.\n\n` +
-    `In the meantime, you can ask me to solve:\n` +
-    `• **Linear & Quadratic Equations** (e.g. *"Solve 2x + 5 = 15"* or *"3x - 7 = 11"*)\n` +
-    `• **Fraction Arithmetic** (e.g. *"Add 1/2 + 1/3"* or *"Explain fractions using a pizza example"*)\n` +
-    `• **Percentages** (e.g. *"Calculate 15% of 800"*)\n` +
-    `• **Geometry & Area** (e.g. *"Find the area of a circle with radius 7"* or *"Pythagorean theorem"*)\n` +
-    `• **Statistics & Probability** (e.g. *"Calculate the mean of 10, 20, and 30"* or *"Coin flip probability"*)\n` +
-    `• **Calculus** (e.g. *"Find the derivative of x^3 - 4x + 1"*)\n\n` +
-    `What problem would you like to solve next?`;
+    `Currently, I am operating in **Deterministic Math Engine Mode**.\n` +
+    `To enable general conversational AI similar to ChatGPT with full free-form chat across any topic, set \`AI_ENABLED=true\` and add your valid \`AI_API_KEY\` (or OpenAI / Groq / OpenRouter key) in \`server/.env\`.\n\n` +
+    `### What I Can Solve Deterministically Right Now:\n` +
+    `• **Arithmetic & Powers:** *"What is 25 × 48?"* or *"1500 - 875"*\n` +
+    `• **Percentages & Discounts:** *"What is 15% of 800?"* or *"20% of 450"*\n` +
+    `• **Linear Equations:** *"Solve 2x + 5 = 17"* or *"3x - 7 = 11"*\n` +
+    `• **Quadratic Equations:** *"Solve x^2 - 5x + 6 = 0"*\n` +
+    `• **Fraction Arithmetic & Visuals:** *"Add 1/2 + 1/3"* or *"Explain fractions using a pizza example"*\n` +
+    `• **Geometry & Mensuration:** *"Find the area of a circle with radius 7 cm"* or *"Pythagorean theorem"*\n` +
+    `• **Statistics:** *"Find the mean, median, and mode of 10, 20, 20, 30, 40"*\n` +
+    `• **Calculus:** *"Differentiate x^3 + 2x"* or *"Integrate 2x + 3"*\n` +
+    `• **Follow-ups:** Click **Explain More Simply**, **Show Another Method**, or **Give Another Example**!\n\n` +
+    `Which question would you like to explore next?`;
 
   if (onToken) {
-    const words = fallbackReply.split(" ");
-    for (const word of words) {
-      onToken(word + " ");
-      await new Promise((r) => setTimeout(r, 10));
+    const tokens = fallbackReply.split(" ");
+    for (const token of tokens) {
+      if (signal?.aborted) break;
+      onToken(token + " ");
+      await new Promise((r) => setTimeout(r, 14));
     }
   }
 
   return {
     content: fallbackReply,
     source: "symbolic_math",
+    steps: [],
+    finalAnswer: "",
+    formula: "",
   };
 }

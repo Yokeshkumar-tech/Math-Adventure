@@ -7,6 +7,7 @@ import World from "../models/World.js";
 import RewardHistory from "../models/RewardHistory.js";
 import { checkAchievements } from "../utils/achievements.js";
 import crypto from "crypto";
+import { broadcastActivity } from "../services/socketService.js";
 
 // Active in-memory game sessions cache (can also be saved to DB)
 const activeSessions = new Map();
@@ -344,6 +345,26 @@ export async function completeGame(req, res) {
     // Refresh user & check achievements
     const updatedUser = await User.findById(req.user.id);
     const newBadges = await checkAchievements(req.user.id, { accuracy, total });
+
+    // Live broadcast to admin activity feed
+    try {
+      broadcastActivity({
+        eventType: mission.isBoss ? "boss_defeated" : "mission_complete",
+        category: "quiz",
+        playerId: req.user.id,
+        playerName: updatedUser?.nickname || updatedUser?.name || "Adventurer",
+        playerAvatar: updatedUser?.avatar || "knight",
+        title: mission.isBoss ? `Defeated Math Boss in ${mission.worldSlug}` : `Completed ${mission.title}`,
+        description: `Scored ${correctCount}/${total} (${accuracy}%) in ${mission.topic}`,
+        topic: mission.topic,
+        score: accuracy,
+        xpGained: totalXpFromQuestions + 50,
+        coinsGained: totalCoinsFromQuestions + bonusCoins,
+        activityId: String(mission._id),
+      });
+    } catch (e) {
+      console.warn("Failed to broadcast mission activity:", e.message);
+    }
 
     res.json({
       missionId: mission._id,

@@ -1,6 +1,6 @@
-// server/controllers/adminQuestionController.js
 import Question from "../models/Question.js";
 import { createAuditRecord } from "../middleware/adminAuthMiddleware.js";
+import { broadcastActivity } from "../services/socketService.js";
 
 export async function listQuestions(req, res) {
   try {
@@ -314,6 +314,17 @@ export async function togglePublish(req, res) {
       changeSummary: `Changed status of question to '${nextStatus}'`,
       req,
     });
+
+    if (nextStatus === "published") {
+      broadcastActivity({
+        eventType: "admin_publish",
+        category: "admin",
+        title: "Question published to student game",
+        description: `New ${question.difficulty} question active in ${question.topic}`,
+        topic: question.topic,
+        activityId: String(question._id),
+      });
+    }
 
     res.json({ question, message: `Question is now ${nextStatus}.` });
   } catch (err) {

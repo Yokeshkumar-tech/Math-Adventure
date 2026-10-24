@@ -5,6 +5,7 @@ import {
   getConversations,
   createConversation,
   getConversation,
+  renameConversation,
   deleteConversation,
   submitFeedback,
   generateQuiz,
@@ -22,6 +23,7 @@ router.post("/chat/feedback", optionalAuth, submitFeedback);
 router.get("/conversations", optionalAuth, getConversations);
 router.post("/conversations", optionalAuth, createConversation);
 router.get("/conversations/:id", optionalAuth, getConversation);
+router.patch("/conversations/:id", optionalAuth, renameConversation);
 router.delete("/conversations/:id", optionalAuth, deleteConversation);
 
 // Educational & Verification tools

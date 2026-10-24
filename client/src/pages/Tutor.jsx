@@ -1,5 +1,6 @@
 // client/src/pages/Tutor.jsx
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import api from "../services/api.js";
 import MathRenderer from "../components/MathRenderer.jsx";
@@ -15,6 +16,8 @@ import {
   PlusCircle,
   History,
   Trash2,
+  Edit2,
+  Edit3,
   ThumbsUp,
   ThumbsDown,
   Lightbulb,
@@ -28,6 +31,9 @@ import {
   ShieldCheck,
   X,
   Menu,
+  Compass,
+  MapPin,
+  ExternalLink,
 } from "lucide-react";
 
 export default function Tutor() {
@@ -36,26 +42,32 @@ export default function Tutor() {
   // State
   const [level, setLevel] = useState("middle"); // elementary, middle, high, college, advanced
   const [conversationId, setConversationId] = useState(null);
+  const [conversationTitle, setConversationTitle] = useState("Math Chat");
   const [conversations, setConversations] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [editingTitleId, setEditingTitleId] = useState(null);
+  const [newTitleText, setNewTitleText] = useState("");
+
   const [messages, setMessages] = useState([
     {
       id: "welcome-1",
       role: "assistant",
-      content: `Hello math adventurer! 🦉 I'm **Professor Pi**, your real-time AI mathematics companion.\n\nYou can ask me **any mathematics question** in natural language: from simple arithmetic and fractions to algebra, geometry, probability, statistics, trigonometry, or calculus!\n\nWhat would you like to solve or understand today?`,
+      content: `Hello math adventurer! 🦉 I'm **Professor Pi**, your real-time AI mathematics companion.\n\nYou can ask me **any mathematics question** in natural language: from arithmetic ($25 \\times 48$), fractions, and percentages to algebra ($2x + 5 = 17$), quadratics, geometry, trigonometry, and calculus!\n\nWhat would you like to solve or understand today?`,
       finalAnswer: "",
       steps: [],
       source: "system",
       feedback: null,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
   const [isListening, setIsListening] = useState(false);
   const [speakingId, setSpeakingId] = useState(null);
-  const [practiceModal, setPracticeModal] = useState(null); // { questions: [], activeIndex: 0 }
+  const [practiceModal, setPracticeModal] = useState(null); // { topic, questions, activeIndex }
   const [practiceAnswers, setPracticeAnswers] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -92,7 +104,18 @@ export default function Tutor() {
     }
   }, [user?.grade]);
 
-  // Handle Speech Recognition
+  // Clean up speech and stream on unmount
+  useEffect(() => {
+    return () => {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      abortControllerRef.current?.abort();
+      recognitionRef.current?.stop();
+    };
+  }, []);
+
+  // Handle Speech Recognition (Microphone input)
   const toggleSpeechRecognition = () => {
     if (isListening) {
       recognitionRef.current?.stop();
@@ -102,7 +125,7 @@ export default function Tutor() {
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.");
+      alert("Speech recognition is not supported in this browser. Please use Google Chrome, Edge, or Safari.");
       return;
     }
 
@@ -129,7 +152,7 @@ export default function Tutor() {
     }
   };
 
-  // Text to Speech
+  // Text to Speech (Listen aloud)
   const speakMessage = (msgId, text) => {
     if (!("speechSynthesis" in window)) return;
 
@@ -140,15 +163,19 @@ export default function Tutor() {
     }
 
     window.speechSynthesis.cancel();
-    // Clean text of markdown and LaTeX symbols for clear audio
+
+    // Clean text of markdown and LaTeX symbols for clear, pleasant spoken voice
     const cleanSpeech = text
-      .replace(/\$\$[\s\S]*?\$\$/g, "formula")
-      .replace(/\$[^\$]+?\$/g, "equation")
-      .replace(/[\*#_`]/g, "");
+      .replace(/\$\$[\s\S]*?\$\$/g, " mathematical formula ")
+      .replace(/\$[^\$]+?\$/g, " equation ")
+      .replace(/[\*#_`]/g, "")
+      .replace(/\\times/g, " times ")
+      .replace(/\\div/g, " divided by ")
+      .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, "$1 over $2");
 
     const utterance = new SpeechSynthesisUtterance(cleanSpeech);
     utterance.rate = 1.0;
-    utterance.pitch = 1.05; // Slightly warm tone for Professor Pi
+    utterance.pitch = 1.05; // Friendly warm tone for Professor Pi
     utterance.onend = () => setSpeakingId(null);
     utterance.onerror = () => setSpeakingId(null);
 
@@ -156,7 +183,7 @@ export default function Tutor() {
     window.speechSynthesis.speak(utterance);
   };
 
-  // Copy message
+  // Copy message to clipboard
   const copyToClipboard = (msgId, content) => {
     navigator.clipboard.writeText(content);
     setCopiedId(msgId);
@@ -169,6 +196,7 @@ export default function Tutor() {
       abortControllerRef.current?.abort();
     }
     setConversationId(null);
+    setConversationTitle("Math Chat");
     setMessages([
       {
         id: `welcome-${Date.now()}`,
@@ -178,6 +206,7 @@ export default function Tutor() {
         steps: [],
         source: "system",
         feedback: null,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
     ]);
     setShowHistory(false);
@@ -191,6 +220,7 @@ export default function Tutor() {
       const res = await api.get(`/conversations/${convId}`);
       if (res.data.success) {
         setConversationId(res.data.conversation._id);
+        setConversationTitle(res.data.conversation.title || "Math Chat");
         if (res.data.conversation.level) setLevel(res.data.conversation.level);
         setMessages(
           res.data.messages.map((m) => ({
@@ -202,6 +232,8 @@ export default function Tutor() {
             formula: m.formula || "",
             source: m.source || "ai",
             feedback: m.feedback || null,
+            gameLink: m.metadata?.gameLink || null,
+            timestamp: new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
           }))
         );
         setShowHistory(false);
@@ -210,6 +242,25 @@ export default function Tutor() {
       console.error("Error loading conversation:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Rename conversation
+  const handleRenameConversation = async (convId, title) => {
+    if (!title || !title.trim()) return;
+    try {
+      const res = await api.patch(`/conversations/${convId}`, { title: title.trim() });
+      if (res.data.success) {
+        setConversations((prev) =>
+          prev.map((c) => (c._id === convId ? { ...c, title: title.trim() } : c))
+        );
+        if (conversationId === convId) {
+          setConversationTitle(title.trim());
+        }
+        setEditingTitleId(null);
+      }
+    } catch (err) {
+      console.error("Error renaming conversation:", err);
     }
   };
 
@@ -246,15 +297,32 @@ export default function Tutor() {
     }
   };
 
+  // Edit and resubmit a user message
+  const handleEditUserMessage = (msgContent) => {
+    setInput(msgContent);
+    inputRef.current?.focus();
+  };
+
+  // Regenerate last assistant response
+  const handleRegenerate = () => {
+    const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
+    if (lastUserMsg) {
+      handleSend(lastUserMsg.content);
+    }
+  };
+
   // Send message with streaming
   const handleSend = async (messageText) => {
     const textToSend = messageText || input;
     if (!textToSend.trim() || loading || isStreaming) return;
 
+    const userTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
     const userMessage = {
       id: `user-${Date.now()}`,
       role: "user",
       content: textToSend.trim(),
+      timestamp: userTime,
     };
 
     const tempAssistantId = `assistant-${Date.now()}`;
@@ -266,6 +334,7 @@ export default function Tutor() {
       steps: [],
       source: "ai",
       feedback: null,
+      timestamp: userTime,
     };
 
     setMessages((prev) => [...prev, userMessage, initialAssistantMessage]);
@@ -341,13 +410,18 @@ export default function Tutor() {
                           finalAnswer: data.finalAnswer || "",
                           formula: data.formula || "",
                           source: data.source || "ai",
+                          gameLink: data.gameLink || null,
                         }
                       : m
                   )
                 );
                 // Refresh conversations list
                 api.get("/conversations").then((r) => {
-                  if (r.data.success) setConversations(r.data.conversations || []);
+                  if (r.data.success) {
+                    setConversations(r.data.conversations || []);
+                    const current = r.data.conversations?.find((c) => c._id === data.conversationId);
+                    if (current) setConversationTitle(current.title);
+                  }
                 });
               }
             } catch (err) {
@@ -358,7 +432,7 @@ export default function Tutor() {
       }
     } catch (err) {
       if (err.name === "AbortError") {
-        console.log("Stream generation aborted by user.");
+        console.log("Stream generation stopped by student.");
       } else {
         console.error("Streaming chat error:", err);
         setMessages((prev) =>
@@ -389,7 +463,7 @@ export default function Tutor() {
     }
   };
 
-  // Generate Practice Quiz
+  // Generate Practice Quiz Modal
   const handleOpenPractice = async (topicName) => {
     try {
       setLoading(true);
@@ -409,7 +483,7 @@ export default function Tutor() {
       }
     } catch (err) {
       console.error("Error generating quiz:", err);
-      alert("Could not load practice quiz right now. Try asking Professor Pi for a practice problem in chat!");
+      alert("Could not load practice quiz right now. Try asking Professor Pi for a practice problem directly in chat!");
     } finally {
       setLoading(false);
     }
@@ -418,25 +492,28 @@ export default function Tutor() {
   return (
     <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
       
-      {/* 1. Header Card */}
-      <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 rounded-3xl p-5 sm:p-6 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      {/* 1. Header Card with Professor Pi Branding */}
+      <div className="bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-600 rounded-3xl p-5 sm:p-6 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-white/10">
         
         {/* Left: Avatar & Title */}
         <div className="flex items-center gap-3.5 z-10">
-          <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-3xl shadow-md shrink-0">
-            🦉
+          <div className="relative">
+            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-3xl shadow-md shrink-0">
+              🦉
+            </div>
+            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-indigo-900 rounded-full animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-fredoka text-2xl sm:text-3xl font-bold tracking-tight">
                 Professor Pi
               </h1>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-400 text-slate-900 text-[10px] font-extrabold uppercase tracking-wide">
-                Live AI Tutor
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-400 text-slate-900 text-[10px] font-extrabold uppercase tracking-wide shadow-xs">
+                AI Math Companion
               </span>
             </div>
             <p className="text-xs sm:text-sm text-indigo-100 font-medium">
-              Real-Time AI Mathematics Tutor & Solver
+              Real-Time Mathematics Solver & Step-by-Step Tutor
             </p>
           </div>
         </div>
@@ -444,7 +521,7 @@ export default function Tutor() {
         {/* Right: Controls & Level Selector */}
         <div className="flex flex-wrap items-center gap-2.5 z-10 w-full md:w-auto justify-between md:justify-end">
           
-          {/* Level Dropdown */}
+          {/* Grade / Level Dropdown */}
           <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-white/20">
             <span className="text-xs font-bold text-indigo-200">Level:</span>
             <select
@@ -471,26 +548,28 @@ export default function Tutor() {
             <span>New Chat</span>
           </button>
 
-          {/* History Button */}
+          {/* Saved Chats Toggle */}
           <button
             id="btn-tutor-history"
             onClick={() => setShowHistory(!showHistory)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs backdrop-blur-md transition-all active:scale-95 shadow-xs"
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl font-bold text-xs backdrop-blur-md transition-all active:scale-95 shadow-xs ${
+              showHistory ? "bg-white text-indigo-900" : "bg-white/20 hover:bg-white/30 text-white"
+            }`}
             title="View saved conversations"
           >
-            <History className="w-4 h-4 text-white" />
+            <History className="w-4 h-4" />
             <span>Saved Chats</span>
           </button>
         </div>
 
-        {/* Ambient glow */}
-        <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
+        {/* Ambient glow decoration */}
+        <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-400/20 rounded-full blur-2xl pointer-events-none" />
       </div>
 
       {/* 2. Main Chat Area + History Drawer Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         
-        {/* Saved Chats Sidebar (Desktop or Toggled on Mobile) */}
+        {/* Saved Chats Sidebar (Toggled) */}
         {showHistory && (
           <div className="lg:col-span-1 bg-white rounded-3xl border-2 border-indigo-100 shadow-md p-4 space-y-3">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -500,42 +579,108 @@ export default function Tutor() {
               </h3>
               <button
                 onClick={() => setShowHistory(false)}
-                className="text-slate-400 hover:text-slate-600 text-xs p-1"
+                className="text-slate-400 hover:text-slate-600 text-xs p-1 rounded-lg"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="max-h-[500px] overflow-y-auto space-y-1.5 pr-1">
+            <div className="max-h-[520px] overflow-y-auto space-y-1.5 pr-1">
               {conversations.length === 0 ? (
                 <p className="text-xs text-slate-400 text-center py-6">
                   No saved conversations yet. Ask a question to start one!
                 </p>
               ) : (
-                conversations.map((conv) => (
-                  <div
-                    key={conv._id}
-                    onClick={() => loadConversation(conv._id)}
-                    className={`group flex items-center justify-between p-2.5 rounded-xl cursor-pointer text-xs font-medium transition-all ${
-                      conversationId === conv._id
-                        ? "bg-indigo-600 text-white shadow-xs"
-                        : "hover:bg-indigo-50 text-slate-700"
-                    }`}
-                  >
-                    <span className="truncate pr-2">{conv.title || "Math Chat"}</span>
-                    <button
-                      onClick={(e) => deleteConversation(e, conv._id)}
-                      className={`p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity ${
-                        conversationId === conv._id
-                          ? "hover:bg-indigo-700 text-indigo-200"
-                          : "hover:bg-red-100 text-red-500"
+                conversations.map((conv) => {
+                  const isCurrent = conversationId === conv._id;
+                  const isEditing = editingTitleId === conv._id;
+
+                  return (
+                    <div
+                      key={conv._id}
+                      onClick={() => !isEditing && loadConversation(conv._id)}
+                      className={`group flex items-center justify-between p-2.5 rounded-2xl cursor-pointer text-xs font-medium transition-all ${
+                        isCurrent
+                          ? "bg-indigo-600 text-white shadow-xs"
+                          : "hover:bg-indigo-50 text-slate-700 border border-transparent hover:border-indigo-100"
                       }`}
-                      title="Delete chat"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))
+                      {isEditing ? (
+                        <div
+                          className="flex items-center gap-1 w-full"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <input
+                            type="text"
+                            value={newTitleText}
+                            onChange={(e) => setNewTitleText(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") handleRenameConversation(conv._id, newTitleText);
+                              if (e.key === "Escape") setEditingTitleId(null);
+                            }}
+                            className="w-full px-2 py-1 bg-white text-slate-900 rounded-lg text-xs border border-indigo-300 focus:outline-hidden"
+                            autoFocus
+                          />
+                          <button
+                            onClick={() => handleRenameConversation(conv._id, newTitleText)}
+                            className="p-1 rounded bg-emerald-500 text-white hover:bg-emerald-600"
+                          >
+                            <Check className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={() => setEditingTitleId(null)}
+                            className="p-1 rounded bg-slate-200 text-slate-700 hover:bg-slate-300"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="truncate pr-2 flex-1">
+                            <span className="font-semibold block truncate">
+                              {conv.title || "Math Chat"}
+                            </span>
+                            <span className={`text-[10px] ${isCurrent ? "text-indigo-200" : "text-slate-400"}`}>
+                              {new Date(conv.updatedAt).toLocaleDateString([], { month: "short", day: "numeric" })}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {/* Rename button */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingTitleId(conv._id);
+                                setNewTitleText(conv.title || "");
+                              }}
+                              className={`p-1 rounded-md ${
+                                isCurrent
+                                  ? "hover:bg-indigo-700 text-indigo-200"
+                                  : "hover:bg-indigo-100 text-indigo-600"
+                              }`}
+                              title="Rename chat"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+
+                            {/* Delete button */}
+                            <button
+                              onClick={(e) => deleteConversation(e, conv._id)}
+                              className={`p-1 rounded-md ${
+                                isCurrent
+                                  ? "hover:bg-indigo-700 text-indigo-200"
+                                  : "hover:bg-red-100 text-red-500"
+                              }`}
+                              title="Delete chat"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })
               )}
             </div>
           </div>
@@ -545,21 +690,25 @@ export default function Tutor() {
         <div
           className={`${
             showHistory ? "lg:col-span-3" : "lg:col-span-4"
-          } bg-white rounded-3xl border-2 border-indigo-100 shadow-lg overflow-hidden flex flex-col h-[650px] transition-all`}
+          } bg-white rounded-3xl border-2 border-indigo-100 shadow-lg overflow-hidden flex flex-col h-[670px] transition-all`}
         >
-          {/* Mode Sub-header */}
+          {/* Sub-header Bar */}
           <div className="bg-slate-50 border-b border-slate-200/80 px-4 py-2.5 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="font-bold text-slate-600">
-                Mode: Real-Time AI Math Solver
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-bold text-slate-700 truncate max-w-[200px] sm:max-w-xs">
+                {conversationTitle}
+              </span>
+              <span className="hidden sm:inline-block text-slate-400">|</span>
+              <span className="hidden sm:inline-block text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
+                AI + Deterministic Solver
               </span>
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handleOpenPractice("Algebra")}
-                className="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold transition-colors flex items-center gap-1"
+                className="px-2.5 py-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold transition-colors flex items-center gap-1 shadow-2xs"
               >
                 <Target className="w-3.5 h-3.5" />
                 <span>Practice Quiz</span>
@@ -568,7 +717,7 @@ export default function Tutor() {
                 onClick={() =>
                   handleSend("Explain the difference between perimeter and area with a garden example")
                 }
-                className="hidden sm:inline-flex px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold transition-colors items-center gap-1"
+                className="hidden sm:inline-flex px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold transition-colors items-center gap-1 shadow-2xs"
               >
                 <Lightbulb className="w-3.5 h-3.5 text-amber-600" />
                 <span>Real-Life Analogy</span>
@@ -593,18 +742,18 @@ export default function Tutor() {
                     className={`w-9 h-9 rounded-2xl flex items-center justify-center shrink-0 text-base shadow-xs ${
                       isUser
                         ? "bg-indigo-600 text-white font-bold"
-                        : "bg-gradient-to-br from-amber-100 to-amber-200 text-amber-800 border border-amber-300"
+                        : "bg-gradient-to-br from-indigo-100 to-purple-200 text-purple-900 border border-purple-300"
                     }`}
                   >
                     {isUser ? "👤" : "🦉"}
                   </div>
 
-                  {/* Message Bubble */}
+                  {/* Message Bubble Container */}
                   <div
-                    className={`max-w-[85%] sm:max-w-[78%] rounded-3xl p-4 sm:p-5 text-sm sm:text-base leading-relaxed shadow-xs space-y-3 ${
+                    className={`max-w-[88%] sm:max-w-[80%] rounded-3xl p-4 sm:p-5 text-sm sm:text-base leading-relaxed shadow-xs space-y-3 ${
                       isUser
                         ? "bg-indigo-600 text-white rounded-tr-xs"
-                        : "bg-white text-slate-800 border-2 border-indigo-50 rounded-tl-xs"
+                        : "bg-white text-slate-800 border-2 border-indigo-50 rounded-tl-xs shadow-sm"
                     }`}
                   >
                     {/* Rendered Math Content */}
@@ -613,12 +762,47 @@ export default function Tutor() {
                       className={isUser ? "text-white" : "text-slate-800"}
                     />
 
-                    {/* Assistant Action Bar */}
-                    {!isUser && (
-                      <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
-                        
-                        {/* Audio & Copy Controls */}
+                    {/* Linked Math Adventure Mission / Real-World Chip */}
+                    {!isUser && m.gameLink && (
+                      <div className="pt-2">
+                        <Link
+                          to={m.gameLink.route}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold transition-all shadow-2xs"
+                        >
+                          <Compass className="w-3.5 h-3.5 text-amber-600" />
+                          <span>Practice in Math Adventure: {m.gameLink.name}</span>
+                          <ExternalLink className="w-3 h-3 text-amber-600" />
+                        </Link>
+                      </div>
+                    )}
+
+                    {/* Footer Row (Timestamp & Action Controls) */}
+                    <div
+                      className={`pt-2 border-t flex flex-wrap items-center justify-between gap-2 text-xs ${
+                        isUser ? "border-indigo-500/40 text-indigo-200" : "border-slate-100 text-slate-500"
+                      }`}
+                    >
+                      {/* Left: Timestamp & Edit (for User) */}
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-medium opacity-80">
+                          {m.timestamp || "Just now"}
+                        </span>
+                        {isUser && (
+                          <button
+                            onClick={() => handleEditUserMessage(m.content)}
+                            className="p-1 rounded-md hover:bg-indigo-700 text-indigo-100 transition-colors flex items-center gap-1 text-[10px]"
+                            title="Edit this question"
+                          >
+                            <Edit3 className="w-3 h-3" />
+                            <span>Edit</span>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Right: Controls for Assistant Message */}
+                      {!isUser && (
                         <div className="flex items-center gap-1.5">
+                          {/* Audio Listen */}
                           <button
                             onClick={() => speakMessage(m.id, m.content)}
                             className="p-1.5 rounded-lg hover:bg-indigo-50 text-indigo-600 transition-colors flex items-center gap-1"
@@ -626,7 +810,7 @@ export default function Tutor() {
                           >
                             {speakingId === m.id ? (
                               <>
-                                <VolumeX className="w-3.5 h-3.5 text-red-500" />
+                                <VolumeX className="w-3.5 h-3.5 text-red-500 animate-pulse" />
                                 <span className="text-[11px] font-bold text-red-500">Stop</span>
                               </>
                             ) : (
@@ -637,6 +821,7 @@ export default function Tutor() {
                             )}
                           </button>
 
+                          {/* Copy Content */}
                           <button
                             onClick={() => copyToClipboard(m.id, m.content)}
                             className="p-1.5 rounded-lg hover:bg-indigo-50 text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-1"
@@ -654,10 +839,8 @@ export default function Tutor() {
                               </>
                             )}
                           </button>
-                        </div>
 
-                        {/* Thumbs Feedback & Quick Follow-ups */}
-                        <div className="flex items-center gap-1">
+                          {/* Thumbs Feedback */}
                           <button
                             onClick={() => handleFeedback(m.id, "up")}
                             className={`p-1.5 rounded-lg transition-colors ${
@@ -682,29 +865,36 @@ export default function Tutor() {
                             <ThumbsDown className="w-3.5 h-3.5" />
                           </button>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
 
-                    {/* Quick Smart Follow-up Pills for Assistant Messages */}
+                    {/* Quick Smart Follow-up Pills for Latest Assistant Message */}
                     {!isUser && idx === messages.length - 1 && !loading && !isStreaming && (
-                      <div className="pt-2 flex flex-wrap gap-1.5 text-xs">
+                      <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5 text-xs">
                         <button
-                          onClick={() => handleSend("Explain that more simply with an everyday picture analogy")}
-                          className="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium transition-colors border border-indigo-200/60"
+                          onClick={() => handleSend("Explain more simply with an everyday picture analogy")}
+                          className="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold transition-colors border border-indigo-200/60 active:scale-95"
                         >
                           🐣 Explain more simply
                         </button>
                         <button
-                          onClick={() => handleSend("Show me another valid mathematical method to solve this")}
-                          className="px-2.5 py-1 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium transition-colors border border-purple-200/60"
+                          onClick={() => handleSend("Show another method to solve this")}
+                          className="px-2.5 py-1 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-700 font-semibold transition-colors border border-purple-200/60 active:scale-95"
                         >
                           🔄 Show another method
                         </button>
                         <button
-                          onClick={() => handleSend("Give me another practice problem similar to this with different numbers")}
-                          className="px-2.5 py-1 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 font-medium transition-colors border border-amber-200/60"
+                          onClick={() => handleSend("Give another example covering the same concept")}
+                          className="px-2.5 py-1 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 font-semibold transition-colors border border-amber-200/60 active:scale-95"
                         >
                           🎯 Give another example
+                        </button>
+                        <button
+                          onClick={handleRegenerate}
+                          className="px-2.5 py-1 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-600 font-semibold transition-colors border border-slate-200 active:scale-95 flex items-center gap-1"
+                        >
+                          <RotateCcw className="w-3 h-3" />
+                          <span>Regenerate</span>
                         </button>
                       </div>
                     )}
@@ -713,31 +903,39 @@ export default function Tutor() {
               );
             })}
 
-            {/* Typing / Solving indicator */}
+            {/* Live Typing & Solving Indicator */}
             {loading && !isStreaming && (
               <div className="flex items-center gap-3 text-indigo-700 text-xs font-bold pl-2 animate-pulse">
                 <span className="text-xl">🦉</span>
-                <span>Professor Pi is solving and verifying the solution...</span>
+                <div className="flex items-center gap-1">
+                  <span>Professor Pi is calculating & verifying solution</span>
+                  <span className="flex gap-1 ml-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </span>
+                </div>
               </div>
             )}
 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Stop Generating Button */}
+          {/* Stop Generating Button (when streaming) */}
           {isStreaming && (
-            <div className="py-1 px-4 bg-slate-100 border-t border-slate-200 flex justify-center">
+            <div className="py-1.5 px-4 bg-slate-100 border-t border-slate-200 flex justify-center">
               <button
+                id="btn-stop-generating"
                 onClick={handleStopGenerating}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer"
               >
-                <Square className="w-3 h-3 fill-rose-600" />
+                <Square className="w-3.5 h-3.5 fill-rose-600" />
                 <span>Stop Generating</span>
               </button>
             </div>
           )}
 
-          {/* Suggested Questions Section */}
+          {/* Suggested Mathematics Questions */}
           <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-100">
             <SuggestedQuestions
               level={level}
@@ -746,7 +944,7 @@ export default function Tutor() {
             />
           </div>
 
-          {/* Input Bar */}
+          {/* Input & Voice Controls Bar */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -754,8 +952,9 @@ export default function Tutor() {
             }}
             className="p-3 bg-white border-t border-slate-200 flex items-center gap-2"
           >
-            {/* Voice Input Button */}
+            {/* Microphone Voice-to-Text Button */}
             <button
+              id="btn-mic-input"
               type="button"
               onClick={toggleSpeechRecognition}
               className={`p-2.5 rounded-2xl transition-all ${
@@ -763,12 +962,12 @@ export default function Tutor() {
                   ? "bg-rose-500 text-white animate-pulse shadow-md"
                   : "bg-slate-100 hover:bg-slate-200 text-slate-600"
               }`}
-              title={isListening ? "Listening... click to stop" : "Voice input"}
+              title={isListening ? "Listening to your voice... click to stop" : "Voice input (Microphone)"}
             >
               {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </button>
 
-            {/* Multiline auto-expanding textarea */}
+            {/* Multi-line auto-expanding textarea */}
             <textarea
               ref={inputRef}
               id="input-tutor-message"
@@ -786,7 +985,7 @@ export default function Tutor() {
               className="flex-1 px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 text-sm font-medium resize-none max-h-28 overflow-y-auto"
             />
 
-            {/* Send Button */}
+            {/* Send Message Button */}
             <button
               id="btn-send-tutor"
               type="submit"

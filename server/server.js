@@ -21,10 +21,12 @@ import adminRoutes from "./routes/adminRoutes.js";
 import realWorldRoutes from "./routes/realWorldRoutes.js";
 import { getActiveAnnouncements } from "./controllers/adminAnnouncementController.js";
 import { setupMultiplayerSocket } from "./multiplayer/socketHandler.js";
+import { initSocketService } from "./services/socketService.js";
 
 const app = express();
 const httpServer = http.createServer(app);
 const io = setupMultiplayerSocket(httpServer);
+initSocketService(io);
 
 const allowedOrigins = [
   process.env.CLIENT_ORIGIN,

@@ -4,6 +4,7 @@ import Message from "../models/Message.js";
 import LearningProgress from "../models/LearningProgress.js";
 import { generateChatResponse } from "../services/aiService.js";
 import { solveOrVerify } from "../services/mathService.js";
+import { broadcastActivity } from "../services/socketService.js";
 
 /**
  * Extract numbered steps and final answer from markdown content
@@ -32,9 +33,16 @@ function extractStepsAndFinalAnswer(content) {
 }
 
 /**
- * Send a chat message (supports SSE streaming and JSON)
+ * Send a chat message (supports SSE streaming and JSON fallback)
  */
 export async function handleChatMessage(req, res) {
+  const abortController = new AbortController();
+
+  // If the client disconnects, abort the internal stream
+  req.on("close", () => {
+    abortController.abort();
+  });
+
   try {
     const {
       conversationId: reqConvId,
@@ -48,12 +56,20 @@ export async function handleChatMessage(req, res) {
       return res.status(400).json({ success: false, message: "Please provide a valid math question." });
     }
 
+    if (message.length > 2000) {
+      return res.status(400).json({ success: false, message: "Question exceeds maximum character length (2000 chars)." });
+    }
+
     const userId = req.user?.id || null;
     let conversation = null;
 
     // 1. Find or create conversation
     if (reqConvId) {
       conversation = await Conversation.findById(reqConvId);
+      // Ownership check: if owned by a registered user, ensure requester matches
+      if (conversation && conversation.userId && userId && conversation.userId.toString() !== userId) {
+        return res.status(403).json({ success: false, message: "Access denied to this conversation" });
+      }
     }
 
     if (!conversation) {
@@ -73,7 +89,7 @@ export async function handleChatMessage(req, res) {
     // 2. Fetch past conversation messages for multi-turn context
     const pastMessages = await Message.find({ conversationId: conversation._id })
       .sort({ createdAt: 1 })
-      .limit(10);
+      .limit(12);
 
     const historyForModel = pastMessages.map((m) => ({
       role: m.role,
@@ -104,6 +120,7 @@ export async function handleChatMessage(req, res) {
       const result = await generateChatResponse({
         messages: historyForModel,
         level: conversation.level || level,
+        signal: abortController.signal,
         onToken: (token) => {
           fullContent += token;
           res.write(`data: ${JSON.stringify({ type: "token", token })}\n\n`);
@@ -122,9 +139,12 @@ export async function handleChatMessage(req, res) {
         finalAnswer: result.finalAnswer || finalAnswer,
         formula: result.formula || "",
         source: result.source || "ai",
+        metadata: {
+          gameLink: result.gameLink || null,
+        },
       });
 
-      // Update progress if user is authenticated
+      // Update student learning progress if user is authenticated
       if (userId) {
         await LearningProgress.findOneAndUpdate(
           { userId, topic: conversation.topic || "General Math" },
@@ -146,8 +166,20 @@ export async function handleChatMessage(req, res) {
           finalAnswer: assistantMsg.finalAnswer,
           formula: assistantMsg.formula,
           source: assistantMsg.source,
+          gameLink: result.gameLink || null,
         })}\n\n`
       );
+
+      broadcastActivity({
+        eventType: "tutor_query",
+        category: "tutor",
+        playerId: userId,
+        playerName: req.user?.nickname || req.user?.name || "Student Adventurer",
+        title: "Professor Pi answered question",
+        description: message.slice(0, 60),
+        topic: conversation.topic || "General Math",
+        activityId: String(assistantMsg._id),
+      });
 
       return res.end();
     }
@@ -156,6 +188,7 @@ export async function handleChatMessage(req, res) {
     const result = await generateChatResponse({
       messages: historyForModel,
       level: conversation.level || level,
+      signal: abortController.signal,
     });
 
     const { steps, finalAnswer } = extractStepsAndFinalAnswer(result.content);
@@ -168,6 +201,9 @@ export async function handleChatMessage(req, res) {
       finalAnswer: result.finalAnswer || finalAnswer,
       formula: result.formula || "",
       source: result.source || "ai",
+      metadata: {
+        gameLink: result.gameLink || null,
+      },
     });
 
     if (userId) {
@@ -190,6 +226,7 @@ export async function handleChatMessage(req, res) {
       finalAnswer: assistantMsg.finalAnswer,
       formula: assistantMsg.formula,
       source: assistantMsg.source,
+      gameLink: result.gameLink || null,
     });
   } catch (err) {
     console.error("Chat Controller Error:", err);
@@ -205,12 +242,12 @@ export async function handleChatMessage(req, res) {
 }
 
 /**
- * List conversations
+ * List conversations (enforces user ownership when authenticated)
  */
 export async function getConversations(req, res) {
   try {
     const userId = req.user?.id || null;
-    const filter = userId ? { userId } : {};
+    const filter = userId ? { userId } : { userId: null };
     const conversations = await Conversation.find(filter)
       .sort({ updatedAt: -1 })
       .limit(30);
@@ -271,6 +308,37 @@ export async function getConversation(req, res) {
   } catch (err) {
     console.error("Get Conversation Error:", err);
     return res.status(500).json({ success: false, message: "Error loading conversation" });
+  }
+}
+
+/**
+ * Rename a conversation
+ */
+export async function renameConversation(req, res) {
+  try {
+    const { id } = req.params;
+    const { title } = req.body;
+
+    if (!title || !title.trim()) {
+      return res.status(400).json({ success: false, message: "A valid title is required" });
+    }
+
+    const conversation = await Conversation.findById(id);
+    if (!conversation) {
+      return res.status(404).json({ success: false, message: "Conversation not found" });
+    }
+
+    if (conversation.userId && req.user?.id && conversation.userId.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: "Access denied to rename this conversation" });
+    }
+
+    conversation.title = title.trim();
+    await conversation.save();
+
+    return res.json({ success: true, conversation });
+  } catch (err) {
+    console.error("Rename Conversation Error:", err);
+    return res.status(500).json({ success: false, message: "Error renaming conversation" });
   }
 }
 
@@ -340,22 +408,22 @@ export async function generateQuiz(req, res) {
     const sampleQuizzes = {
       algebra: [
         {
+          question: "Solve for x: 2x + 5 = 17",
+          options: ["x = 5", "x = 6", "x = 7", "x = 12"],
+          correctAnswer: "x = 6",
+          explanation: "Subtract 5 from both sides: 2x = 12. Divide by 2: x = 6.",
+        },
+        {
           question: "Solve for x: 3x - 7 = 11",
           options: ["x = 4", "x = 6", "x = 9", "x = 18"],
           correctAnswer: "x = 6",
           explanation: "Add 7 to both sides: 3x = 18. Divide by 3: x = 6.",
         },
         {
-          question: "Solve for y: 2y + 8 = 20",
-          options: ["y = 4", "y = 6", "y = 8", "y = 12"],
-          correctAnswer: "y = 6",
-          explanation: "Subtract 8 from both sides: 2y = 12. Divide by 2: y = 6.",
-        },
-        {
-          question: "If 5z = 45, what is the value of z + 5?",
-          options: ["9", "14", "15", "50"],
-          correctAnswer: "14",
-          explanation: "z = 45 / 5 = 9. Therefore, z + 5 = 9 + 5 = 14.",
+          question: "Solve for y: 5y + 10 = 35",
+          options: ["y = 3", "y = 5", "y = 7", "y = 9"],
+          correctAnswer: "y = 5",
+          explanation: "Subtract 10 from both sides: 5y = 25. Divide by 5: y = 5.",
         },
       ],
       fractions: [
@@ -380,10 +448,10 @@ export async function generateQuiz(req, res) {
       ],
       geometry: [
         {
-          question: "What is the area of a rectangle with length 8 cm and width 5 cm?",
-          options: ["26 cm²", "40 cm²", "13 cm²", "80 cm²"],
-          correctAnswer: "40 cm²",
-          explanation: "Area = length × width = 8 × 5 = 40 cm².",
+          question: "What is the area of a circle with radius 7 cm (using π ≈ 22/7)?",
+          options: ["44 cm²", "154 cm²", "49 cm²", "308 cm²"],
+          correctAnswer: "154 cm²",
+          explanation: "Area = πr² = (22/7) × 7 × 7 = 22 × 7 = 154 cm².",
         },
         {
           question: "In a right triangle with legs a = 3 and b = 4, what is hypotenuse c?",
@@ -392,10 +460,24 @@ export async function generateQuiz(req, res) {
           explanation: "c² = a² + b² = 9 + 16 = 25. c = √25 = 5.",
         },
         {
-          question: "What is the perimeter of a square with side length 9 m?",
-          options: ["18 m", "36 m", "81 m", "27 m"],
-          correctAnswer: "36 m",
-          explanation: "Perimeter = 4 × side = 4 × 9 = 36 m.",
+          question: "What is the perimeter of a rectangle with length 8 cm and width 5 cm?",
+          options: ["13 cm", "26 cm", "40 cm", "80 cm"],
+          correctAnswer: "26 cm",
+          explanation: "Perimeter = 2 × (length + width) = 2 × (8 + 5) = 26 cm.",
+        },
+      ],
+      percentages: [
+        {
+          question: "What is 15% of 800?",
+          options: ["100", "120", "140", "150"],
+          correctAnswer: "120",
+          explanation: "(15 / 100) × 800 = 15 × 8 = 120.",
+        },
+        {
+          question: "What is 25% of 240?",
+          options: ["40", "60", "80", "120"],
+          correctAnswer: "60",
+          explanation: "25% = 1/4. 240 ÷ 4 = 60.",
         },
       ],
     };
@@ -404,9 +486,11 @@ export async function generateQuiz(req, res) {
       ? "fractions"
       : topic.toLowerCase().includes("geo")
       ? "geometry"
+      : topic.toLowerCase().includes("percent")
+      ? "percentages"
       : "algebra";
 
-    const questions = sampleQuizzes[key].slice(0, count);
+    const questions = (sampleQuizzes[key] || sampleQuizzes.algebra).slice(0, count);
 
     return res.json({
       success: true,
@@ -437,7 +521,7 @@ export async function verifyMath(req, res) {
       return res.json({
         success: false,
         verified: false,
-        message: "Could not symbolically verify with current solver rules. Try standard form like '3x - 7 = 11' or '1/2 + 1/3'.",
+        message: "Could not symbolically verify with current solver rules. Try standard form like '2x + 5 = 17' or '1/2 + 1/3'.",
       });
     }
 

@@ -2,6 +2,7 @@
 import RealWorldProgress from "../models/RealWorldProgress.js";
 import User from "../models/User.js";
 import RewardHistory from "../models/RewardHistory.js";
+import { broadcastActivity } from "../services/socketService.js";
 
 // Canonical 10 Real-World Locations and their Missions
 export const REAL_WORLD_LOCATIONS = [
@@ -586,6 +587,26 @@ export async function submitRealWorldMission(req, res) {
         },
         { new: true, select: "-passwordHash" }
       );
+
+      // Broadcast live event to admin control center
+      try {
+        broadcastActivity({
+          eventType: "real_world_complete",
+          category: "quiz",
+          playerId: userId,
+          playerName: updatedUser?.nickname || updatedUser?.name || "Adventurer",
+          playerAvatar: updatedUser?.avatar || "knight",
+          title: `Completed ${location.title} Challenge`,
+          description: mission.title,
+          topic: location.topic,
+          score: 100,
+          xpGained: xpEarned,
+          coinsGained: coinsEarned,
+          activityId: `${location.id}_${mission.index}`,
+        });
+      } catch (e) {
+        console.warn("Failed to broadcast real world activity:", e.message);
+      }
 
       return res.json({
         isCorrect: true,

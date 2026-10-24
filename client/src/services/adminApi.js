@@ -45,6 +45,7 @@ export const adminAuth = {
 export const adminDashboard = {
   getSummary: () => adminApi.get("/dashboard/summary").then((r) => r.data),
   getCharts: () => adminApi.get("/dashboard/charts").then((r) => r.data),
+  getActivity: (params) => adminApi.get("/dashboard/activity", { params }).then((r) => r.data),
 };
 
 export const adminQuestions = {

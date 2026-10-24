@@ -163,11 +163,17 @@ export default function AdminLayout({ children }) {
               <Menu className="w-5 h-5" />
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs text-slate-400">
-              <span>Admin Console</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <span className="font-semibold text-slate-500">Admin Control Center</span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
               <span className="text-indigo-400 font-bold capitalize">
-                {location.pathname.replace("/admin/", "").replace("-", " ") || "Overview"}
+                {location.pathname.replace("/admin/", "").replace(/-/g, " ") || "Overview"}
               </span>
+            </div>
+            
+            {/* Live Telemetry Status Pill */}
+            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Real-Time Engine Online</span>
             </div>
           </div>
 
@@ -177,15 +183,15 @@ export default function AdminLayout({ children }) {
               to="/dashboard"
               target="_blank"
               rel="noreferrer"
-              className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold border border-slate-700 flex items-center gap-1.5 transition-all"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold border border-slate-700 flex items-center gap-1.5 transition-all shadow-xs"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>Student Game</span>
+              <span>Student Realm</span>
             </Link>
 
             <button
               onClick={handleLogout}
-              className="px-3.5 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Logout</span>

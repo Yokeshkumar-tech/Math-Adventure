@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import api from "../services/api.js";
 import { translations } from "../data/translations.js";
+import { sendStudentPresence } from "../services/socket.js";
 
 const AuthContext = createContext(null);
 
@@ -56,6 +57,18 @@ export function AuthProvider({ children }) {
     }
     fetchMe();
   }, [token]);
+
+  // Periodic student presence broadcast to Admin Control Center
+  useEffect(() => {
+    if (!user || user.role === "admin" || user.role === "superadmin") return;
+
+    sendStudentPresence(user);
+    const interval = setInterval(() => {
+      sendStudentPresence(user);
+    }, 25000);
+
+    return () => clearInterval(interval);
+  }, [user]);
 
   const saveAuth = (tok, usr) => {
     setToken(tok);
