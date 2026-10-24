@@ -9,6 +9,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/guest", guestLogin);
 router.get("/me", requireAuth, getMe);
+router.get("/player/profile", requireAuth, getMe);
 router.patch("/users/me", requireAuth, updateProfile);
 
 export default router;

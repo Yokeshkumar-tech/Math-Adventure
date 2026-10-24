@@ -16,9 +16,35 @@ function generateToken(user) {
   );
 }
 
+export function serializeUser(user, badgesCount = 0) {
+  return {
+    id: user._id,
+    name: user.name,
+    nickname: user.nickname || user.displayName || user.name,
+    username: user.username,
+    role: user.role,
+    grade: user.grade,
+    avatar: user.avatar,
+    displayName: user.displayName,
+    totalPoints: user.totalPoints || user.totalXP || 0,
+    totalCoins: user.totalCoins ?? 100,
+    totalStars: user.totalStars ?? 0,
+    totalXP: user.totalXP ?? 0,
+    currentLevel: user.currentLevel ?? 1,
+    selectedCharacter: user.selectedCharacter || { id: "knight", costume: "default", accessory: "none" },
+    unlockedWorlds: user.unlockedWorlds?.length ? user.unlockedWorlds : ["number-forest"],
+    currentStreak: user.currentStreak || 1,
+    longestStreak: user.longestStreak || 1,
+    badgesCount,
+    settings: user.settings,
+    isGuest: !!user.isGuest,
+    levelInfo: calculateLevel(user.totalPoints || user.totalXP || 0),
+  };
+}
+
 export async function register(req, res) {
   try {
-    const { name, username, password, grade = 5, avatar = "math-explorer" } = req.body;
+    const { name, username, password, grade = 5, avatar = "math-explorer", nickname } = req.body;
     if (!name || !username || !password) {
       return res.status(400).json({ message: "Oops, please fill in your name, username and password!" });
     }
@@ -33,11 +59,18 @@ export async function register(req, res) {
 
     const user = await User.create({
       name: name.trim(),
+      nickname: (nickname || name).trim(),
       username: username.toLowerCase().trim(),
       passwordHash,
       grade: Number(grade) || 5,
       avatar,
       totalPoints: 0,
+      totalCoins: 100,
+      totalStars: 0,
+      totalXP: 0,
+      currentLevel: 1,
+      selectedCharacter: { id: "knight", costume: "default", accessory: "none" },
+      unlockedWorlds: ["number-forest"],
       currentStreak: 1,
       longestStreak: 1,
       lastActiveDate: new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date()),
@@ -46,18 +79,7 @@ export async function register(req, res) {
     const token = generateToken(user);
     res.status(201).json({
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        role: user.role,
-        grade: user.grade,
-        avatar: user.avatar,
-        totalPoints: user.totalPoints,
-        currentStreak: user.currentStreak,
-        settings: user.settings,
-        levelInfo: calculateLevel(user.totalPoints),
-      },
+      user: serializeUser(user, 0),
     });
   } catch (err) {
     console.error("Register error:", err);
@@ -87,21 +109,7 @@ export async function login(req, res) {
 
     res.json({
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        role: user.role,
-        grade: user.grade,
-        avatar: user.avatar,
-        displayName: user.displayName,
-        totalPoints: user.totalPoints,
-        currentStreak: user.currentStreak,
-        longestStreak: user.longestStreak,
-        badgesCount,
-        settings: user.settings,
-        levelInfo: calculateLevel(user.totalPoints),
-      },
+      user: serializeUser(user, badgesCount),
     });
   } catch (err) {
     console.error("Login error:", err);
@@ -121,6 +129,7 @@ export async function guestLogin(req, res) {
 
     const user = await User.create({
       name: "Demo Explorer",
+      nickname: "DemoChampion",
       username: guestUsername,
       passwordHash,
       role: "student",
@@ -130,11 +139,17 @@ export async function guestLogin(req, res) {
       displayName: "DemoChampion",
       showOnLeaderboard: false,
       totalPoints: 250,
+      totalCoins: 250,
+      totalStars: 4,
+      totalXP: 200,
+      currentLevel: 2,
+      selectedCharacter: { id: "knight", costume: "default", accessory: "none" },
+      unlockedWorlds: ["number-forest"],
       currentStreak: 5,
       longestStreak: 5,
       lastActiveDate: new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date()),
       completedLessons: firstLesson ? [firstLesson._id] : [],
-      settings: { fontScale: 1, highContrast: false, language: "en" },
+      settings: { fontScale: 1, highContrast: false, language: "en", soundEnabled: true, musicEnabled: true },
     });
 
     // Populate 3 sample achievements for guest
@@ -177,22 +192,7 @@ export async function guestLogin(req, res) {
     const token = generateToken(user);
     res.json({
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        role: user.role,
-        grade: user.grade,
-        avatar: user.avatar,
-        displayName: user.displayName,
-        totalPoints: user.totalPoints,
-        currentStreak: user.currentStreak,
-        longestStreak: user.longestStreak,
-        badgesCount: achievements.length,
-        isGuest: true,
-        settings: user.settings,
-        levelInfo: calculateLevel(user.totalPoints),
-      },
+      user: serializeUser(user, achievements.length),
     });
   } catch (err) {
     console.error("Guest login error:", err);
@@ -209,25 +209,7 @@ export async function getMe(req, res) {
     const levelInfo = calculateLevel(user.totalPoints);
 
     res.json({
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        role: user.role,
-        grade: user.grade,
-        avatar: user.avatar,
-        displayName: user.displayName,
-        showOnLeaderboard: user.showOnLeaderboard,
-        totalPoints: user.totalPoints,
-        currentStreak: user.currentStreak,
-        longestStreak: user.longestStreak,
-        completedLessons: user.completedLessons,
-        dailyGoal: user.dailyGoal,
-        settings: user.settings,
-        isGuest: user.isGuest,
-        badgesCount,
-        levelInfo,
-      },
+      user: serializeUser(user, badgesCount),
     });
   } catch (err) {
     console.error("GetMe error:", err);
@@ -252,26 +234,14 @@ export async function updateProfile(req, res) {
       };
     }
 
-    const updated = await User.findByIdAndUpdate(req.user.id, { $set: updates }, { new: true }).select("-passwordHash");
+    const updated = await User.findByIdAndUpdate(req.user.id, { $set: updates }, { returnDocument: "after" }).select("-passwordHash");
+    if (!updated) {
+      return res.status(404).json({ message: "User not found." });
+    }
     const badgesCount = await StudentAchievement.countDocuments({ userId: updated._id });
 
     res.json({
-      user: {
-        id: updated._id,
-        name: updated.name,
-        username: updated.username,
-        role: updated.role,
-        grade: updated.grade,
-        avatar: updated.avatar,
-        displayName: updated.displayName,
-        showOnLeaderboard: updated.showOnLeaderboard,
-        totalPoints: updated.totalPoints,
-        currentStreak: updated.currentStreak,
-        longestStreak: updated.longestStreak,
-        settings: updated.settings,
-        badgesCount,
-        levelInfo: calculateLevel(updated.totalPoints),
-      },
+      user: serializeUser(updated, badgesCount),
     });
   } catch (err) {
     console.error("Update profile error:", err);

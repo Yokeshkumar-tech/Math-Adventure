@@ -122,6 +122,26 @@ export default function Dashboard() {
               </button>
             </div>
           </div>
+
+          {/* Quick Adventure Links */}
+          <div className="pt-2 flex flex-wrap items-center gap-3">
+            <Link
+              to="/map"
+              id="btn-dash-open-map"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-sm shadow-md transition-all hover:scale-105"
+            >
+              <span>🗺️</span>
+              <span>Enter Adventure Map</span>
+            </Link>
+            <Link
+              to="/shop"
+              id="btn-dash-open-shop"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm backdrop-blur-xs transition-all"
+            >
+              <span>🛒</span>
+              <span>Royal Armory</span>
+            </Link>
+          </div>
         </div>
 
         {/* Level badge badge circle */}

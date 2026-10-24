@@ -15,17 +15,25 @@ Math Adventure is an interactive, AI-powered mathematics learning platform tailo
 ## 2. Features
 - **Curriculum Selection**: Clear pathways for Grade 5 and Grade 6 with 10 core NCERT/state aligned topics (5 per grade).
 - **Interactive Explanations**: Age-appropriate lessons featuring step-by-step concepts, real-life analogies (pizza slices, pocket money in rupees, cricket scores), and two verified worked examples with numbered steps per lesson.
-- **AI-Powered Learning Assistance**:
-  - *"Explain More Simply"*: Instant rephrasing using picture-like analogies for younger learners.
-  - *"Give Me Another Example"*: Dynamically generates and mathematically validates a new real-life example.
-  - *"Summarize Lesson"*: 3–4 bulleted key points for quick revision.
-  - *"Ask Professor Pi"*: Safe, topic-scoped conversational math tutor that guides step-by-step and refuses quiz cheating.
+- **Professor Pi — Real-Time AI Math Chatbot**:
+  - Full-featured conversational AI math solver supporting **natural language questions across Elementary, Middle School, High School, and College/Advanced levels**.
+  - Server-Sent Events (SSE) real-time token streaming with instant token delivery.
+  - Step-by-step solutions with mathematical formulas, substitutions, intuition, and highlighted final answers.
+  - Mathematical notation rendered in LaTeX via KaTeX ($...$ and $$...$$).
+  - Multi-turn conversation memory with context preservation, saved conversation history, and CRUD management.
+  - Integrated Symbolic Mathematics & Verification Engine (`mathService`) with fallback capability for arithmetic, fractions, linear/quadratic equations, geometry, percentages, probability, statistics, and calculus.
+  - Interactive speech tools: Text-to-Speech (read-aloud) and Web Speech API voice microphone input.
+  - Practice quiz generation based on the active chat topic.
 - **Educational Infographics**: Programmatic, mathematically accurate SVG visualizers (interactive Fraction Pizza slice slider & equivalent fraction detector, Decimal/Integer Number Line, Ratio Counters, Angle Protractor, and Area Unit Grid).
 - **Interactive Narrated Video Lesson**: Built-in 6-scene audio-visual fraction lesson powered by SVG animations, browser SpeechSynthesis narration, synchronized on-screen captions, and interactive checks.
 - **Adaptive Practice Quizzes**: 10-question quizzes dynamically adjusting between Easy (10 pts), Medium (20 pts), and Hard (30 pts) based on real-time student performance.
 - **Quiz Security & Anti-Cheat**: Questions sent to the browser **never** contain the `correctAnswer`. Answers are verified and points calculated exclusively on the Express backend.
 - **Gamification & Rewards**: XP points ledger, level progress (Level 1..7), 5 collectible adventure badges with celebratory confetti cannons, and IST-timezone daily streaks.
-- **Targeted Revision & Mistake Analysis**: Aggregates frequently missed questions and creates on-demand revision quizzes.
+- **Interactive Adventure Worlds**: 5 themed fantasy realms (**Number Forest**, **Fraction Kingdom**, **Desert of Numbers**, **Ocean of Geometry**, **Dragon's Math Castle**) with star-gated unlock progression.
+- **30 Story Missions & Epic Boss Encounters**: Rich narrative missions with dialogues, objectives, and animated boss battles with health bars and phase transitions.
+- **Hero Character Customizer & Royal Armory**: 4 playable classes (Knight, Wizard, Archer, Rogue) with purchasable cosmetic armor, shields, and wands powered by earned coins.
+- **Daily Math Challenges & Targeted Revision**: 3-question speed challenges with calendar streaks, plus an automated revision center focusing on missed questions.
+- **Synthesized 8-Bit Web Audio Engine**: Native Web Audio API sound synthesizer with zero external asset dependencies (retro coin chimes, attack sounds, star fanfares, level-up jingles).
 - **Accessibility & Multilingual Support**: High-contrast mode toggle, text sizing slider (1x, 1.15x, 1.3x), keyboard navigation (keys 1–4 and Enter for quizzes), and bilingual support (**English & தமிழ்**).
 - **Printable Parent Report**: One-click printable student progress report with clean print stylesheets.
 
@@ -89,91 +97,88 @@ d:/Math Adventure/
 ├── client/
 │   ├── public/
 │   │   ├── favicon.svg
-│   │   └── images/               # Infographics (fractions-pizza.svg, etc.)
+│   │   └── images/               # Infographics & game backgrounds
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx        # Navigation bar, stats pills, language switcher
+│   │   │   ├── game/             # Adventure components (Sprites, Boss, HealthBar, Diagrams)
+│   │   │   │   ├── BossSprite.jsx
+│   │   │   │   ├── CharacterModal.jsx
+│   │   │   │   ├── CharacterSprite.jsx
+│   │   │   │   ├── GeometryDiagram.jsx
+│   │   │   │   └── HealthBar.jsx
+│   │   │   ├── Navbar.jsx        # Navigation HUD, coins, stars, streak, level
 │   │   │   ├── FractionPizza.jsx # Interactive SVG fraction visualizer
-│   │   │   ├── MathVisualizer.jsx# Multi-topic visualizer (number line, ratios, angles, grid)
-│   │   │   ├── VideoLesson.jsx   # 6-scene narrated slide lesson with captions
-│   │   │   ├── TutorChat.jsx     # Professor Pi conversational chat drawer
-│   │   │   ├── Celebration.jsx   # Confetti particle burst & badge modal
-│   │   │   ├── ProtectedRoute.jsx# Auth guard
-│   │   │   └── Loader.jsx        # Playful math spinner
+│   │   │   ├── MathVisualizer.jsx# Multi-topic visualizer
+│   │   │   ├── VideoLesson.jsx   # 6-scene narrated slide lesson
+│   │   │   ├── TutorChat.jsx     # Professor Pi math tutor chat
+│   │   │   └── Celebration.jsx   # Confetti particle burst & badge modal
 │   │   ├── pages/
-│   │   │   ├── Welcome.jsx       # Landing hero page + guest entry
-│   │   │   ├── Login.jsx         # Sign in / Register / Avatar selector
-│   │   │   ├── Dashboard.jsx     # Stats, Recharts chart, recommended next lesson
-│   │   │   ├── Grades.jsx        # Grade 5 and Grade 6 adventure portals
-│   │   │   ├── Topics.jsx        # Topic cards with search & difficulty filters
-│   │   │   ├── Lesson.jsx        # Concept explanation, worked examples, AI tools
-│   │   │   ├── Practice.jsx      # Adaptive MCQ quiz with answer hiding
-│   │   │   ├── Results.jsx       # Score breakdown, progression timeline, badges
-│   │   │   ├── Achievements.jsx  # 5 badge showcase & Hall of Fame leaderboard
-│   │   │   ├── Progress.jsx      # Learning analytics & printable parent report
-│   │   │   ├── Tutor.jsx         # Full-page Professor Pi companion
-│   │   │   ├── Settings.jsx      # Profile, accessibility scaling, Tamil toggle
-│   │   │   └── NotFound.jsx      # 404 page
+│   │   │   ├── AdventureMap.jsx  # Interactive 5-world fantasy map with star gates
+│   │   │   ├── WorldMissions.jsx # World mission trail with checkpoints
+│   │   │   ├── MissionGame.jsx   # Question engine with hints, feedback, keyboard (1-4)
+│   │   │   ├── BossBattle.jsx    # Real-time boss battles with health and attack effects
+│   │   │   ├── Shop.jsx          # Royal Armory shop for cosmetics and weapons
+│   │   │   ├── DailyChallenge.jsx# 3-question daily speed challenge with calendar streak
+│   │   │   ├── Revision.jsx      # Personalized error correction and review center
+│   │   │   ├── Dashboard.jsx     # Stats, Recharts chart, adventure rank
+│   │   │   ├── Lesson.jsx        # Worked examples & AI tools
+│   │   │   ├── Practice.jsx      # Adaptive MCQ practice
+│   │   │   ├── Achievements.jsx  # Badges & leaderboard
+│   │   │   └── Progress.jsx      # Learning analytics & printable report
+│   │   ├── utils/
+│   │   │   └── soundEffects.js   # 8-bit Web Audio synthesizer (zero asset dependencies)
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx   # Auth state, persistent settings, i18n
-│   │   ├── data/
-│   │   │   ├── fallbackLessons.js# Offline bundled curriculum
-│   │   │   └── translations.js   # English and Tamil string dictionary
 │   │   ├── services/
 │   │   │   └── api.js            # Axios client with JWT interceptor
 │   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css             # Tailwind v4 setup & high-contrast themes
-│   ├── vercel.json               # SPA routing rewrite rule for Vercel
+│   │   └── index.css             # Tailwind v4 setup & game styles
 │   └── package.json
 ├── server/
-│   ├── config/
-│   │   └── scoring.js            # Point rewards & idempotent ledger logic
 │   ├── controllers/
 │   │   ├── authController.js     # Auth, guest sessions, profile updates
-│   │   ├── lessonController.js   # Curriculum, completion tracking
+│   │   ├── worldController.js    # 5 Worlds & 30 mission metadata
+│   │   ├── gameController.js     # Game sessions, answer validation, boss attacks
+│   │   ├── shopController.js     # Royal Armory economy and inventory
+│   │   ├── challengeController.js# Daily challenges and targeted revision
 │   │   ├── aiController.js       # Structured JSON generation, tutor, fallbacks
-│   │   ├── quizController.js     # Adaptive engine, answer hiding, revision quiz
+│   │   ├── quizController.js     # Adaptive engine, answer hiding
 │   │   └── progressController.js # Analytics, leaderboard, recommendations
 │   ├── models/
-│   │   ├── User.js               # Student profile, streak, settings
-│   │   ├── Lesson.js             # Objectives, worked examples, visual config
-│   │   ├── Question.js           # Validated 4-option questions
-│   │   ├── QuizSession.js        # Active quiz state machine
-│   │   ├── QuizAttempt.js        # Saved quiz history and accuracy
-│   │   ├── Achievement.js        # Badge definitions
-│   │   ├── StudentAchievement.js # Unlocked badges (unique compound index)
-│   │   └── RewardLedger.js       # Idempotent points ledger (unique compound index)
+│   │   ├── User.js               # Student profile, streak, coins, stars, character
+│   │   ├── World.js              # World schemas and star unlock thresholds
+│   │   ├── Mission.js            # Mission briefs, dialogues, objectives, reward rules
+│   │   ├── Question.js           # Validated questions (MCQ, numeric, true/false, geometry)
+│   │   ├── PlayerProgress.js     # Mission stars, completion status, attempts
+│   │   ├── ShopItem.js           # Costumes, accessories, weapons, pets
+│   │   ├── Inventory.js          # Purchased cosmetic items
+│   │   ├── DailyChallenge.js     # Calendar-aligned daily challenges
+│   │   └── RewardHistory.js      # Transactional reward logs (duplicate-safe)
 │   ├── routes/
+│   │   ├── worldRoutes.js
+│   │   ├── gameRoutes.js
+│   │   ├── shopRoutes.js
+│   │   ├── challengeRoutes.js
 │   │   ├── authRoutes.js
-│   │   ├── lessonRoutes.js
-│   │   ├── aiRoutes.js
 │   │   ├── quizRoutes.js
-│   │   └── progressRoutes.js
-│   ├── middleware/
-│   │   └── authMiddleware.js     # JWT verification & role checks
-│   ├── utils/
-│   │   ├── validateQuestion.js   # Exact fraction class & shunting-yard evaluator
-│   │   ├── adaptiveDifficulty.js # 3-correct promote / 2-wrong demote engine
-│   │   ├── streak.js             # Asia/Kolkata (IST) streak calculator
-│   │   ├── achievements.js       # Badge checking rules engine
-│   │   ├── recommend.js          # Personalised learning path recommendations
-│   │   └── prompts.js            # Safe kid-friendly LLM prompts
+│   │   └── aiRoutes.js
 │   ├── seed/
-│   │   ├── achievements.json     # 5 badges
-│   │   ├── lessons.json          # 10 lessons with 2 worked examples each
+│   │   ├── worlds.json           # 5 adventure worlds
+│   │   ├── missions.json         # 30 adventure missions
+│   │   ├── shopItems.json        # 10 armory shop items
 │   │   ├── questions.json        # 150 mathematically verified questions
-│   │   ├── generateQuestions.js  # Generator & verification script
 │   │   └── seed.js               # Database population script
 │   ├── tests/
-│   │   ├── adaptive.test.js      # Unit tests for adaptive difficulty
-│   │   ├── validate.test.js      # Unit tests for fraction math & validation
+│   │   ├── adventure.test.js     # Adventure progression, boss battles, shop tests
+│   │   ├── adaptive.test.js      # Adaptive difficulty tests
+│   │   ├── validate.test.js      # Fraction math & answer validation tests
 │   │   └── quiz.api.test.js      # Integration API tests
 │   ├── server.js                 # Express server entry point
 │   └── package.json
 ├── docs/
 │   ├── test-report.md            # Detailed automated and manual test report
 │   └── api-spec.md               # Complete REST API endpoint reference
+
 ├── README.md
 └── .gitignore
 ```
@@ -383,6 +388,31 @@ PASS tests/validate.test.js
   ✓ rejects questions with duplicate options
   ✓ rejects questions where correctAnswer is not in options
 
+PASS tests/chat.test.js
+  ✓ 1. Simple arithmetic: 125 + 275 = 400
+  ✓ 2. Fractions: Add 1/2 + 1/3 = 5/6
+  ✓ 3. Algebra: Solve 3x - 7 = 11 -> x = 6
+  ✓ 4. Percentages: Calculate 15% of 800 = 120
+  ✓ 5. Geometry: Area of circle with radius 7 = ~153.94
+  ✓ 6. Probability: Fair coin toss = 1/2 or 50%
+  ✓ 7. Statistics: Mean of 10, 20, and 30 = 20
+  ✓ 8. Calculus: Derivative of x^3 - 4x + 1
+  ✓ POST /api/chat rejects empty or whitespace messages (400)
+  ✓ POST /api/chat responds with step-by-step mathematical solution
+  ✓ GET /api/conversations/:id retrieves conversation history with messages
+  ✓ POST /api/chat/feedback records upvote/downvote
+  ✓ POST /api/math/verify returns verification breakdown
+  ✓ POST /api/quiz/generate produces targeted practice questions
+  ✓ DELETE /api/conversations/:id deletes conversation and related messages
+
+PASS tests/adventure.test.js
+  ✓ GET /api/worlds returns unlocked worlds with star requirements
+  ✓ POST /api/game/start initializes mission session and hides correct answers
+  ✓ POST /api/game/answer processes answer and awards damage/points
+  ✓ POST /api/game/complete calculates 1-3 stars, coins, and updates progress
+  ✓ POST /api/shop/purchase deducts coins and prevents duplicate purchases
+  ✓ GET /api/challenges/daily provides calendar-aligned challenge
+
 PASS tests/adaptive.test.js
   ✓ 3 correct in a row promotes easy -> medium
   ✓ 2 wrong in a row demotes medium -> easy
@@ -390,10 +420,10 @@ PASS tests/adaptive.test.js
   ✓ mixed answers stay at current level
   ✓ startingLevel selects appropriate level from last attempt
 
-Test Suites: 3 passed, 3 total
-Tests:       18 passed, 18 total
+Test Suites: 5 passed, 5 total
+Tests:       39 passed, 39 total
 Snapshots:   0 total
-Time:        2.539 s
+Time:        1.80 s
 ```
 
 ---

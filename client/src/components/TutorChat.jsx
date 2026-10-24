@@ -1,7 +1,7 @@
-// client/src/components/TutorChat.jsx
 import React, { useState, useRef, useEffect } from "react";
 import api from "../services/api.js";
 import { Send, Bot, Sparkles, Volume2, User as UserIcon, X } from "lucide-react";
+import MathRenderer from "./MathRenderer.jsx";
 
 export default function TutorChat({ topic = "Fractions", grade = 5, onClose }) {
   const [messages, setMessages] = useState([
@@ -121,7 +121,10 @@ export default function TutorChat({ topic = "Fractions", grade = 5, onClose }) {
                   : "bg-white text-slate-800 border border-slate-200/80 rounded-tl-xs"
               }`}
             >
-              <p className="whitespace-pre-wrap">{m.content}</p>
+              <MathRenderer
+                content={m.content}
+                className={m.role === "user" ? "text-white" : "text-slate-800"}
+              />
               {m.role === "assistant" && (
                 <button
                   onClick={() => speakText(m.content)}

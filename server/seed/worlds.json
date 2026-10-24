@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Number Forest",
+    "slug": "number-forest",
+    "description": "Lush woodland with ancient arithmetic trees, magical mushrooms, and number gates.",
+    "topic": "Addition, Subtraction, Multiplication & Division",
+    "themeColor": "#10B981",
+    "icon": "🌲",
+    "order": 1,
+    "bossName": "Sylva, the Forest Goblin King",
+    "unlockRequirements": { "minStars": 0, "prevWorldSlug": null }
+  },
+  {
+    "name": "Fraction Kingdom",
+    "slug": "fraction-kingdom",
+    "description": "Grand floating castles with pizza towers, pie-chart moats, and decimal drawbridges.",
+    "topic": "Fractions, Equivalent Fractions & Decimals",
+    "themeColor": "#F59E0B",
+    "icon": "🍕",
+    "order": 2,
+    "bossName": "King Fractionicus & The Pizza Golem",
+    "unlockRequirements": { "minStars": 8, "prevWorldSlug": "number-forest" }
+  },
+  {
+    "name": "Desert of Numbers",
+    "slug": "desert-of-numbers",
+    "description": "Endless golden dunes holding prime number pyramids and oases of common multiples.",
+    "topic": "Factors, Multiples, HCF & LCM",
+    "themeColor": "#EAB308",
+    "icon": "🏜️",
+    "order": 3,
+    "bossName": "Scorpio, the Prime Sphinx",
+    "unlockRequirements": { "minStars": 18, "prevWorldSlug": "fraction-kingdom" }
+  },
+  {
+    "name": "Ocean of Geometry",
+    "slug": "ocean-of-geometry",
+    "description": "Vibrant azure sea with polygon islands, triangular sails, and perimeter coral reefs.",
+    "topic": "Shapes, Angles, Area & Perimeter",
+    "themeColor": "#0284C7",
+    "icon": "🌊",
+    "order": 4,
+    "bossName": "Kraken of the Angles",
+    "unlockRequirements": { "minStars": 30, "prevWorldSlug": "desert-of-numbers" }
+  },
+  {
+    "name": "Dragon's Math Castle",
+    "slug": "dragons-castle",
+    "description": "Towering volcanic fortress where the mighty Dragon of Numbers tests master adventurers.",
+    "topic": "Mixed Challenges, Ratios, Integers & Volumes",
+    "themeColor": "#DC2626",
+    "icon": "🏰",
+    "order": 5,
+    "bossName": "Ignis, the Dragon of Numbers",
+    "unlockRequirements": { "minStars": 42, "prevWorldSlug": "ocean-of-geometry" }
+  }
+]

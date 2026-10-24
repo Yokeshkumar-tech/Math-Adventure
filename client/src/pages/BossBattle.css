@@ -1,0 +1,467 @@
+/* client/src/pages/BossBattle.css */
+
+.boss-battle-page {
+  min-height: calc(100vh - 64px);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #f8fafc;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* TOP ARENA HEADER */
+.boss-arena-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.boss-quit-btn {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.boss-quit-btn:hover {
+  background: #334155;
+  color: #fff;
+}
+
+.boss-meter-central {
+  flex: 1;
+  max-width: 540px;
+}
+
+.boss-loot-tracker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loot-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.loot-chip strong {
+  color: #facc15;
+}
+
+/* MAIN ARENA STAGE */
+.boss-arena-stage {
+  flex: 1;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.boss-error-toast {
+  background: rgba(239, 68, 68, 0.3);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  padding: 10px 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.boss-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0;
+  gap: 16px;
+  color: #94a3b8;
+}
+
+.boss-loading-flame {
+  width: 56px;
+  height: 56px;
+  border: 4px solid rgba(239, 68, 68, 0.2);
+  border-top-color: #ef4444;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* COMBAT FIELD */
+.boss-combat-field {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* HERO VS BOSS SPRITES ROW */
+.combat-sprites-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 10px 30px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.combat-hero-side,
+.combat-boss-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.combat-vs-symbol {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ef4444;
+  text-shadow: 0 0 16px rgba(239, 68, 68, 0.8);
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+/* BOSS MATH CARD */
+.boss-math-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.boss-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.boss-turn-counter {
+  font-weight: 800;
+  color: #38bdf8;
+  background: #1e293b;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.boss-attack-type {
+  color: #f87171;
+  font-weight: 700;
+}
+
+.boss-question-statement h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.4;
+  color: #f8fafc;
+}
+
+.boss-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 580px) {
+  .boss-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.boss-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 14px 18px;
+  color: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.boss-option-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #f87171;
+  background: #272134;
+}
+
+.boss-option-btn.selected {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+}
+
+.boss-opt-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #f87171;
+  flex-shrink: 0;
+}
+
+.boss-option-btn.selected .boss-opt-letter {
+  background: #ef4444;
+  color: #fff;
+}
+
+.boss-opt-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.boss-strike-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border: none;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  padding: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45);
+  transition: all 0.2s ease;
+}
+
+.boss-strike-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(239, 68, 68, 0.65);
+}
+
+.boss-strike-btn:disabled {
+  background: #334155;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* TURN FEEDBACK */
+.boss-turn-feedback {
+  border-radius: 18px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.turn-success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 2px solid #10b981;
+}
+
+.turn-failure {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid #ef4444;
+}
+
+.turn-feedback-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.turn-feedback-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.turn-continue-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  color: #fff;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+.turn-retry-btn {
+  background: #1e293b;
+  border: 1px solid #ef4444;
+  color: #f87171;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* BOSS VICTORY MODAL */
+.boss-victory-modal {
+  background: rgba(15, 23, 42, 0.95);
+  border: 3px solid #facc15;
+  border-radius: 36px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(250, 204, 21, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.boss-conquered-title {
+  margin: 12px 0 6px;
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #facc15;
+  text-shadow: 0 0 16px rgba(250, 204, 21, 0.6);
+}
+
+.boss-conquered-sub {
+  color: #cbd5e1;
+  font-size: 1rem;
+  margin: 0 0 20px;
+}
+
+.boss-badge-awarded {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(250, 204, 21, 0.15);
+  border: 1px solid #facc15;
+  border-radius: 16px;
+  padding: 12px 20px;
+  margin-bottom: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.badge-trophy-icon {
+  font-size: 2rem;
+}
+
+.boss-badge-awarded strong {
+  display: block;
+  font-size: 1.05rem;
+  color: #facc15;
+}
+
+.boss-badge-awarded small {
+  color: #94a3b8;
+}
+
+.boss-world-unlocked {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid #3b82f6;
+  border-radius: 16px;
+  padding: 12px 20px;
+  margin-bottom: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.world-portal-icon {
+  font-size: 2rem;
+}
+
+.boss-world-unlocked strong {
+  display: block;
+  font-size: 1rem;
+  color: #93c5fd;
+}
+
+.boss-world-unlocked p {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.boss-rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.boss-reward-tile {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tile-icon {
+  font-size: 1.8rem;
+}
+
+.boss-reward-tile strong {
+  font-size: 1.2rem;
+  color: #f8fafc;
+}
+
+.boss-reward-tile small {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.boss-btn-proceed {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: none;
+  color: #1e1b4b;
+  font-weight: 900;
+  font-size: 1.1rem;
+  padding: 14px 36px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(217, 119, 6, 0.4);
+  transition: all 0.2s ease;
+}
+
+.boss-btn-proceed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(217, 119, 6, 0.6);
+}

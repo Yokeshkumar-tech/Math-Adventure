@@ -1,0 +1,128 @@
+[
+  {
+    "itemId": "golden-armor",
+    "name": "Golden Knight Armor",
+    "description": "Shining armor forged from golden math coins. Gives extra heroic resilience!",
+    "category": "costume",
+    "priceCoins": 150,
+    "icon": "🛡️",
+    "statBonus": "+10 Heroic Defense"
+  },
+  {
+    "itemId": "emerald-cloak",
+    "name": "Emerald Forest Cloak",
+    "description": "Woven with living forest vines from Number Forest. Increases agility!",
+    "category": "costume",
+    "priceCoins": 120,
+    "icon": "🍃",
+    "statBonus": "+10 Forest Agility"
+  },
+  {
+    "itemId": "mage-robes",
+    "name": "Arcane Star Robes",
+    "description": "Embroidered with celestial mathematical constellations for powerful spellcasting.",
+    "category": "costume",
+    "priceCoins": 180,
+    "icon": "🔮",
+    "statBonus": "+15 Magic Intuition"
+  },
+  {
+    "itemId": "explorer-suit",
+    "name": "Cosmic Explorer Suit",
+    "description": "High-tech adventure outfit built to withstand desert dunes and geometry seas.",
+    "category": "costume",
+    "priceCoins": 200,
+    "icon": "🚀",
+    "statBonus": "+15 Quest Stamina"
+  },
+  {
+    "itemId": "cyber-chassis",
+    "name": "Clockwork Gilded Chassis",
+    "description": "Brass-plated clockwork armor fitted with precision gearwheels.",
+    "category": "costume",
+    "priceCoins": 250,
+    "icon": "⚙️",
+    "statBonus": "+20 Calculation Power"
+  },
+  {
+    "itemId": "crown-wisdom",
+    "name": "Crown of Wisdom",
+    "description": "A radiant crown adorned with glowing amber calculation crystals.",
+    "category": "accessory",
+    "priceCoins": 100,
+    "icon": "👑",
+    "statBonus": "+10% Bonus XP"
+  },
+  {
+    "itemId": "flame-shield",
+    "name": "Blazing Sun Shield",
+    "description": "Forged in the heart of the Dragon's Castle to ward off incorrect answers.",
+    "category": "accessory",
+    "priceCoins": 80,
+    "icon": "🔥",
+    "statBonus": "+5 Shield Defense"
+  },
+  {
+    "itemId": "magic-wand",
+    "name": "Star Crystal Wand",
+    "description": "Channels bright star bursts upon solving tricky questions.",
+    "category": "accessory",
+    "priceCoins": 90,
+    "icon": "✨",
+    "statBonus": "+10 Magic Flare"
+  },
+  {
+    "itemId": "lucky-pendant",
+    "name": "Lucky Clover Pendant",
+    "description": "Brings fortune and cheerful hints during boss battles.",
+    "category": "accessory",
+    "priceCoins": 60,
+    "icon": "🍀",
+    "statBonus": "+5 Extra Luck"
+  },
+  {
+    "itemId": "speed-boots",
+    "name": "Winged Hermes Boots",
+    "description": "Feathered boots that make traveling between worlds effortless.",
+    "category": "accessory",
+    "priceCoins": 110,
+    "icon": "🥾",
+    "statBonus": "+10 Map Speed"
+  },
+  {
+    "itemId": "pet-owl",
+    "name": "Pixel Owl (Companion Pet)",
+    "description": "A wise nocturnal math companion that boosts understanding and awards extra XP.",
+    "category": "pet",
+    "priceCoins": 120,
+    "icon": "🦉",
+    "statBonus": "+5% Bonus XP"
+  },
+  {
+    "itemId": "pet-fox",
+    "name": "Math Fox (Companion Pet)",
+    "description": "A clever, nimble fox that sniffs out subtle patterns and hints during missions.",
+    "category": "pet",
+    "priceCoins": 140,
+    "icon": "🦊",
+    "statBonus": "Clever Hint Perk"
+  },
+  {
+    "itemId": "pet-dragon",
+    "name": "Dragon Whelp (Companion Pet)",
+    "description": "A fierce baby dragon that breathes fiery number bursts at realm bosses.",
+    "category": "pet",
+    "priceCoins": 200,
+    "icon": "🐲",
+    "statBonus": "+10% Boss Strike Damage"
+  },
+  {
+    "itemId": "pet-cat",
+    "name": "Cosmic Cat (Companion Pet)",
+    "description": "A star-dusted feline companion that purrs whenever you build an answer streak.",
+    "category": "pet",
+    "priceCoins": 160,
+    "icon": "🐱",
+    "statBonus": "+2 Extra Coins per Streak"
+  }
+]

@@ -6,13 +6,25 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import "dotenv/config";
 
+import http from "http";
 import authRoutes from "./routes/authRoutes.js";
 import lessonRoutes from "./routes/lessonRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
+import worldRoutes from "./routes/worldRoutes.js";
+import gameRoutes from "./routes/gameRoutes.js";
+import shopRoutes from "./routes/shopRoutes.js";
+import challengeRoutes from "./routes/challengeRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import realWorldRoutes from "./routes/realWorldRoutes.js";
+import { getActiveAnnouncements } from "./controllers/adminAnnouncementController.js";
+import { setupMultiplayerSocket } from "./multiplayer/socketHandler.js";
 
 const app = express();
+const httpServer = http.createServer(app);
+const io = setupMultiplayerSocket(httpServer);
 
 const allowedOrigins = [
   process.env.CLIENT_ORIGIN,
@@ -68,6 +80,14 @@ app.use("/api", lessonRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/quizzes", quizRoutes);
 app.use("/api", progressRoutes);
+app.use("/api", worldRoutes);
+app.use("/api", gameRoutes);
+app.use("/api", shopRoutes);
+app.use("/api", challengeRoutes);
+app.use("/api", chatRoutes);
+app.use("/api", realWorldRoutes);
+app.use("/api/admin", adminRoutes);
+app.get("/api/announcements/active", getActiveAnnouncements);
 
 // Centralized error handler
 app.use((err, req, res, next) => {
@@ -77,8 +97,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/mathadventure";
+
+// Graceful port and network error handling
+httpServer.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`\n❌ Port ${PORT} is already in use. Stop the existing backend process or configure another port.\n`);
+    process.exit(1);
+  } else {
+    console.error("Server startup error:", err.message);
+    process.exit(1);
+  }
+});
 
 // Connect to MongoDB and start listening
 if (process.env.NODE_ENV !== "test") {
@@ -86,12 +117,13 @@ if (process.env.NODE_ENV !== "test") {
     .connect(MONGODB_URI)
     .then(() => {
       console.log(`Connected to MongoDB: ${MONGODB_URI}`);
-      app.listen(PORT, () => {
-        console.log(`Math Adventure API running on port ${PORT}`);
+      httpServer.listen(PORT, () => {
+        console.log(`Math Adventure API & Multiplayer Socket running on port ${PORT}`);
       });
     })
     .catch((err) => {
       console.error("MongoDB connection error:", err.message);
+      process.exit(1);
     });
 }
 

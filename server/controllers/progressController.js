@@ -115,23 +115,25 @@ export async function getAchievements(req, res) {
 
 export async function getLeaderboard(req, res) {
   try {
-    // Only students who opted in or have a display name, exclude guests
-    const topStudents = await User.find({
-      isGuest: { $ne: true },
-      role: "student",
-      $or: [{ showOnLeaderboard: true }, { displayName: { $ne: "" } }],
-    })
-      .select("name displayName avatar totalPoints currentStreak")
-      .sort({ totalPoints: -1 })
-      .limit(10)
+    const topStudents = await User.find({ role: "student" })
+      .select("name nickname displayName avatar totalPoints totalStars totalXP currentStreak selectedCharacter")
+      .sort({ totalStars: -1, totalPoints: -1, totalXP: -1 })
+      .limit(15)
       .lean();
 
     const ranked = topStudents.map((s, index) => ({
       rank: index + 1,
-      name: s.displayName || `${s.name.slice(0, 3)}***`, // Child-safe nickname
-      avatar: s.avatar || "math-explorer",
-      points: s.totalPoints,
-      streak: s.currentStreak,
+      id: s._id,
+      name: s.nickname || s.displayName || (s.name ? `${s.name.slice(0, 4)}***` : `Hero_${index + 1}`),
+      avatar: s.selectedCharacter?.id || s.avatar || "knight",
+      costume: s.selectedCharacter?.costume || "default",
+      accessory: s.selectedCharacter?.accessory || "none",
+      pet: s.selectedCharacter?.pet || "none",
+      stars: s.totalStars || 0,
+      xp: s.totalXP || s.totalPoints || 0,
+      points: s.totalPoints || s.totalXP || 0,
+      streak: s.currentStreak || 0,
+      isCurrentUser: String(s._id) === String(req.user.id),
     }));
 
     res.json(ranked);

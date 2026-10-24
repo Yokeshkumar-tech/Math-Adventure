@@ -17,7 +17,7 @@ import {
   Award,
 } from "lucide-react";
 
-export default function Navbar() {
+export default function Navbar({ isAdventure = false }) {
   const { user, logout, t, language, toggleLanguage, updateProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,40 +33,48 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: t("dashboard"), path: "/dashboard", icon: Compass, id: "nav-dashboard" },
-    { name: t("topics"), path: user ? `/grades/${user.grade || 5}/topics` : "/grades", icon: BookOpen, id: "nav-topics" },
-    { name: t("achievements"), path: "/achievements", icon: Trophy, id: "nav-achievements" },
-    { name: t("progress"), path: "/progress", icon: BarChart2, id: "nav-progress" },
+    { name: "🗺️ Map", path: "/map", icon: Compass, id: "nav-map" },
+    { name: "✨ Real-World", path: "/real-world", icon: Sparkles, id: "nav-real-world" },
+    { name: "⚔️ Arena", path: "/arena", icon: Trophy, id: "nav-arena" },
+    { name: "🔥 Daily", path: "/challenges/daily", icon: Flame, id: "nav-daily" },
+    { name: "🛒 Armory", path: "/shop", icon: Sparkles, id: "nav-shop" },
+    { name: "🏆 Ranks", path: "/leaderboard", icon: Award, id: "nav-leaderboard" },
+    { name: "📚 Formulas", path: "/learning-center", icon: BookOpen, id: "nav-learning", extraWideOnly: true },
     { name: t("tutor"), path: "/tutor", icon: Bot, id: "nav-tutor" },
+    { name: t("dashboard"), path: "/dashboard", icon: BarChart2, id: "nav-dashboard", extraWideOnly: true },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-indigo-100 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+    <header
+      className={`sticky top-0 z-40 backdrop-blur border-b transition-colors ${
+        isAdventure
+          ? "bg-slate-900/95 border-slate-800 text-slate-100 shadow-md"
+          : "bg-white/95 border-indigo-100 text-slate-800 shadow-xs"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
           
-          {/* Brand Logo */}
-          <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-amber-400 p-0.5 shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform flex items-center justify-center">
-              <div className="w-full h-full bg-white rounded-2xl flex items-center justify-center font-fredoka text-indigo-600 text-xl font-bold">
-                ∑★
+          {/* Left: Brand Logo + Nav Links together */}
+          <div className="flex items-center gap-3 xl:gap-5 shrink-0">
+            <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-2 group shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-amber-400 p-0.5 shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform flex items-center justify-center">
+                <div className="w-full h-full bg-slate-900 rounded-2xl flex items-center justify-center font-fredoka text-amber-400 text-lg font-bold">
+                  ∑★
+                </div>
               </div>
-            </div>
-            <div>
-              <span className="font-fredoka text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-700 via-indigo-600 to-amber-600 bg-clip-text text-transparent">
+              <span className={`font-fredoka text-lg sm:text-xl font-bold bg-clip-text text-transparent whitespace-nowrap ${
+                isAdventure
+                  ? "bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400"
+                  : "bg-gradient-to-r from-indigo-700 via-indigo-600 to-amber-600"
+              }`}>
                 Math Adventure
               </span>
-              <span className="hidden sm:block text-[11px] font-medium text-indigo-400 tracking-wide uppercase">
-                Grades 5 &amp; 6
-              </span>
-            </div>
-          </Link>
+            </Link>
 
-          {/* User Logged In Header Elements */}
-          {user ? (
-            <>
-              {/* Desktop Nav Items */}
-              <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {/* Desktop Nav Items */}
+            {user && (
+              <nav className="hidden lg:flex items-center gap-1 shrink-0">
                 {navLinks.map((item) => {
                   const Icon = item.icon;
                   const active = isActive(item.path);
@@ -75,31 +83,43 @@ export default function Navbar() {
                       key={item.id}
                       id={item.id}
                       to={item.path}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
+                      className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                        item.extraWideOnly ? "hidden 2xl:flex" : ""
+                      } ${
                         active
-                          ? "bg-indigo-50 text-indigo-700 shadow-xs border border-indigo-200"
-                          : "text-slate-600 hover:text-indigo-600 hover:bg-slate-50"
+                          ? isAdventure
+                            ? "bg-slate-800 text-amber-300 border border-slate-700 shadow-xs"
+                            : "bg-indigo-50 text-indigo-700 shadow-xs border border-indigo-200"
+                          : isAdventure
+                            ? "text-slate-300 hover:text-white hover:bg-slate-800/60"
+                            : "text-slate-600 hover:text-indigo-600 hover:bg-slate-50"
                       }`}
                     >
-                      <Icon className={`w-4 h-4 ${active ? "text-indigo-600" : "text-slate-400"}`} />
+                      <Icon className={`w-3.5 h-3.5 ${active ? (isAdventure ? "text-amber-400" : "text-indigo-600") : "text-slate-400"}`} />
                       {item.name}
                     </Link>
                   );
                 })}
               </nav>
+            )}
+          </div>
 
+          {user ? (
+            <>
               {/* Stats Bar and User Pill */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-2 shrink-0">
                 
                 {/* Grade Switcher */}
-                <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+                <div className={`flex items-center p-0.5 rounded-xl border text-xs font-bold ${
+                  isAdventure ? "bg-slate-800 border-slate-700" : "bg-slate-100 border-slate-200"
+                }`}>
                   <button
                     id="btn-nav-grade-5"
                     onClick={() => handleGradeChange(5)}
-                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                    className={`px-2 py-0.5 rounded-lg transition-all ${
                       user.grade === 5
                         ? "bg-indigo-600 text-white shadow-xs"
-                        : "text-slate-600 hover:text-indigo-600"
+                        : isAdventure ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-indigo-600"
                     }`}
                   >
                     G5
@@ -107,35 +127,55 @@ export default function Navbar() {
                   <button
                     id="btn-nav-grade-6"
                     onClick={() => handleGradeChange(6)}
-                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                    className={`px-2 py-0.5 rounded-lg transition-all ${
                       user.grade === 6
                         ? "bg-indigo-600 text-white shadow-xs"
-                        : "text-slate-600 hover:text-indigo-600"
+                        : isAdventure ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-indigo-600"
                     }`}
                   >
                     G6
                   </button>
                 </div>
 
-                {/* Points Pill */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 font-bold text-xs sm:text-sm shadow-xs">
-                  <span className="text-amber-500">⭐</span>
-                  <span id="nav-user-points">{user.totalPoints || 0}</span>
-                  <span className="hidden xl:inline text-amber-600 font-normal">pts</span>
+                {/* Coins Pill */}
+                <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-bold shadow-xs ${
+                  isAdventure
+                    ? "bg-amber-950/70 border-amber-500/40 text-amber-300"
+                    : "bg-yellow-50 border-yellow-200 text-yellow-800"
+                }`}>
+                  <span>🪙</span>
+                  <span id="nav-user-coins">{user.totalCoins || 0}</span>
+                </div>
+
+                {/* Points / Stars Pill */}
+                <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-bold shadow-xs ${
+                  isAdventure
+                    ? "bg-yellow-950/70 border-yellow-500/40 text-yellow-300"
+                    : "bg-amber-50 border-amber-200 text-amber-800"
+                }`}>
+                  <span className="text-amber-400">⭐</span>
+                  <span id="nav-user-points">{user.totalStars || user.totalPoints || 0}</span>
                 </div>
 
                 {/* Streak Pill */}
-                <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-800 font-bold text-xs sm:text-sm shadow-xs">
-                  <Flame className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
-                  <span id="nav-user-streak">{user.currentStreak || 0}</span>
-                  <span className="hidden xl:inline text-orange-600 font-normal">d</span>
+                <div className={`flex items-center gap-1 px-2 py-1 rounded-full border text-xs font-bold shadow-xs ${
+                  isAdventure
+                    ? "bg-orange-950/70 border-orange-500/40 text-orange-300"
+                    : "bg-orange-50 border-orange-200 text-orange-800"
+                }`}>
+                  <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500 animate-pulse" />
+                  <span id="nav-user-streak">{user.currentStreak || 0}d</span>
                 </div>
 
                 {/* Language Switcher */}
                 <button
                   id="btn-nav-language"
                   onClick={() => toggleLanguage()}
-                  className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors"
+                  className={`px-2 py-1 rounded-xl border text-xs font-bold transition-colors ${
+                    isAdventure
+                      ? "border-slate-700 text-slate-300 hover:bg-slate-800"
+                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                  }`}
                   title="Switch Language"
                 >
                   {language === "en" ? "தமிழ்" : "EN"}
@@ -145,21 +185,25 @@ export default function Navbar() {
                 <Link
                   id="nav-settings"
                   to="/settings"
-                  className="p-2 rounded-xl text-slate-500 hover:text-indigo-600 hover:bg-slate-100 transition-colors"
+                  className={`p-1.5 rounded-xl transition-colors ${
+                    isAdventure
+                      ? "text-slate-300 hover:text-white hover:bg-slate-800"
+                      : "text-slate-500 hover:text-indigo-600 hover:bg-slate-100"
+                  }`}
                   title="Settings"
                 >
-                  <SettingsIcon className="w-5 h-5" />
+                  <SettingsIcon className="w-4 h-4" />
                 </Link>
 
-                <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-xs border-2 border-white">
+                <div className={`flex items-center gap-2 pl-2 border-l ${isAdventure ? "border-slate-800" : "border-slate-200"}`}>
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-xs">
                     {user.name ? user.name[0].toUpperCase() : "U"}
                   </div>
                   <button
                     id="btn-nav-logout"
                     onClick={logout}
-                    className="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-                    title="Log Out"
+                    className="p-1 rounded-lg text-slate-400 hover:text-red-400 transition-colors"
+                    title="Logout"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
@@ -253,6 +297,22 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            <Link
+              to="/parent-dashboard"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-semibold text-slate-600 hover:bg-slate-50"
+            >
+              <Award className="w-5 h-5 text-emerald-600" />
+              <span>🛡️ Parent/Teacher Console</span>
+            </Link>
+            <Link
+              to="/placement"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-semibold text-slate-600 hover:bg-slate-50"
+            >
+              <Sparkles className="w-5 h-5 text-amber-500" />
+              <span>⭐ Placement Quiz</span>
+            </Link>
             <Link
               to="/settings"
               onClick={() => setMobileMenuOpen(false)}

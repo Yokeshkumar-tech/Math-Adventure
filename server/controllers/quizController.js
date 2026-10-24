@@ -2,11 +2,45 @@
 import QuizSession from "../models/QuizSession.js";
 import QuizAttempt from "../models/QuizAttempt.js";
 import Question from "../models/Question.js";
+import User from "../models/User.js";
 import { SCORING, awardPoints } from "../config/scoring.js";
 import { nextDifficulty, startingLevel } from "../utils/adaptiveDifficulty.js";
 import { updateStreak } from "../utils/streak.js";
 import { checkAchievements } from "../utils/achievements.js";
 import { recommend } from "../utils/recommend.js";
+
+// Topic alias mapping for rich adventure realm names
+const TOPIC_ALIASES = {
+  "geometry mountains": "Area and Perimeter",
+  "geometry-mountains": "Area and Perimeter",
+  "ocean-of-geometry": "Area and Perimeter",
+  "ocean of geometry": "Area and Perimeter",
+  "geometry": "Basic Geometry",
+  "basic geometry": "Basic Geometry",
+  "area and perimeter": "Area and Perimeter",
+  "area and volume": "Area and Volume",
+  "perimeter": "Area and Perimeter",
+  "fractions": "Fractions",
+  "fraction kingdom": "Fractions",
+  "fraction-kingdom": "Fractions",
+  "decimals": "Decimals",
+  "desert of numbers": "Decimals",
+  "desert-of-numbers": "Decimals",
+  "percentage-desert": "Decimals",
+  "factors and multiples": "Factors and Multiples",
+  "number forest": "Fractions",
+  "number-forest": "Fractions",
+  "dragons castle": "Integers",
+  "dragons-castle": "Integers",
+  "integers": "Integers",
+  "ratios": "Ratios and Proportions",
+  "ratios and proportions": "Ratios and Proportions",
+};
+
+export const normalizeTopic = (topicStr = "") => {
+  const clean = String(topicStr).trim().toLowerCase();
+  return TOPIC_ALIASES[clean] || topicStr;
+};
 
 // Security: browser NEVER receives correctAnswer before submitting
 export const publicView = (q) => ({
@@ -16,12 +50,26 @@ export const publicView = (q) => ({
   difficulty: q.difficulty,
   topic: q.topic,
   grade: q.grade,
+  points: q.points || (q.difficulty === "hard" ? 30 : q.difficulty === "medium" ? 20 : 10),
+  expression: q.expression || null,
+  diagramSvg: q.diagramSvg || null,
+  hints: {
+    clue: q.hints?.clue || q.hint || "Identify key numbers and units given in the question.",
+    concept: q.hints?.concept || (q.topic ? `Apply the core formula or rule for ${q.topic}.` : "Notice the mathematical relationship between the values."),
+    workedExample: q.hints?.workedExample || "Solve a simplified version first: isolate the unknown step by step."
+  }
 });
 
 async function pickQuestion(session) {
+  const resolvedTopic = normalizeTopic(session.topic);
+  const topicRegex = new RegExp(`^${resolvedTopic}$`, "i");
+
+  const publishedFilter = { status: { $nin: ["draft", "archived"] } };
+
   // Query for question matching topic, grade, and level, excluding already used questions
   let q = await Question.findOne({
-    topic: session.topic,
+    ...publishedFilter,
+    topic: { $regex: topicRegex },
     grade: session.grade,
     difficulty: session.level,
     _id: { $nin: session.usedQuestionIds || [] },
@@ -30,7 +78,8 @@ async function pickQuestion(session) {
   // If no more questions at this exact level, fall back to any unused question in this topic
   if (!q) {
     q = await Question.findOne({
-      topic: session.topic,
+      ...publishedFilter,
+      topic: { $regex: topicRegex },
       grade: session.grade,
       _id: { $nin: session.usedQuestionIds || [] },
     });
@@ -39,7 +88,16 @@ async function pickQuestion(session) {
   // If all questions exhausted, allow reuse of any question in this topic
   if (!q) {
     q = await Question.findOne({
-      topic: session.topic,
+      ...publishedFilter,
+      topic: { $regex: topicRegex },
+      grade: session.grade,
+    });
+  }
+
+  // Final fallback to any question if topic had zero matches
+  if (!q) {
+    q = await Question.findOne({
+      ...publishedFilter,
       grade: session.grade,
     });
   }
@@ -193,8 +251,23 @@ export async function finishQuiz(req, res) {
     session.finished = true;
     await session.save();
 
+    const coinsEarned = correct * 5 + (accuracy >= 80 ? 30 : accuracy >= 50 ? 15 : 5);
+    const starsEarned = accuracy >= 85 ? 3 : accuracy >= 60 ? 2 : accuracy >= 40 ? 1 : 0;
+
     // Idempotent point award via RewardLedger
     await awardPoints(session.userId, `quiz:${session._id}`, pointsEarned);
+
+    // Persist coins, stars, and XP to User account
+    await User.updateOne(
+      { _id: session.userId },
+      {
+        $inc: {
+          totalCoins: coinsEarned,
+          totalStars: starsEarned,
+          totalXP: pointsEarned,
+        },
+      }
+    );
 
     // Update streak in IST
     await updateStreak(session.userId);
@@ -209,6 +282,9 @@ export async function finishQuiz(req, res) {
       attempt,
       newBadges,
       recommendation: userRecommendation,
+      coinsEarned,
+      starsEarned,
+      pointsEarned,
     });
   } catch (err) {
     console.error("Finish quiz error:", err);
