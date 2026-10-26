@@ -33,15 +33,15 @@ export default function Navbar({ isAdventure = false }) {
   };
 
   const navLinks = [
-    { name: "🗺️ Map", path: "/map", icon: Compass, id: "nav-map" },
-    { name: "✨ Real-World", path: "/real-world", icon: Sparkles, id: "nav-real-world" },
-    { name: "⚔️ Arena", path: "/arena", icon: Trophy, id: "nav-arena" },
-    { name: "🔥 Daily", path: "/challenges/daily", icon: Flame, id: "nav-daily" },
-    { name: "🛒 Armory", path: "/shop", icon: Sparkles, id: "nav-shop" },
-    { name: "🏆 Ranks", path: "/leaderboard", icon: Award, id: "nav-leaderboard" },
-    { name: "📚 Formulas", path: "/learning-center", icon: BookOpen, id: "nav-learning", extraWideOnly: true },
-    { name: t("tutor"), path: "/tutor", icon: Bot, id: "nav-tutor" },
-    { name: t("dashboard"), path: "/dashboard", icon: BarChart2, id: "nav-dashboard", extraWideOnly: true },
+    { name: "Map", path: "/map", icon: Compass, id: "nav-map" },
+    { name: "Real-World", path: "/real-world", icon: Sparkles, id: "nav-real-world" },
+    { name: "Arena", path: "/arena", icon: Trophy, id: "nav-arena" },
+    { name: "Daily", path: "/challenges/daily", icon: Flame, id: "nav-daily" },
+    { name: "Armory", path: "/shop", icon: Sparkles, id: "nav-shop" },
+    { name: "Ranks", path: "/leaderboard", icon: Award, id: "nav-leaderboard" },
+    { name: "Formulas", path: "/learning-center", icon: BookOpen, id: "nav-learning", wideOnly: true },
+    { name: t("tutor") || "AI Tutor", path: "/tutor", icon: Bot, id: "nav-tutor" },
+    { name: t("dashboard") || "Dashboard", path: "/dashboard", icon: BarChart2, id: "nav-dashboard", wideOnly: true },
   ];
 
   return (
@@ -52,18 +52,18 @@ export default function Navbar({ isAdventure = false }) {
           : "bg-white/95 border-indigo-100 text-slate-800 shadow-xs"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-        <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
+      <div className="w-full max-w-[1536px] mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-2 xl:gap-4">
           
-          {/* Left: Brand Logo + Nav Links together */}
-          <div className="flex items-center gap-3 xl:gap-5 shrink-0">
+          {/* Left: Brand Logo + Nav Links */}
+          <div className="flex items-center gap-2 xl:gap-4 min-w-0">
             <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-2 group shrink-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-amber-400 p-0.5 shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform flex items-center justify-center">
-                <div className="w-full h-full bg-slate-900 rounded-2xl flex items-center justify-center font-fredoka text-amber-400 text-lg font-bold">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-amber-400 p-0.5 shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform flex items-center justify-center">
+                <div className="w-full h-full bg-slate-900 rounded-xl flex items-center justify-center font-fredoka text-amber-400 text-base font-bold">
                   ∑★
                 </div>
               </div>
-              <span className={`font-fredoka text-lg sm:text-xl font-bold bg-clip-text text-transparent whitespace-nowrap ${
+              <span className={`font-fredoka text-base sm:text-lg xl:text-xl font-bold bg-clip-text text-transparent whitespace-nowrap ${
                 isAdventure
                   ? "bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400"
                   : "bg-gradient-to-r from-indigo-700 via-indigo-600 to-amber-600"
@@ -74,7 +74,7 @@ export default function Navbar({ isAdventure = false }) {
 
             {/* Desktop Nav Items */}
             {user && (
-              <nav className="hidden lg:flex items-center gap-1 shrink-0">
+              <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
                 {navLinks.map((item) => {
                   const Icon = item.icon;
                   const active = isActive(item.path);
@@ -83,8 +83,8 @@ export default function Navbar({ isAdventure = false }) {
                       key={item.id}
                       id={item.id}
                       to={item.path}
-                      className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
-                        item.extraWideOnly ? "hidden 2xl:flex" : ""
+                      className={`flex items-center gap-1.5 px-2 xl:px-2.5 py-1.5 rounded-xl text-xs xl:text-sm font-semibold whitespace-nowrap transition-all ${
+                        item.wideOnly ? "hidden xl:flex" : ""
                       } ${
                         active
                           ? isAdventure
@@ -95,8 +95,8 @@ export default function Navbar({ isAdventure = false }) {
                             : "text-slate-600 hover:text-indigo-600 hover:bg-slate-50"
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 ${active ? (isAdventure ? "text-amber-400" : "text-indigo-600") : "text-slate-400"}`} />
-                      {item.name}
+                      <Icon className={`w-3.5 h-3.5 shrink-0 ${active ? (isAdventure ? "text-amber-400" : "text-indigo-600") : "text-slate-400"}`} />
+                      <span>{item.name}</span>
                     </Link>
                   );
                 })}
