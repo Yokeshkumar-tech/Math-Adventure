@@ -4,6 +4,14 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+import dns from "node:dns";
+
+if (process.env.MONGODB_URI && process.env.MONGODB_URI.startsWith("mongodb+srv://")) {
+  try {
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  } catch (_) {}
+}
+
 import ShopItem from "../models/ShopItem.js";
 
 const __filename = fileURLToPath(import.meta.url);

@@ -5,6 +5,13 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import "dotenv/config";
+import dns from "node:dns";
+
+if (process.env.MONGODB_URI && process.env.MONGODB_URI.startsWith("mongodb+srv://")) {
+  try {
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  } catch (_) {}
+}
 
 import http from "http";
 import authRoutes from "./routes/authRoutes.js";

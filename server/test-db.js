@@ -1,6 +1,11 @@
 // server/test-db.js
 import mongoose from "mongoose";
 import "dotenv/config";
+import dns from "node:dns";
+
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (_) {}
 
 const rawUri = process.argv[2] || process.env.MONGODB_URI;
 

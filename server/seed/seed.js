@@ -5,6 +5,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
+import dns from "node:dns";
+
+if (process.env.MONGODB_URI && process.env.MONGODB_URI.startsWith("mongodb+srv://")) {
+  try {
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  } catch (_) {}
+}
 
 import Achievement from "../models/Achievement.js";
 import Lesson from "../models/Lesson.js";
