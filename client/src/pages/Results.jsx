@@ -25,6 +25,7 @@ export default function Results() {
   const [newBadges, setNewBadges] = useState(location.state?.newBadges || []);
   const [recommendation, setRecommendation] = useState(location.state?.recommendation || null);
   const [loading, setLoading] = useState(!attempt);
+  const [showReview, setShowReview] = useState(false);
 
   useEffect(() => {
     // Fire confetti for celebration
@@ -63,7 +64,6 @@ export default function Results() {
   const points = attempt?.pointsEarned || 0;
   const starsEarned = attempt?.starsEarned ?? (accuracy >= 80 ? 3 : accuracy >= 50 ? 2 : 1);
   const coinsEarned = attempt?.coinsEarned ?? (points > 0 ? Math.floor(points / 3) + 15 : 20);
-  const [showReview, setShowReview] = useState(false);
   const historyList = attempt?.history || location.state?.history || [];
 
   return (

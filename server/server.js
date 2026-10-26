@@ -73,6 +73,16 @@ app.use(
   })
 );
 
+// Root endpoint for status & monitoring
+app.get("/", (req, res) => {
+  res.json({
+    name: "Math Adventure API",
+    status: "online",
+    environment: process.env.NODE_ENV || "development",
+    health: "/api/health",
+  });
+});
+
 // Health check endpoint for Render & monitoring
 app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }));
 
@@ -118,7 +128,8 @@ if (process.env.NODE_ENV !== "test") {
   mongoose
     .connect(MONGODB_URI)
     .then(() => {
-      console.log(`Connected to MongoDB: ${MONGODB_URI}`);
+      const sanitizedUri = MONGODB_URI.replace(/:([^@]+)@/, ":****@");
+      console.log(`Connected to MongoDB: ${sanitizedUri}`);
       httpServer.listen(PORT, () => {
         console.log(`Math Adventure API & Multiplayer Socket running on port ${PORT}`);
       });

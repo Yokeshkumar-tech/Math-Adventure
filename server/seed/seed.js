@@ -24,7 +24,8 @@ const __dirname = path.dirname(__filename);
 
 async function seed() {
   const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/mathadventure";
-  console.log(`Connecting to MongoDB at: ${uri}`);
+  const sanitizedUri = uri.replace(/:([^@]+)@/, ":****@");
+  console.log(`Connecting to MongoDB at: ${sanitizedUri}`);
   await mongoose.connect(uri);
 
   console.log("Loading seed datasets...");

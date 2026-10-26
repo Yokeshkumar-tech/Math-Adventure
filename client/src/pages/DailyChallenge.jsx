@@ -9,6 +9,7 @@ import {
   playCoinSound,
 } from "../utils/soundEffects";
 import GeometryDiagram from "../components/game/GeometryDiagram";
+import { API_BASE_URL } from "../services/api";
 
 export default function DailyChallenge() {
   const { user, token, setUser } = useAuth();
@@ -30,7 +31,7 @@ export default function DailyChallenge() {
     try {
       setLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/challenges/daily", {
+      const res = await fetch(`${API_BASE_URL}/challenges/daily`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -72,7 +73,7 @@ export default function DailyChallenge() {
         selectedAnswer: answers[q._id || q.id],
       }));
 
-      const res = await fetch("http://localhost:5000/api/challenges/daily/submit", {
+      const res = await fetch(`${API_BASE_URL}/challenges/daily/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

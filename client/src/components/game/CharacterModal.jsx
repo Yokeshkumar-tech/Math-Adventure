@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CharacterSprite, { CHARACTER_CLASSES } from "./CharacterSprite";
 import { playClickSound, playCorrectSound } from "../../utils/soundEffects";
 import { useAuth } from "../../context/AuthContext";
+import { API_BASE_URL } from "../../services/api";
 import "./CharacterModal.css";
 
 export default function CharacterModal({ isOpen, onClose, onSaved }) {
@@ -30,7 +31,7 @@ export default function CharacterModal({ isOpen, onClose, onSaved }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/player/character", {
+      const res = await fetch(`${API_BASE_URL}/player/character`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

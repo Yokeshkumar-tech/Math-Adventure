@@ -13,6 +13,7 @@ import {
   setMusicEnabled,
   startBgm,
 } from "../utils/soundEffects";
+import { API_BASE_URL } from "../services/api";
 import "./AdventureMap.css";
 
 export default function AdventureMap() {
@@ -39,7 +40,7 @@ export default function AdventureMap() {
   const fetchWorlds = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/worlds", {
+      const res = await fetch(`${API_BASE_URL}/worlds`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

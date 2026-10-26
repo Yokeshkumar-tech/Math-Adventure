@@ -9,6 +9,7 @@ import {
   playCorrectSound,
   playWrongSound,
 } from "../utils/soundEffects";
+import { API_BASE_URL } from "../services/api";
 import "./Shop.css";
 
 export default function Shop() {
@@ -37,7 +38,7 @@ export default function Shop() {
   const fetchShopItems = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/shop", {
+      const res = await fetch(`${API_BASE_URL}/shop`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +72,7 @@ export default function Shop() {
     try {
       setActionLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/shop/purchase", {
+      const res = await fetch(`${API_BASE_URL}/shop/purchase`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +113,7 @@ export default function Shop() {
     try {
       setActionLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/shop/equip", {
+      const res = await fetch(`${API_BASE_URL}/shop/equip`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -16,6 +16,7 @@ import {
   isSoundEnabled,
   setSoundEnabled,
 } from "../utils/soundEffects";
+import { API_BASE_URL } from "../services/api";
 import "./MissionGame.css";
 
 export default function MissionGame() {
@@ -67,7 +68,7 @@ export default function MissionGame() {
     try {
       setLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/game/start", {
+      const res = await fetch(`${API_BASE_URL}/game/start`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +131,7 @@ export default function MissionGame() {
     const timeSpent = Math.max(1, Math.round((Date.now() - questionStartTime.current) / 1000));
 
     try {
-      const res = await fetch("http://localhost:5000/api/game/answer", {
+      const res = await fetch(`${API_BASE_URL}/game/answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -202,7 +203,7 @@ export default function MissionGame() {
   const finishMissionGame = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/game/complete", {
+      const res = await fetch(`${API_BASE_URL}/game/complete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

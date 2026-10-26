@@ -10,6 +10,7 @@ import {
   playVictorySound,
 } from "../utils/soundEffects";
 import GeometryDiagram from "../components/game/GeometryDiagram";
+import { API_BASE_URL } from "../services/api";
 
 export default function Revision() {
   const { token, setUser } = useAuth();
@@ -31,7 +32,7 @@ export default function Revision() {
     try {
       setLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/revision", {
+      const res = await fetch(`${API_BASE_URL}/revision`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -57,7 +58,7 @@ export default function Revision() {
     try {
       setSubmitting(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/revision/answer", {
+      const res = await fetch(`${API_BASE_URL}/revision/answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import CharacterSprite from "../components/game/CharacterSprite";
 import { playClickSound } from "../utils/soundEffects";
+import { API_BASE_URL } from "../services/api";
 import "./WorldMissions.css";
 
 export default function WorldMissions() {
@@ -25,7 +26,7 @@ export default function WorldMissions() {
   const fetchWorldMissions = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/api/worlds/${worldSlug}`, {
+      const res = await fetch(`${API_BASE_URL}/worlds/${worldSlug}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

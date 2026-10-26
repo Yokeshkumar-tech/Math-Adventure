@@ -17,6 +17,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { CHARACTER_CLASSES } from "../components/game/CharacterSprite.jsx";
+import { API_BASE_URL } from "../services/api.js";
 
 const LEARNING_LEVELS = [
   { level: 1, name: "Number Recognition & Counting", topic: "counting", icon: "🍎", grade: "Grades 1-2", desc: "Count objects, learn numbers, and build visual quantity sense." },
@@ -71,7 +72,7 @@ export default function Welcome() {
       // Persist to backend if token is available
       if (token) {
         try {
-          await fetch("http://localhost:5000/api/game/character", {
+          await fetch(`${API_BASE_URL}/game/character`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
